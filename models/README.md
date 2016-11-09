@@ -16,7 +16,7 @@ The diffusion tensor distribution (DTD) model relies on the assumption that the 
 
 The figure above is a schematic illustration of a heterogeneous voxel as a collection of microscopic diffusion tensors, each representing a sub-ensemble of water molecules. While conventional DTI and DKI yield parameters where the information about the sizes, shapes, and orientations of the members of the collections are inextricably entangled, the DTD models are designed to give “clean” size, shape, and orientation measures that are intuitively related to conclusions that can be drawn by simply looking at a picture with a schematic ensembles. For the voxel above, we can observe four types of microscopic tensors: two spherical ones having different sizes as well as two nearly linear ones with identical sizes and shapes, but different orientations. Within the approximation of the DTD model, the most complete description of the voxel would be a list of sizes, shapes, orientations, and fractional populations of the microscopic tensors, or, equivalently, a probability distribution _P_(**D**). Such a complete description is challenging to obtain, but actually possible with unlimited access to scanner time. Less challenging is to focus on means and variances of the size, shape, and orientation properties without attempting to find separate components in the distribution. The utility of such an approach is illustrated with the examples below that all would give the same voxel-average diffusion tensor in conventional DTI.
 
-![Image](DTD_3examples.png)
+![Image](DTD_3Examples.png)
 
 
 
