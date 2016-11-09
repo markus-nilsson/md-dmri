@@ -1,5 +1,7 @@
 #Models for Multidimensional Diffusion MRI
 
+Multidimensional dMRI is a family of methods using advanced gradient modulation schemes and data processing to simultaneously quantify several microstructural and dynamical parameters by separating their effects on the detected MRI signal in multiple acquisition and analysis dimensions.
+
 Three families of models are currently implemented within the framework:
 * Diffusion tensor distributions
 * Diffusional exchange
