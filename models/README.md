@@ -10,7 +10,7 @@
 
 ###size-shape
 * dtd_pa_full, integral transform, lsqnonneg shotgun
-* dtd_pa_cum2, 2-term cumulant <_D_<sub>iso<\sub>>, V(_D_iso), lsqcurvefit
+* dtd_pa_cum2, 2-term cumulant <_D_<sub>iso</sub>>, V(_D_iso), lsqcurvefit
 * dtd_pa_gamma, gamma, lsqcurvefit
 * dtd_pa_codivide, constrained 3 comp, lsqcurvefit
 * dtd_pa_ndi, constrained 2 comp, lsqcurvefit
