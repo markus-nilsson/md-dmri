@@ -1,9 +1,9 @@
 #Models for Multidimensional Diffusion MRI
 
 Three families of models are currently implemented within the framework:
-*Diffusion tensor distributions
-*Diffusional exchange
-*Diffusion and incoherent flow
+* Diffusion tensor distributions
+* Diffusional exchange
+* Diffusion and incoherent flow
 
 ##Diffusion tensor distributions
 
