@@ -13,7 +13,7 @@ The models are described briefly below, in some more detail in two review articl
 The diffusion tensor distribution (DTD) model relies on the assumption that the water molecules within a voxel can be separated into sub-ensembles exhibiting anisotropic Gaussian diffusion. The diffusion of each sub-ensemble is given by a microscopic diffusion tensor **D**.
 
 ![alt text](https://github.com/daniel-topgaard/images/DTD_2Spheres2Sticks_200.png)
-![GitHub Logo](/md-dmri/models/DTD_2Spheres2Sticks.png)
+![GitHub Logo](DTD_2Spheres2Sticks.png)
 Format: ![Alt Text](url)
 
 ![GitHub Logo](/images/logo.png)
