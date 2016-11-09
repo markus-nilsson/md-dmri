@@ -7,7 +7,7 @@ Three families of models are currently implemented within the framework:
 * Diffusional exchange
 * Diffusion and incoherent flow
 
-
+The models are described briefly below, in some more detail in review articles,1,2 and more completely in the original publications cited for each model.
 
 ##Diffusion tensor distributions
 The DTD model relies on the assumption of multi-component Gaussian diffusion.
@@ -37,3 +37,7 @@ fexi11
 
 ##Diffusion and incoherent flow
 vasco16
+
+#References
+1. D. Topgaard. NMR methods for studying microscopic diffusion anisotropy. In: R. Valiullin (Ed.) Diffusion NMR in confined systems: Fluid transport in porous solids and heterogeneous materials, New Developments in NMR 9, Royal Society of Chemistry, Cambridge, UK (2017).
+2. D. Topgaard. Multidimensional diffusion MRI. J. Magn. Reson.,  (2017).
