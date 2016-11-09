@@ -3,13 +3,13 @@
 Multidimensional dMRI is a family of methods using advanced gradient modulation schemes and data processing to simultaneously quantify several microstructural and dynamical parameters by separating their effects on the detected MRI signal in multiple acquisition and analysis dimensions.
 
 Three families of models are currently implemented within the framework:
-* Diffusion tensor distributions (DTD)
-* Diffusional exchange
-* Diffusion and incoherent flow
+1. Diffusion tensor distributions
+2. Diffusional exchange
+3. Diffusion and incoherent flow
 
-The models are described briefly below, in some more detail in review articles,1,2 and more completely in the original publications cited for each model.
+The models are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more completely in the original publications cited for each model. The description assumes familiarity with conventional dMRI terminology, such as diffusion tensors, diffusion anisotropy, orientation distributions functions, intavoxel incoherent motion, etc.
 
-##Diffusion tensor distributions
+##1. Diffusion tensor distributions
 The DTD model relies on the assumption of multi-component Gaussian diffusion.
 
 ###size-shape-orientation 
