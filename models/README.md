@@ -10,7 +10,11 @@ Three families of models are currently implemented within the framework:
 The models are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more completely in the original publications cited for each model. The description assumes familiarity with conventional dMRI terminology, such as diffusion tensors, diffusion anisotropy, orientation distributions functions, intavoxel incoherent motion, etc.
 
 ##Diffusion tensor distributions
-The DTD model relies on the assumption of multi-component Gaussian diffusion.
+The diffusion tensor distribution (DTD) model relies on the assumption that the water molecules within a voxel can be separated into sub-ensembles exhibiting anisotropic Gaussian diffusion. The diffusion of each sub-ensemble is given by a microscopic diffusion tensor **D**.
+
+![alt text](md-dmri/models/DTD_2Spheres2Sticks.png)
+
+and the composition of a voxel is reported with a probability distribution _P_(**D**).
 
 ###size-shape-orientation 
 * dtd_6d_full, integral transform, lsqnonneg shotgun
