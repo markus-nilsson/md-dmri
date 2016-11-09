@@ -16,6 +16,9 @@ The diffusion tensor distribution (DTD) model relies on the assumption that the 
 ![GitHub Logo](/md-dmri/models/DTD_2Spheres2Sticks.png)
 Format: ![Alt Text](url)
 
+![GitHub Logo](/images/logo.png)
+Format: ![Alt Text](url)
+
 and the composition of a voxel is reported with a probability distribution _P_(**D**).
 
 ###size-shape-orientation 
