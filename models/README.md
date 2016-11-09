@@ -7,7 +7,7 @@ Three families of models are currently implemented within the framework:
 * Diffusional exchange
 * Diffusion and incoherent flow
 
-The models are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more completely in the original publications cited for each model. The description assumes familiarity with conventional dMRI terminology, such as diffusion tensors, diffusion anisotropy, orientation distributions functions, intravoxel incoherent motion, etc.
+The models are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more completely in the original publications cited for each model. The description assumes familiarity with conventional dMRI terminology, such as diffusion tensors, diffusion anisotropy, orientation distributions functions, intravoxel incoherent motion, etc.<sup>3-5</sup>
 
 ##Diffusion tensor distributions
 The diffusion tensor distribution (DTD) model relies on the assumption that the water molecules within a voxel can be separated into sub-ensembles exhibiting anisotropic Gaussian diffusion as quantified by a microscopic diffusion tensor **D**, which can be reported as a 3x3 matrix and visualized as an ellipsoid or a superquadric with semi-axis lengths and directions given by the tensor eigenvalues and eigenvectors.   
@@ -45,4 +45,7 @@ vasco16
 #References
 1. D. Topgaard. NMR methods for studying microscopic diffusion anisotropy. In: R. Valiullin (Ed.) Diffusion NMR in confined systems: Fluid transport in porous solids and heterogeneous materials, New Developments in NMR 9, Royal Society of Chemistry, Cambridge, UK (2017).
 2. D. Topgaard. Multidimensional diffusion MRI. J. Magn. Reson.,  (2017).
+3. D. Le Bihan, E. Breton, D. Lallemand, P. Grenier, E. Cabanis, M. Laval-Jeantet. MR imaging of intravoxel incoherent motions - application to diffusion and perfusion in neurological disorders. Radiology 161, 401-407 (1986).
+4. P.J. Basser, J. Mattiello, D. Le Bihan. Estimation of the effective self-diffusion tensor from the NMR spin echo. J. Magn. Reson. B 193, 247-254 (1994).
+5. P.J. Basser, C. Pierpaoli. Microstructural and physiological features of tissues elucidated by quantitative-diffusion-tensor MRI. J. Magn. Reson. B 111, 209-219 (1996).
 
