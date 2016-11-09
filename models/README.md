@@ -1,5 +1,10 @@
 #Models for Multidimensional Diffusion MRI
 
+Three families of models are currently implemented within the framework:
+*Diffusion tensor distributions
+*Diffusional exchange
+*Diffusion and incoherent flow
+
 ##Diffusion tensor distributions
 
 ###size-shape-orientation 
@@ -10,7 +15,7 @@
 
 ###size-shape
 * dtd_pa_full, integral transform, lsqnonneg shotgun
-* dtd_pa_cum2, 2-term cumulant <_D_<sub>iso</sub>>, V(_D_iso), lsqcurvefit
+* dtd_pa_cum2, 2-term cumulant <_D_<sub>iso</sub>>, V(_D_<sub>iso</sub>), lsqcurvefit
 * dtd_pa_gamma, gamma, lsqcurvefit
 * dtd_pa_codivide, constrained 3 comp, lsqcurvefit
 * dtd_pa_ndi, constrained 2 comp, lsqcurvefit
@@ -22,8 +27,8 @@
 * dtd_iso_exp, exp, lsqcurvefit
 
 
-##Exchange
+##Diffusional exchange
 fexi11
 
-##Microcapillary blood flow
+##Diffusion and incoherent flow
 vasco16
