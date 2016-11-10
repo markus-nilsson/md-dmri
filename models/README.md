@@ -30,18 +30,19 @@ The general six-dimensional DTD _P_(**D**) can for the axisymmetric case be writ
 For distinguishing the three distributions in the figure above, it is sufficient to determine scalar measures quantifying the variance of sizes and the average shapes. Some examples of parameters that can be used for this purpose are the variance of isotropic diffusivities V(_D_<sub>iso</sub>) and the mean-square anisotropy <(_D_<sub>iso</sub>_D_<sub>Delta</sub>)<sup>2</sup>>. In the method descriptions below, the information contained in these size and shape parameters are reported with different names, symbols, and types of normalization.
 
 ###DTD Methods
-The MD-dMRI methods for quantifying DTDs can be classified according to the level of detail for which each of the size, shape, and orientation dimensions are investigated. The various levels of detail are single component, mean, mean and variance, assumed distribution shape, constrained distribution with a few discrete components, and unconstrained distribution. Using these criteria, the published MD-dMRI methods can be classified according to the following scheme:
+The MD-dMRI methods for quantifying DTDs can be classified according to the level of detail for which each of the size, shape, and orientation dimensions are investigated. The level of detail for each of our published MD-dMRI methods are listed in the following table:
 
-| Reference | size| shape | orientation|
-| ---:|:---:|:---:|:---:|
-| Topgaard<sup>1</sup> | distribution | distribution | distribution |
-| Topgaard<sup>8</sup> | 1 component | 1 component | order tensor |
-| Westin<sup>9</sup> |  mean and variance | mean and variance | order parameter |
-| Lasič<sup>10</sup> |  mean and variance | mean | order parameter |
-| Martins<sup>11</sup> | distribution | distribution | - |
-| Lampinen2 | 3 components | 3 components | - |
-| Lampinen1| 3 components | 3 components | - |
-| Eriksson<sup>7</sup> | 1 component | 1 component | - |
+| Reference | size| shape | orientation| algorithm |
+| ---:|:---:|:---:|:---:|:----:|
+| Topgaard 2017<sup>1</sup> | distribution | distribution | distribution | NNLS |
+| Topgaard 2016<sup>8</sup> | 1 component | 1 component | order tensor | NLSQ |
+| Westin 2016<sup>9</sup> |  mean and variance | mean and variance | order parameter | LLSQ |
+| Lasič 2014<sup>10</sup> |  mean and variance | mean | order parameter | NLSQ |
+| Martins 2016<sup>11</sup> | distribution | distribution | - | NNLS |
+| Lampinen2 | 3 components | 3 components | - | NLSQ |
+| Lampinen1| 3 components | 3 components | - | NLSQ |
+| Eriksson 2015<sup>7</sup> | 1 component | 1 component | - | NLSQ |
+NNLS: non-negative least squares; NLSQ: nonlinear least squares; LLSQ: linear least squares
 
 gamma = DIVIDE
 ####size-shape-orientation 
