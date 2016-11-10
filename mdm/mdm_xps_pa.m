@@ -1,31 +1,10 @@
-function [A, xps_pa] = mio_powder_average(I, xps, opt)
-% function [J, xps] = mio_powder_average(I, xps)
+function xps_pa = mdm_xps_pa(xps, opt)
+% function xps = mdm_xps_pa(xps)
 
-if (nargin < 3), opt = []; end
+if (nargin < 2), opt = mdm_opt; end
 
-opt = mdm_opt(opt);
+[~,c_list, id_ind] = mdm_pa_ind_from_xps(xps);
 
-I = double(I);
-
-% Average image
-id = xps.a_ind;
-if (isfield(xps,'s_ind'))
-    id = [id xps.s_ind];
-end
-[~,~,id_ind] = unique(id, 'rows');
-
-% get rid of NaNs
-tmp = sum(isnan(id),2) > 0;
-c_list = unique(id_ind(~tmp)); 
-n = numel(c_list);
-
-A = zeros(size(I,1), size(I,2), size(I,3), n);
-
-for c = c_list'
-    A(:,:,:,c == c_list) = msf_nanmean(I(:,:,:,id_ind == c),4);
-end
-
-if (opt.do_pa_abs), A = abs(A); end
 
 % Average fields in xps
 xps = rmfield(xps, 'n');
@@ -50,5 +29,5 @@ for i = 1:numel(f)
         end
     end
 end
-xps_pa.n = n;
 
+xps_pa.n = numel(xps_pa.b);
