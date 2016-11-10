@@ -43,11 +43,12 @@ The MD-dMRI methods for quantifying DTDs can be classified according to number o
 |  | size| shape | orientation|
 | ---:|:---:|:---:|:---:|
 | MD | mean | - | - |
-| Pake | mean | mean | - |
-| Saupe | mean | mean | order tensor |
+| Pake | 1comp | 1comp | - |
+| Saupe | 1comp | 1comp | order tensor |
 | gamma |  mean and variance | mean | order parameter |
 | cov |  mean and variance | mean and variance | order parameter |
-| codivide | 3comp dist | 3comp dist | - |
+| codivide | 3comp | 3comp | - |
+| ndi | 3comp | 3comp | - |
 | PRL | dist | dist | - |
 | ISMRM | dist | dist | dist |
 
