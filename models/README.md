@@ -35,8 +35,10 @@ The MD-dMRI methods for quantifying DTDs can be classified according to number o
 |  | 1D | 2D | 4D |
 | ---:|:---:|:---:|:---:|
 | mean | right-aligned | $1600 | $1600 |
-| col 2 is      | centered      |   $12 | $1600 |
-| zebra stripes | are neat      |    $1 | $1600 |
+| mean and variance | centered      |   $12 | $1600 |
+| assumed shape | are neat      |    $1 | $1600 |
+| constrained | are neat      |    $1 | $1600 |
+| unconstrained | are neat      |    $1 | $1600 |
 
 
 ####size-shape-orientation 
