@@ -35,14 +35,14 @@ The MD-dMRI methods for quantifying DTDs can be classified according to the leve
 |  | size| shape | orientation|
 | ---:|:---:|:---:|:---:|
 | MD | mean | - | - |
-| Pake | 1comp | 1comp | - |
-| Saupe | 1comp | 1comp | order tensor |
+| Pake | 1 component | 1 component | - |
+| codivide | 3 components | 3 components | - |
+| ndi | 3 components | 3 components | - |
+| PRL | distribution | distribution | - |
 | gamma |  mean and variance | mean | order parameter |
 | cov |  mean and variance | mean and variance | order parameter |
-| codivide | 3comp | 3comp | - |
-| ndi | 3comp | 3comp | - |
-| PRL | dist | dist | - |
-| ISMRM | dist | dist | dist |
+| Saupe | 1 component | 1 component | order tensor |
+| ISMRM | distribution | distribution | distribution |
 
 gamma = DIVIDE
 ####size-shape-orientation 
