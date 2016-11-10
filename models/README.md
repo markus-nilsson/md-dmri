@@ -27,34 +27,38 @@ In the text above, we have described the diffusion tensors with the terms size, 
 The general six-dimensional DTD _P_(**D**) can for the axisymmetric case be written as the four-dimensional distribution _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>,theta,phi) with clear separation of the size, shape, and orientation properties in individual dimensions. Integrating _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>,theta,phi) over the orientation dimensions gives the two-dimensional size-shape distribution _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>), which upon integration over the shape dimension leaves the one-dimensional size distribution _P_(_D_<sub>iso</sub>).
 
 ###Scalar parameters describing the DTD
-For distinguishing the three distributions in the figure above, it is sufficient to determine scalar measures quantifying the variance of sizes and the average shapes. Some examples of parameters that can be used for this purpose are the variance of isotropic diffusivities V(_D_<sub>iso</sub>) and the mean-square anisotropy <(_D_<sub>iso</sub>_D_<sub>Delta</sub>)<sup>2</sup>>.<sup>2</sup>
+For distinguishing the three distributions in the figure above, it is sufficient to determine scalar measures quantifying the variance of sizes and the average shapes. Some examples of parameters that can be used for this purpose are the variance of isotropic diffusivities V(_D_<sub>iso</sub>) and the mean-square anisotropy <(_D_<sub>iso</sub>_D_<sub>Delta</sub>)<sup>2</sup>>. In the method descriptions below, the information contained in these size and shape parameters are reported with different names, symbols, and types of normalization.
 
-###size-shape-orientation 
+###DTD Methods
+The method classification d
+
+
+####size-shape-orientation 
 * dtd_full, integral transform, NNLS shotgun
-* dtd_axsym, integral transform, NNLS shotgun
-* dtd_cum2, 2-term cumulant <**D**> **C**, LLSQ
-* dtd_dti, 1-term cumulant <**D**>, LLSQ
+* dtd_axsym, integral transform, NNLS shotgun <sup>1</sup>
+* dtd_cum2, 2-term cumulant <**D**> **C**, LLSQ <sup>8</sup>
+* dtd_dti, 1-term cumulant <**D**>, LLSQ <sup>4</sup>
 
-###size-shape
-* dtd_pa_full, integral transform, NNLS shotgun
+####size-shape
+* dtd_pa_full, integral transform, NNLS shotgun <sup>9</sup>
 * dtd_pa_cum2, 2-term cumulant <_D_<sub>iso</sub>>, V(_D_<sub>iso</sub>), NLSQ
-* dtd_pa_gamma, gamma, NLSQ
+* dtd_pa_gamma, gamma, NLSQ <sup>10</sup>
 * dtd_pa_codivide, constrained 3 comp, NLSQ
 * dtd_pa_ndi, constrained 3 comp, NLSQ
-* dtd_pa_pake, 1 comp, NLSQ
+* dtd_pa_pake, 1 comp, NLSQ <sup>7</sup>
 
-###size
+####size
 * dtd_iso_full, integral transform, NNLSshotgun
 * dtd_iso_gamma, gamma, NLSQ
 * dtd_iso_exp, exp, NLSQ
 
 
 ##Diffusional exchange
-The plasma membrane separates the intracellular space from the surroundings and is an efficient barrier for water. The permeability of the membrane is affected by its chemical composition and the presence of channel proteins such as aquaporins. We have developed a MD-dMRI method to quantify the rate of molecular exchange between microscopic tissue environments with different local water diffusivity.<sup>8</sup> The exchange rate is influenced by the barrier properties of the membrane and can for simple cellular systems be converted to a quantitative measure of the membrane permeability.<sup>9</sup>
+The plasma membrane separates the intracellular space from the surroundings and is an efficient barrier for water. The permeability of the membrane is affected by its chemical composition and the presence of channel proteins such as aquaporins. We have developed a MD-dMRI method to quantify the rate of molecular exchange between microscopic tissue environments with different local water diffusivity.<sup>11</sup> The exchange rate is influenced by the barrier properties of the membrane and can for simple cellular systems be converted to a quantitative measure of the membrane permeability.<sup>12</sup>
 *fexi11
 
 ##Diffusion and incoherent flow
-Water in tissue and flowing in the capillary network have distinctly different patterns of translational motion. Our MD-dMRI method relies on motion encoding with variable sensitivity to flow and diffusion to quantify the density of blood capillaries.<sup>10</sup>
+Water in tissue and flowing in the capillary network have distinctly different patterns of translational motion. Our MD-dMRI method relies on motion encoding with variable sensitivity to flow and diffusion to quantify the density of blood capillaries.<sup>13</sup>
 *vasco16
 
 #References
@@ -65,7 +69,10 @@ Water in tissue and flowing in the capillary network have distinctly different p
 5. P.J. Basser, C. Pierpaoli. Microstructural and physiological features of tissues elucidated by quantitative-diffusion-tensor MRI. J. Magn. Reson. B 111, 209-219 (1996).
 6. J.H. Jensen, J.A. Helpern, A. Ramani, H. Lu, K. Kaczynski. Diffusional kurtosis imaging: The quantification of non-Gaussian water diffusion by means of magnetic resonance imaging. Magn. Reson. Med. 53, 1432-1440 (2005).
 7. S. Eriksson, S. Lasič, M. Nilsson, C.-F. Westin, D. Topgaard. NMR diffusion encoding with axial symmetry and variable anisotropy: Distinguishing between prolate and oblate microscopic diffusion tensors with unknown orientation distribution. J. Chem. Phys. 142, 104201 (2015).
-8. S. Lasič, M. Nilsson, J. Lätt, F. Ståhlberg, D. Topgaard. Apparent exchange rate (AXR) mapping with diffusion MRI. Magn. Reson. Med. 66, 356-365 (2011).
-9. I. Åslund, A. Nowacka, M. Nilsson, D. Topgaard. Filter-exchange PGSE NMR determination of cell membrane permeability. J. Magn. Reson. 200, 291-295 (2009).
-10. A. Ahlgren, L. Knutsson, R. Wirestam, M. Nilsson, F. Ståhlberg, D. Topgaard, S. Lasič. Quantification of microcirculatory parameters by joint analysis of flow-compensated and non-flow-compensated intravoxel incoherent motion (IVIM) data. NMR Biomed. 29, 640-649 (2016).
+8. C.-F. Westin, H. Knutsson, O. Pasternak, F. Szczepankiewicz, E. Özarslan, D. van Westen, C. Mattisson, M. Bogren, L. O'Donnell, M. Kubicki, D. Topgaard, M. Nilsson. Q-space trajectory imaging for multidimensional diffusion MRI of the human brain. Neuroimage 135, 345-362 (2016).
+9. J.P. de Almeida Martins, D. Topgaard. Two-dimensional correlation of isotropic and directional diffusion using NMR. Phys. Rev. Lett. 116, 087601 (2016).
+10. S. Lasič, F. Szczepankiewicz, S. Eriksson, M. Nilsson, D. Topgaard. Microanisotropy imaging: quantification of microscopic diffusion anisotropy and orientational order parameter by diffusion MRI with magic-angle spinning of the q-vector. Front. Physics 2, 11 (2014).
+11. S. Lasič, M. Nilsson, J. Lätt, F. Ståhlberg, D. Topgaard. Apparent exchange rate (AXR) mapping with diffusion MRI. Magn. Reson. Med. 66, 356-365 (2011).
+12. I. Åslund, A. Nowacka, M. Nilsson, D. Topgaard. Filter-exchange PGSE NMR determination of cell membrane permeability. J. Magn. Reson. 200, 291-295 (2009).
+13. A. Ahlgren, L. Knutsson, R. Wirestam, M. Nilsson, F. Ståhlberg, D. Topgaard, S. Lasič. Quantification of microcirculatory parameters by joint analysis of flow-compensated and non-flow-compensated intravoxel incoherent motion (IVIM) data. NMR Biomed. 29, 640-649 (2016).
 
