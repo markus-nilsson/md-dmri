@@ -27,24 +27,27 @@ In the text above, we have described the diffusion tensors with the terms size, 
 The general six-dimensional DTD _P_(**D**) can for the axisymmetric case be written as the four-dimensional distribution _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>,theta,phi) with clear separation of the size, shape, and orientation properties in individual dimensions. Integrating _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>,theta,phi) over the orientation dimensions gives the two-dimensional size-shape distribution _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>), which upon integration over the shape dimension leaves the one-dimensional size distribution _P_(_D_<sub>iso</sub>).
 
 ###Scalar parameters describing the DTD
-For distinguishing the three distributions in the figure above, it is sufficient to determine scalar measures quantifying the variance of sizes and the average shapes. Some examples of parameters that can be used for this purpose are the variance of isotropic diffusivities V(_D_<sub>iso</sub>) and the mean-square anisotropy <(_D_<sub>iso</sub>_D_<sub>Delta</sub>)<sup>2</sup>>. In the method descriptions below, the information contained in these size and shape parameters are reported with different names, symbols, and types of normalization.
+For distinguishing the three distributions in the figure above, it is sufficient to determine scalar measures quantifying the variance of sizes and the average shapes. Some examples of parameters that can be used for this purpose are the variance of isotropic diffusivities V(_D_<sub>iso</sub>) and the mean-square anisotropy <(_D_<sub>iso</sub>_D_<sub>Delta</sub>)<sup>2</sup>>. Depending on the context, we have found it useful to use different names, symbols, and types of normalization for the information contained in these size and shape parameters as listed in (link to some table).
 
 ###DTD Methods
-The MD-dMRI methods for quantifying DTDs can be classified according to the level of detail for which each of the size, shape, and orientation dimensions are investigated. The level of detail for each of our published MD-dMRI methods are listed in the following table:
+The MD-dMRI methods for quantifying DTDs can be classified according to the obtained level of detail for which each of the size, shape, and orientation dimensions are investigated. The MD-dMRI methods currently included in this repository are:
 
-| Reference | size| shape | orientation| algorithm |
-| ---:|:---:|:---:|:---:|:----:|
-| Topgaard 2017<sup>1</sup> | distribution | distribution | distribution | NNLS |
-| Topgaard 2016<sup>8</sup> | 1 component | 1 component | order tensor | NLSQ |
-| Westin 2016<sup>9</sup> |  mean and variance | mean and variance | order parameter | LLSQ |
-| Lasič 2014<sup>10</sup> |  mean and variance | mean | order parameter | NLSQ |
-| Martins 2016<sup>11</sup> | distribution | distribution | - | NNLS |
-| Lampinen2 | 3 components | 3 components | - | NLSQ |
-| Lampinen1| 3 components | 3 components | - | NLSQ |
-| Eriksson 2015<sup>7</sup> | 1 component | 1 component | - | NLSQ |
+| Name | reference | size| shape | orientation| algorithm |
+| ---:|:---:|:---:|:---:|:---:|:----:|
+| dtd_full | Topgaard 2017<sup>1</sup> | distribution | distribution | distribution | NNLS |
+| dtd_saupe | Topgaard 2016<sup>8</sup> | 1 component | 1 component | order tensor | NLSQ |
+| dtd_cum2 | Westin 2016<sup>9</sup> |  mean and variance | mean and variance | order parameter | LLSQ |
+| dtd_gamma | Lasič 2014<sup>10</sup> |  mean and variance | mean | order parameter | NLSQ |
+| dtd_pa | Martins 2016<sup>11</sup> | distribution | distribution | - | NNLS |
+| dtd_codivide || Lampinen2 | 3 components | 3 components | - | NLSQ |
+| dtd_ndi | Lampinen1| 3 components | 3 components | - | NLSQ |
+| dtd_pake | Eriksson 2015<sup>7</sup> | 1 component | 1 component | - | NLSQ |
 NNLS: non-negative least squares; NLSQ: nonlinear least squares; LLSQ: linear least squares
 
-gamma = DIVIDE
+
+
+The methods currently included in this repository are
+
 ####size-shape-orientation 
 * dtd_full, integral transform, NNLS shotgun
 * dtd_axsym, integral transform, NNLS shotgun <sup>1</sup>
