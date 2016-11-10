@@ -39,7 +39,7 @@ The MD-dMRI methods for quantifying DTDs can be classified according to the obta
 | dtd_cum2 | Westin 2016<sup>9</sup> |  mean and variance | mean and variance | order parameter | LLSQ |
 | dtd_gamma | Lasič 2014<sup>10</sup> |  mean and variance | mean | order parameter | NLSQ |
 | dtd_pa | Martins 2016<sup>11</sup> | distribution | distribution | - | NNLS |
-| dtd_codivide || Lampinen2 | 3 components | 3 components | - | NLSQ |
+| dtd_codivide | Lampinen2 | 3 components | 3 components | - | NLSQ |
 | dtd_ndi | Lampinen1| 3 components | 3 components | - | NLSQ |
 | dtd_pake | Eriksson 2015<sup>7</sup> | 1 component | 1 component | - | NLSQ |
 NNLS: non-negative least squares; NLSQ: nonlinear least squares; LLSQ: linear least squares
