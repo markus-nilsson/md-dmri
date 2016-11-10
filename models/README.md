@@ -30,9 +30,9 @@ The general six-dimensional DTD _P_(**D**) can for the axisymmetric case be writ
 For distinguishing the three distributions in the figure above, it is sufficient to determine scalar measures quantifying the variance of sizes and the average shapes. Some examples of parameters that can be used for this purpose are the variance of isotropic diffusivities V(_D_<sub>iso</sub>) and the mean-square anisotropy <(_D_<sub>iso</sub>_D_<sub>Delta</sub>)<sup>2</sup>>. In the method descriptions below, the information contained in these size and shape parameters are reported with different names, symbols, and types of normalization.
 
 ###DTD Methods
-The MD-dMRI methods for quantifying DTDs can be classified according to number of investigated dimensions (size-shape-orientation, size-shape, or just size) and the resolution in each dimension (full distribution, constrained distribution with a few discrete components, assumed distribution shape, variance and mean, or just mean). Using these criteria, methods from the literature can be put in the following scheme:
+The MD-dMRI methods for quantifying DTDs can be classified according to number of investigated dimensions (4D size-shape-orientation, 2D size-shape, or just 1D size) and the resolution in each dimension (full distribution, constrained distribution with a few discrete components, assumed distribution shape, variance and mean, or just mean). Using these criteria, methods from the literature can be put in the following scheme:
 
-| Tables        | Are           | Cool  |
+| |: 1D :|: 2D :|: 3D :|
 | ------------- |:-------------:| -----:|
 | col 3 is      | right-aligned | $1600 |
 | col 2 is      | centered      |   $12 |
