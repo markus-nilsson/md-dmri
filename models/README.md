@@ -1,13 +1,13 @@
-#Models for Multidimensional Diffusion MRI
+#Multidimensional dMRI methods
 
-Multidimensional dMRI is a family of methods using advanced gradient modulation schemes and data processing to simultaneously quantify several microstructural and dynamical parameters by separating their effects on the detected MRI signal in multiple acquisition and analysis dimensions.
+Multidimensional dMRI is a family of conceptually related methods relying on advanced gradient modulation schemes and data processing approaches to simultaneously quantify several microstructural and dynamical properties of tissue by separating their effects on the detected MRI signal into multiple acquisition and analysis dimensions.
 
-Three families of models are currently implemented within the framework:
+Three families of methods are currently implemented within the framework of multidimensional dMRI:
 * Diffusion tensor distributions
 * Diffusional exchange
 * Diffusion and incoherent flow
 
-The models are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more completely in the original publications cited for each model. The description assumes familiarity with conventional dMRI terminology, such as diffusion tensor, diffusion anisotropy, kurtosis, orientation distributions function, and intravoxel incoherent motion, as well as the commonly used acronyms DTI, FA, DKI.<sup>3-6</sup>
+The methods are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more exhaustively in the original publications cited for each model. Before a mathematically and physically correct description of the methods and the parameters that can be obtained, we start with a more hand-waving line of reasoning intended for a non-expert reader that has previous experience of conventional dMRI. The following text assumes familiarity with standard dMRI terminology such as diffusion tensors, diffusion anisotropy, kurtosis, orientation distributions functions, and intravoxel incoherent motion, as well as the commonly used acronyms DTI, FA, DKI.<sup>3-6</sup>
 
 ##Diffusion tensor distributions
 The diffusion tensor distribution (DTD) model relies on the assumption that the water molecules within a voxel can be grouped into sub-ensembles exhibiting anisotropic Gaussian diffusion as quantified by a microscopic diffusion tensor **D**, which can be reported as a 3x3 matrix and visualized as an ellipsoid or a superquadric with semi-axis lengths and directions given by the tensor eigenvalues and eigenvectors. Somewhat colloquially, a diffusion tensor is characterized by its size, shape, and orientation, which are properties that are given by the chemical composition and micrometer-scale geometry of the pore space in which the water is located.
@@ -20,24 +20,27 @@ The figure above is a schematic illustration of a heterogeneous voxel as a colle
 
 The ensemble to the left comprises identical prolate tensors with the same orientations, and the middle example contains nearly linear tensors with three different orientations. While the tensors of the left and middle examples have the same sizes, they differ with respect to shapes and orientations. The example to the right is more complex with three distinct tensors: small and large spheres as well as linear tensors with intermediate size. In order to distinguish the three cases, we need at least three scalar measures, for instance the variance of sizes, the average shape, and the orientational order parameter. All examples have the same average sizes, and, although not immediately obvious, the left and right examples have identical average shapes and order parameters. The left and middle cases can be distinguished from both their different average shapes and order parameters, while the unique property of the example to the right is its variance of both sizes and shapes.
 
+##Parameterization of the diffusion tensor
+In the text
+
 ###size-shape-orientation 
-* dtd_6d_full, integral transform, lsqnonneg shotgun
-* dtd_4d_full, integral transform, lsqnonneg shotgun
-* dtd_qti, 2-term cumulant <**D**> **C**, \
-* dtd_dti, 1-term cumulant <**D**>, \
+* dtd_full, integral transform, NNLS shotgun
+* dtd_axsym, integral transform, NNLS shotgun
+* dtd_cum2, 2-term cumulant <**D**> **C**, LLSQ
+* dtd_dti, 1-term cumulant <**D**>, LLSQ
 
 ###size-shape
-* dtd_pa_full, integral transform, lsqnonneg shotgun
-* dtd_pa_cum2, 2-term cumulant <_D_<sub>iso</sub>>, V(_D_<sub>iso</sub>), lsqcurvefit
-* dtd_pa_gamma, gamma, lsqcurvefit
-* dtd_pa_codivide, constrained 3 comp, lsqcurvefit
-* dtd_pa_ndi, constrained 2 comp, lsqcurvefit
-* dtd_pa_pake, 1 comp, lsqcurvefit
+* dtd_pa_full, integral transform, NNLS shotgun
+* dtd_pa_cum2, 2-term cumulant <_D_<sub>iso</sub>>, V(_D_<sub>iso</sub>), NLSQ
+* dtd_pa_gamma, gamma, NLSQ
+* dtd_pa_codivide, constrained 3 comp, NLSQ
+* dtd_pa_ndi, constrained 3 comp, NLSQ
+* dtd_pa_pake, 1 comp, NLSQ
 
 ###size
-* dtd_iso_full, integral transform, lsqnonneg shotgun
-* dtd_iso_gamma, gamma, lsqcurvefit
-* dtd_iso_exp, exp, lsqcurvefit
+* dtd_iso_full, integral transform, NNLSshotgun
+* dtd_iso_gamma, gamma, NLSQ
+* dtd_iso_exp, exp, NLSQ
 
 
 ##Diffusional exchange
