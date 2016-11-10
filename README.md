@@ -11,21 +11,19 @@ Three families of methods are currently implemented within the framework of MD-d
 
 The methods are described briefly [here](../documentation/models/README.md), in some more detail in two review articles,<sup>1,2</sup> and more exhaustively in the original publications cited for each method.
 
-Please see readme.txt in each folder for a brief description of all parts,
-or http://markus-nilsson.github.io/md-dmri/ for a html-version of those
-files.
-
 ## How to start
 
 Run setup_paths in the root folder to put files in the Matlab path.
+
+Please see readme.txt in each folder for a brief description of all parts,
+or http://markus-nilsson.github.io/md-dmri/ for a html-version of those
+files.
 
 Check various models by looking into functions named \*_pipe.m under models/\*
 
 Get acquainted with by xps structure by reading mdm/readme.txt.
 
 #References
-
-
 1. D. Topgaard. Multidimensional diffusion MRI. J. Magn. Reson.,  (2017).
 2. D. Topgaard. NMR methods for studying microscopic diffusion anisotropy. In: R. Valiullin (Ed.) Diffusion NMR in confined systems: Fluid transport in porous solids and heterogeneous materials, New Developments in NMR 9, Royal Society of Chemistry, Cambridge, UK (2017).
 
