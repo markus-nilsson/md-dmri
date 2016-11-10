@@ -1,5 +1,5 @@
 function out_nii_fn = mdm_nii_merge(nii_fn_cell, out_nii_fn, opt)
-% function mdm_nii_merge(nii_fn_cell, out_nii_fn)
+% function out_nii_fn = mdm_nii_merge(nii_fn_cell, out_nii_fn, opt)
 
 if (nargin < 3), opt.present = 1; end
 
