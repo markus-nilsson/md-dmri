@@ -9,7 +9,7 @@ Three families of methods are currently implemented within the framework of MD-d
 * Diffusional exchange
 * Diffusion and incoherent flow
 
-[I'm a relative reference to a repository file](../blob/master/LICENSE) 
+[I'm a relative reference to a repository file](../blob/documentation/LICENSE) 
 
 The methods are described briefly here, in some more detail in two review articles,<sup>1,2</sup> and more exhaustively in the original publications cited for each method.
 
