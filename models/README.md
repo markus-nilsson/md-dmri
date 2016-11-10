@@ -44,30 +44,6 @@ The MD-dMRI methods for quantifying DTDs can be classified according to the obta
 | dtd_pake | Eriksson 2015<sup>7</sup> | 1 component | 1 component | - | NLSQ |
 NNLS: non-negative least squares; NLSQ: nonlinear least squares; LLSQ: linear least squares
 
-
-
-The methods currently included in this repository are
-
-####size-shape-orientation 
-* dtd_full, integral transform, NNLS shotgun
-* dtd_axsym, integral transform, NNLS shotgun <sup>1</sup>
-* dtd_cum2, 2-term cumulant <**D**> **C**, LLSQ <sup>9</sup>
-* dtd_dti, 1-term cumulant <**D**>, LLSQ <sup>4</sup>
-
-####size-shape
-* dtd_pa_full, integral transform, NNLS shotgun <sup>11</sup>
-* dtd_pa_cum2, 2-term cumulant <_D_<sub>iso</sub>>, V(_D_<sub>iso</sub>), NLSQ
-* dtd_pa_gamma, gamma, NLSQ <sup>10</sup>
-* dtd_pa_codivide, constrained 3 comp, NLSQ
-* dtd_pa_ndi, constrained 3 comp, NLSQ
-* dtd_pa_pake, 1 comp, NLSQ <sup>7</sup>
-
-####size
-* dtd_iso_full, integral transform, NNLSshotgun
-* dtd_iso_gamma, gamma, NLSQ
-* dtd_iso_exp, exp, NLSQ
-
-
 ##Diffusional exchange
 The plasma membrane separates the intracellular space from the surroundings and is an efficient barrier for water. The permeability of the membrane is affected by its chemical composition and the presence of channel proteins such as aquaporins. We have developed a MD-dMRI method to quantify the rate of molecular exchange between microscopic tissue environments with different local water diffusivity.<sup>12</sup> The exchange rate is influenced by the barrier properties of the membrane and can for simple cellular systems be converted to a quantitative measure of the membrane permeability.<sup>13</sup>
 *fexi11
