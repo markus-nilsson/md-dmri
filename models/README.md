@@ -32,9 +32,9 @@ For distinguishing the three distributions in the figure above, it is sufficient
 ###DTD Methods
 The MD-dMRI methods for quantifying DTDs can be classified according to number of investigated dimensions (4D size-shape-orientation, 2D size-shape, or just 1D size) and the resolution in each dimension (full distribution, constrained distribution with a few discrete components, assumed distribution shape, variance and mean, or just mean). Using these criteria, methods from the literature can be put in the following scheme:
 
-|  | 1D | 2D | 3D |
-| ------------- | ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 | $1600 |
+|  | 1D | 2D | 4D |
+| ---:|:---:|:---:|:---:|
+| mean | right-aligned | $1600 | $1600 |
 | col 2 is      | centered      |   $12 | $1600 |
 | zebra stripes | are neat      |    $1 | $1600 |
 
