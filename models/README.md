@@ -1,15 +1,11 @@
 #MD-dMRI methods
 
 Three families of methods are currently implemented within the framework of MD-dMRI:
-**[Diffusion tensor distributions](#diffusion-tensor-distributions)**  
+
+*[Diffusion tensor distributions](#diffusion-tensor-distributions)*
 * Diffusion tensor distributions
 * Diffusional exchange
 * Diffusion and incoherent flow
-
-[create an anchor](#anchors-in-markdown)
-
-**[Installation Instructions](#installation-instructions)**  
-
 
 The methods are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more exhaustively in the original publications cited for each method. Before a mathematically and physically correct description of the methods and the parameters that can be obtained, we start with a more hand-waving line of reasoning intended for a non-expert reader that has previous experience of conventional dMRI. The following text assumes familiarity with standard dMRI terminology such as diffusion tensors, diffusion anisotropy, kurtosis, orientation distributions functions, and intravoxel incoherent motion, as well as the commonly used acronyms DTI, MD, FA, and DKI.<sup>3-6</sup>
 
