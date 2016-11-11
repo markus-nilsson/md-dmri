@@ -42,16 +42,18 @@ The MD-dMRI methods for quantifying DTDs can be classified according to the obta
 | dtd_codivide | Lampinen2 | 3 components | 3 components | - | NLSQ |
 | dtd_ndi | Lampinen1| 3 components | 3 components | - | NLSQ |
 | dtd_pake | Eriksson 2015<sup>7</sup> | 1 component | 1 component | - | NLSQ |
-NNLS: non-negative least squares; NLSQ: nonlinear least squares; LLSQ: linear least squares
+NNLS: non-negative least squares; NLSQ: nonlinear least squares; LLSQ: linear least squares.
 
 
 ##Diffusional exchange
 The plasma membrane separates the intracellular space from the surroundings and is an efficient barrier for water. The permeability of the membrane is affected by its chemical composition and the presence of channel proteins such as aquaporins. We have developed a MD-dMRI method to quantify the rate of molecular exchange between microscopic tissue environments with different local water diffusivity.<sup>12</sup> The exchange rate is influenced by the barrier properties of the membrane and can for simple cellular systems be converted to a quantitative measure of the membrane permeability.<sup>13</sup>
-*fexi11
+
+Name: fexi11. Reference: Lasič 2011.{Lasič, 2011 #3521}
 
 ##Diffusion and incoherent flow
 Water in tissue and flowing in the capillary network have distinctly different patterns of translational motion. Our MD-dMRI method relies on motion encoding with variable sensitivity to flow and diffusion to quantify the density of blood capillaries.<sup>14</sup>
-*vasco16
+
+Name: vasco16. Reference: Ahlgren 2016.<sup>14</sup>
 
 ##Implementation details
 
