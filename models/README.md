@@ -36,7 +36,7 @@ The MD-dMRI methods for quantifying DTDs can be classified according to the obta
 | ---:|:---:|:---:|:---:|:---:|:----:|
 | dtd_full | Topgaard 2017<sup>1</sup> | distribution | distribution | distribution | NNLS |
 | dtd_saupe | Topgaard 2016<sup>8</sup> | 1 component | 1 component | order tensor | NLSQ |
-| dtd_cov | Westin 2016<sup>9</sup> |  mean and variance | mean and variance | order parameter | LLSQ |
+| dtd_covariance | Westin 2016<sup>9</sup> |  mean and variance | mean and variance | order parameter | LLSQ |
 | dtd_gamma | Lasič 2014<sup>10</sup> |  mean and variance | mean | order parameter | NLSQ |
 | dtd_pa | Martins 2016<sup>11</sup> | distribution | distribution | - | NNLS |
 | dtd_codivide | Lampinen2 | 3 components | 3 components | - | NLSQ |
@@ -48,14 +48,14 @@ NNLS: non-negative least squares; NLSQ: nonlinear least squares; LLSQ: linear le
 ##Diffusional exchange
 The plasma membrane separates the intracellular space from the surroundings and is an efficient barrier for water. The permeability of the membrane is affected by its chemical composition and the presence of channel proteins such as aquaporins. We have developed a MD-dMRI method to quantify the rate of molecular exchange between microscopic tissue environments with different local water diffusivity.<sup>12</sup> The exchange rate is influenced by the barrier properties of the membrane and can for simple cellular systems be converted to a quantitative measure of the membrane permeability.<sup>13</sup>
 
-Name: fexi11. Reference: Lasič 2011.{Lasič, 2011 #3521}
+Name: fexi11. Reference: Lasič 2011.<sup>12</sup>
 
 ##Diffusion and incoherent flow
 Water in tissue and flowing in the capillary network have distinctly different patterns of translational motion. Our MD-dMRI method relies on motion encoding with variable sensitivity to flow and diffusion to quantify the density of blood capillaries.<sup>14</sup>
 
 Name: vasco16. Reference: Ahlgren 2016.<sup>14</sup>
 
-##Implementation details
+#Implementation details
 
 All functions that concern a specific method are located in methods/name (folder currently named 'models' will be renamed to 'methods'). 
 In that folder, a specific set of functions must be present that conforms to the following structure of the function call
@@ -109,7 +109,7 @@ name_plot(signal, xps, h, h2)
 
 Purpose: Fits data and displays a plot. Input parameters are a signal vector (`signal`), an experimental parameter structure (`xps`), and two figure handles (`h` and `h2`). 
 
-### Experimental parameter and input structures
+## Experimental parameter and input structures
 The experimental parameter structure (`xps`) contains fields that describe the experiment, for example, the b-value and the b-tensors. The input structure (`s`) contains references to a nifti file, potentially a mask, and the xps. More information is found at http://markus-nilsson.github.io/md-dmri/#p3
 
 #References
