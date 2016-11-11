@@ -21,6 +21,13 @@ dps.ciso = dps.mu2iso./dps.iso.^2;
 dps.ciso(isnan(dps.ciso)) = 0;
 dps.cmu = dps.ufa.^2;
 
+% Store signal baseline where possible
+if size(dps.m, 4) >4
+  for i = 5:size(dps.m,4)
+    dps.(['s' num2str(i-4)]) = dps.m(:,:,:,i);
+  end
+end
+
 % Parameters according to style in Szczepankiewiz et al. 2015 (Neuroimage)
 dps.MD = dps.m(:,:,:,2)*1e9;     % Unit is  µm^2/ms
 dps.Vi = dps.m(:,:,:,3)*1e9*1e9; % Unit is (µm^2/ms)^2
