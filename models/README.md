@@ -1,10 +1,9 @@
 #MD-dMRI methods
 
 Three families of methods are currently implemented within the framework of MD-dMRI:
-
 * [Diffusion tensor distributions](#diffusion-tensor-distributions)
-* Diffusional exchange
-* Diffusion and incoherent flow
+* [Diffusional exchange](#diffusional-exchange)
+* [Diffusion and incoherent flow](#diffusion-and-incoherent-flow)
 
 The methods are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more exhaustively in the original publications cited for each method. Before a mathematically and physically correct description of the methods and the parameters that can be obtained, we start with a more hand-waving line of reasoning intended for a non-expert reader that has previous experience of conventional dMRI. The following text assumes familiarity with standard dMRI terminology such as diffusion tensors, diffusion anisotropy, kurtosis, orientation distributions functions, and intravoxel incoherent motion, as well as the commonly used acronyms DTI, MD, FA, and DKI.<sup>3-6</sup>
 
@@ -21,16 +20,16 @@ The figure above is a schematic illustration of a heterogeneous voxel as a colle
 
 The voxel to the left comprises identical prolate tensors with the same orientation, and the middle example contains nearly linear tensors with three different orientations. While the tensors of the left and middle cases have the same sizes, they differ with respect to shapes and orientations. The example to the right is more complex with three distinct tensors: small and large spheres as well as linear tensors with intermediate size. In order to distinguish the three cases, we need at least three scalar measures, for instance the variance of sizes, the average shape, and the orientational order parameter. All examples have the same average sizes, and, although not immediately obvious, the left and right examples have identical average shapes and order parameters. The left and middle cases can be distinguished from both their different average shapes and order parameters, while the unique property of the example to the right is its variance of both sizes and shapes.
 
-###Parameterization of the diffusion tensor
+### Parameterization of the diffusion tensor
 In the text above, we have described the diffusion tensors with the terms size, shape, and orientation without including proper definitions. A general diffusion tensor **D** contains six independent elements and can be parameterized according to several different conventions.<sup>2</sup> Imposing the constraint that the microscopic tensors are axisymmetric, the number of independent elements is reduced to four. Rather than reporting explicit tensor elements, it is more intuitive to parameterize the tensor in terms of the isotropic average _D_<sub>iso</sub>, the normalized anisotropy _D_<sub>Delta</sub>, as well as the polar and azimuthal angles phi and theta specifying the orientation of the main symmetry axis in the lab frame.<sup>7</sup> The parameters _D_<sub>iso</sub> and _D_<sub>Delta</sub> are quantitative measures of, respectively, the sizes and shapes of the tensors in the figures above. The values of _D_<sub>Delta</sub> cover the range from –1/2 for planes, to 0 for spheres, and +1 for sticks.
 
-###Four-, two-, and one-dimensional projections of the DTD
+### Four-, two-, and one-dimensional projections of the DTD
 The general six-dimensional DTD _P_(**D**) can for the axisymmetric case be written as the four-dimensional distribution _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>,theta,phi) with clear separation of the size, shape, and orientation properties in individual dimensions. Integrating _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>,theta,phi) over the orientation dimensions gives the two-dimensional size-shape distribution _P_(_D_<sub>iso</sub>,_D_<sub>Delta</sub>), which upon integration over the shape dimension leaves the one-dimensional size distribution _P_(_D_<sub>iso</sub>).
 
-###Scalar parameters describing the DTD
+### Scalar parameters describing the DTD
 We have defined scalar metrics quantifying means and variances of the size, shape, and orientation dimensions of the DTD. Because of the different research areas and intended readers of the original articles, these metrics have been introduced under several names, symbols, and types of normalization, and for a newcomer to the field it is not immediately obvious that they contain essentially the same information. A compilation of the introduced symbols can be found in this [pdf](../models/DTDmetrics.pdf).
 
-###DTD Methods
+### DTD Methods
 The MD-dMRI methods for quantifying DTDs can be classified according to the obtained level of detail for which each of the size, shape, and orientation dimensions are investigated. The MD-dMRI methods currently included in this repository are:
 
 | Name | reference | size| shape | orientation| algorithm |
@@ -46,17 +45,17 @@ The MD-dMRI methods for quantifying DTDs can be classified according to the obta
 NNLS: non-negative least squares; NLSQ: nonlinear least squares; LLSQ: linear least squares.
 
 
-##Diffusional exchange
+## Diffusional exchange
 The plasma membrane separates the intracellular space from the surroundings and is an efficient barrier for water. The permeability of the membrane is affected by its chemical composition and the presence of channel proteins such as aquaporins. We have developed a MD-dMRI method to quantify the rate of molecular exchange between microscopic tissue environments with different local water diffusivity.<sup>12</sup> The exchange rate is influenced by the barrier properties of the membrane and can for simple cellular systems be converted to a quantitative measure of the membrane permeability.<sup>13</sup>
 
 Name: fexi11. Reference: Lasič 2011.<sup>12</sup>
 
-##Diffusion and incoherent flow
+## Diffusion and incoherent flow
 Water in tissue and flowing in the capillary network have distinctly different patterns of translational motion. Our MD-dMRI method relies on motion encoding with variable sensitivity to flow and diffusion to quantify the density of blood capillaries.<sup>14</sup>
 
 Name: vasco16. Reference: Ahlgren 2016.<sup>14</sup>
 
-#Implementation details
+# Implementation details
 
 All functions that concern a specific method are located in methods/name (folder currently named 'models' will be renamed to 'methods'). 
 In that folder, a specific set of functions must be present that conforms to the following structure of the function call
@@ -113,7 +112,7 @@ Purpose: Fits data and displays a plot. Input parameters are a signal vector (`s
 ## Experimental parameter and input structures
 The experimental parameter structure (`xps`) contains fields that describe the experiment, for example, the b-value and the b-tensors. The input structure (`s`) contains references to a nifti file, potentially a mask, and the xps. More information is found at http://markus-nilsson.github.io/md-dmri/#p3
 
-#References
+# References
 1. D. Topgaard. Multidimensional diffusion MRI. J. Magn. Reson.,  (2017).
 2. D. Topgaard. NMR methods for studying microscopic diffusion anisotropy. In: R. Valiullin (Ed.) Diffusion NMR in confined systems: Fluid transport in porous solids and heterogeneous materials, New Developments in NMR 9, Royal Society of Chemistry, Cambridge, UK (2017).
 3. D. Le Bihan, E. Breton, D. Lallemand, P. Grenier, E. Cabanis, M. Laval-Jeantet. MR imaging of intravoxel incoherent motions - application to diffusion and perfusion in neurological disorders. Radiology 161, 401-407 (1986).
