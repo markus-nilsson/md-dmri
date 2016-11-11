@@ -7,10 +7,15 @@ Three families of methods are currently implemented within the framework of MD-d
 
 [create an anchor](#anchors-in-markdown)
 
+**[Installation Instructions](#installation-instructions)**  
+
+
 The methods are described briefly below, in some more detail in two review articles,<sup>1,2</sup> and more exhaustively in the original publications cited for each method. Before a mathematically and physically correct description of the methods and the parameters that can be obtained, we start with a more hand-waving line of reasoning intended for a non-expert reader that has previous experience of conventional dMRI. The following text assumes familiarity with standard dMRI terminology such as diffusion tensors, diffusion anisotropy, kurtosis, orientation distributions functions, and intravoxel incoherent motion, as well as the commonly used acronyms DTI, MD, FA, and DKI.<sup>3-6</sup>
 
 ##Diffusion tensor distributions
 The microscopic geometry of tissue is imprinted in the sizes, shapes, and orientations of the water diffusion tensors that are measured with dMRI. Conventional methods give diffusion tensors that are averaged over all the microscopic water environments within the millimeter-size imaging voxels, thereby giving ambiguous information for heterogeneous tissue which is ubiquitous in the human brain. Our MD-dMRI methods have the capability to disentangle the effects of microscopic diffusion tensor sizes, shapes, and orientations, allowing for detailed tissue characterization in terms of well-defined statistical measures of the diffusion tensor distributions. These measures have simple and intuitive relations to tissue properties such as average cell shape and variability of cell density.
+
+## Installation Instructions
 
 The diffusion tensor distribution (DTD) model relies on the assumption that the water molecules within a voxel can be subdivided into groups exhibiting anisotropic Gaussian diffusion as quantified by a microscopic diffusion tensor **D**, which can be reported as a 3x3 matrix and visualized as an ellipsoid with semi-axis lengths and directions given by the tensor eigenvalues and eigenvectors. Somewhat colloquially, a diffusion tensor is characterized by its size, shape, and orientation, which are properties that are given by the chemical composition and micrometer-scale geometry of the pore space in which the water is located. The terms size, shape, and orientation can also be applied to the cells in the tissue region being investigated, but in the following text we will use them for the tensors. The relations between diffusion tensors and the microscopic properties of cells are investigated in some detail in the dMRI literature.
 
