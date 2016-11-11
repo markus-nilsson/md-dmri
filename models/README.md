@@ -2,8 +2,7 @@
 
 Three families of methods are currently implemented within the framework of MD-dMRI:
 
-*[Diffusion tensor distributions](#diffusion-tensor-distributions)*
-* Diffusion tensor distributions
+* [Diffusion tensor distributions](#diffusion-tensor-distributions)
 * Diffusional exchange
 * Diffusion and incoherent flow
 
