@@ -14,9 +14,6 @@ end
 
 unit_to_SI = [max(signal) 1e-9 (1e-9)^2*[1 1] ones(1,ns)];
 
-
-
-
     function m = t2m(t) % convert local params to outside format
         
         % define model parameters
@@ -55,9 +52,9 @@ unit_to_SI = [max(signal) 1e-9 (1e-9)^2*[1 1] ones(1,ns)];
     end
 
 % Guesses and bounds
-m_lb      = [0             1e-11           0 0  0.5 * ones(1,ns)];
-m_ub      = [2*max(signal) 3e-9  (3e-9)^2*[1 1] 2.0 * ones(1,ns)];
-m_guess   = m_lb + (m_ub - m_lb) .* rand(size(m_lb));
+m_lb      = [0             1e-11           0 0      0.5 * ones(1,ns)];
+m_ub      = [2*max(signal) 3e-9  (3e-9)^2*[1 1]     2.0 * ones(1,ns)];
+m_guess   = [max(signal)   1e-9  (1e-9)^2*[.01 .01] 1.0 * ones(1,ns)];
                 
 t_guess   = m_guess./unit_to_SI;
 t_lb      = m_lb./unit_to_SI;
@@ -66,24 +63,64 @@ t_ub      = m_ub./unit_to_SI;
 
 % initial fit with weighting using guess value of MD
 weight = ones(xps.n,1);
+pa_weight = weight;
+
 if (opt.gamma.do_weight)
     weight = weightfun(opt.gamma.weight_sthresh,opt.gamma.weight_mdthresh,opt.gamma.weight_wthresh);
 end
 
-t = lsqcurvefit(@my_1d_fit2data, t_guess, [], signal(ind).*weight(ind), t_lb, t_ub,...
-    opt.gamma.lsq_opts);
-
-m = t2m(t);
-
-% redo the fit with updated value of MD
-if (opt.gamma.do_weight)
-    weight = weightfun(opt.gamma.weight_sthresh,m(2),opt.gamma.weight_wthresh);
-
-t = lsqcurvefit(@my_1d_fit2data, t_guess, [], signal(ind).*weight(ind), t_lb, t_ub,...
-    opt.gamma.lsq_opts);
+% Weight with 1/sqrt(n) so that LS-fit is weighted to 1/n propto 1/variance
+if (opt.gamma.do_pa_weight)
+    pa_weight = sqrt( xps.pa_w / max(xps.pa_w) );
 end
 
-m = t2m(t);
+% Initiate the threshold residual for multiple iterations
+r_thr = inf;
+
+% Do fitting
+try
+    for i = 1:opt.gamma.fit_iter
+    
+        if opt.gamma.do_random_guess
+            m_guess   = m_lb + (m_ub - m_lb) .* rand(size(m_lb));
+            t_guess   = m_guess./unit_to_SI;
+        end
+
+        t = lsqcurvefit(@my_1d_fit2data, t_guess, [], signal(ind).*weight(ind).*pa_weight(ind), t_lb, t_ub,...
+            opt.gamma.lsq_opts);
+
+        m = t2m(t);
+
+        % redo the fit with updated value of MD
+        if (opt.gamma.do_weight)
+            weight = weightfun(opt.gamma.weight_sthresh,m(2),opt.gamma.weight_wthresh);
+
+            t = lsqcurvefit(@my_1d_fit2data, t_guess, [], signal(ind).*weight(ind).*pa_weight(ind), t_lb, t_ub,...
+                opt.gamma.lsq_opts);
+        end
+
+        m = t2m(t);
+        
+          % Check residual
+        s_fit = gamma_1d_fit2data(m, xps);
+        
+        res   = sum(((signal-s_fit).*weight).^2);
+        
+        if res < r_thr
+            r_thr = res;
+            m_keep = m;
+        end
+    
+    end
+    
+    % Final result with lowest residual
+    m = m_keep;
+
+catch me
+    warning('Fitting failed, returning zeros!')
+    disp(me.message)
+    m = [0 0 0 0];
+end
 
 
 if (opt.gamma.do_plot)
