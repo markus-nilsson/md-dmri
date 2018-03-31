@@ -3,10 +3,10 @@ function fn = ut_tensor_maths(c_ut)
 %
 % if c_ut is not supplied, the function returns the number of unit tests
 
-% n_ut = number of unit tests
 n_ut = 13;
 
-if (nargin == 0), fn = n_ut; return; end
+if (nargin == 0), fn = ut_run_single(n_ut, mfilename); return; end
+
 
 switch (c_ut)
     

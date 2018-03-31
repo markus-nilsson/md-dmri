@@ -20,4 +20,4 @@ if (nargin < 3), f_reshape = @(x,n) x; end
 E_iso_1x15 = mean(tm_1x3_to_1x15(uvec_icosa),1);
 
 dps.V_tot  = f_reshape(tm_inner(kt, E_iso_1x15), 1);
-dps.MK     = 3 * dps.V_tot ./ (dps.MD.^2 + eps);
+dps.MK     = 3 * (dps.V_tot * 1e18) ./ ( (dps.MD * 1e9).^2 + eps);

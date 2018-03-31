@@ -1,5 +1,5 @@
-function [m,cond] = dtd_covariance_1d_data2fit(signal, xps, opt, ind)
-% function m = dtd_covariance_1d_data2fit(signal, xps, opt, ind)
+function [m,cond,n_rank] = dtd_covariance_1d_data2fit(signal, xps, opt, ind)
+% function [m,cond,n_rank] = dtd_covariance_1d_data2fit(signal, xps, opt, ind)
 %
 % Diffusion tensor distribution (DTD) modeling using cumulant expansion:
 % This function calculates the first two terms of the cumulant expansion 
@@ -29,28 +29,43 @@ if (nargin < 4), ind = ones(size(signal)) > 0; end
 % Compute this whole step for each iteration. It is slow, but use the
 % parallell toolbox if you are in a hurry
 
-
 % Exclude data points with zero or negative values
 ind = ind & (signal > 0);
-
 
 % Setup regressors for diffusion tensor distribution (DTD) model
 b0 = ones(xps.n, 1);
 b0 = b0(ind);
-
 b2 = xps.bt(ind,:)      * 1e-9 ;   %SI unit conversion
+b4 = tm_1x6_to_1x21(b2);
 
-if (opt.dtd_covariance.do_dki)
-    % the dtd_covariance model can be reduced to the DKI model by using
-    % the directions (normalized, stored in xps.u) and the b-values 
-    % to create a 1x15 4th order tensor which captures a subset of the
-    % information available if using the full covariance model
-    b4 = tm_1x3_to_1x15(xps.u(ind,:)) .* repmat(xps.b(ind).^2 * 1e-18, 1, 15);
+
+% Check the size of the subspace -- and adjust it to enable estimation 
+% with insufficiently well sampled data
+n_rank = rank(b4' * b4);
+
+if (n_rank < 21) && (opt.dtd_covariance.allow_subspace_estimation)
+    
+    % Fit e.g. 16 parameters, in LTE+STE acquisitions
+    b4_tmp = b4;
+    b4_tmp(:, 4:6) = b4_tmp(:, 4:6) * 1e-1;  % critical for upscaling
+    [b4_eig_vec, b4_eigval] = eigs(b4_tmp' * b4_tmp, 21);
+
+    %ind_tmp = diag(abs(b4_eigval)) > 1e-8;
+    ind_tmp = (1:21) <= n_rank;
+
+    subspace_coord = b4_eig_vec(:,ind_tmp);
+
+elseif (n_rank == 21)
+
+    % Fit all parameters
+    subspace_coord = eye(21);
+
 else
-    b4 = tm_1x6_to_1x21(b2); % SI unit conversion already done for b2
+    error('Not enough data to do estimation');
 end
 
-X = [b0 -b2 1/2 * b4];
+% Setup regressors, potentially allow estimation in a subspace
+X = [b0 -b2 1/2 * b4 * subspace_coord];
     
 if (opt.dtd_covariance.do_heteroscedasticity_correction)
     C2 = diag(signal(ind));
@@ -58,23 +73,22 @@ else
     C2 = 1;
 end
 
-% Compute condition number
+% Compute condition number, it must be larger than some small number...
 tmp = (X' * C2 * X);
 cond = rcond(tmp);
 
-if (cond > 1e-10) % some small number
+if (cond > 1e-10) 
  
     % perform regression to estimate model parameters m
     m = tmp \ X' * C2 * real(log(signal(ind)));
     
-    m(1)    = exp(m(1));
-    m(2:7)  = m(2:7)  * 1e-9;   %converting back to SI units
-    m(8:end) = m(8:end) * 1e-18;  %converting back to SI units
+    m(1)     = exp(m(1));
+    m(2:7)   = m(2:7)  * 1e-9;    % Convert back to SI units
+    m(8:end) = m(8:end) * 1e-18;  % Convert back to SI units
     
+    m(8 + (0:20)) = subspace_coord * m(8:end);
+        
 else
     warning('rcond fail in dtd_covariance_1d_data2fit')
-
-    % number of paramters, S0 + 6 for mean + 21 for cov = 28
-    m = zeros(1, size(X,2));
+    m = zeros(1, 28)';
 end
-

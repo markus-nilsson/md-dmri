@@ -3,17 +3,9 @@ function fn = ut_gwf(c_ut)
 %
 % Run unit tests on the files in this package
 
-if (nargin == 0)
-    if (numel(dbstack) > 1)
-        fn = 1;
-        return;
-    else
-        for c_ut = 1
-            ut_gwf(c_ut);
-        end
-    end
-end
+n_ut = 2;
 
+if (nargin == 0), fn = ut_run_single(n_ut, mfilename); return; end
 
 switch (c_ut)
     
@@ -51,8 +43,10 @@ switch (c_ut)
             +0 +0 +0 +0 +0 +0 +0 +0 +0 +0 +1 +1 +0 -1 -1 ]' * g_max;
         
         dt = 1e-3;
+        
+        rf = ones(size(gwf,1), 1);
 
-        txt = gwf_analysis(gwf, [], dt);
+        txt = gwf_analysis(gwf, rf, dt);
                
         
         

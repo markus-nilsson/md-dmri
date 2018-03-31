@@ -35,5 +35,3 @@ dps     = tm_kt_to_dps(kt_1x15, dps, f);
 if (~isempty(dps_fn))
     mdm_dps_save(dps, mfs.s, dps_fn, opt);
 end
-
-

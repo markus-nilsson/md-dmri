@@ -3,7 +3,7 @@ function s = dki_lls_1d_fit2data(m, xps)
 %
 % m(1)    - s0
 % m(2:7)  - diffusion tensor 
-% m(8:22) - fourth order kurtosis tensor
+% m(8:22) - fourth order fully symmetric kurtosis tensor with 15 elements
 
 % need the outer product of the b-tensor 
 bt2 = tm_1x3_to_1x15(xps.u) .* repmat(xps.b.^2, 1, 15);

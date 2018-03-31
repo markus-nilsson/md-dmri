@@ -7,7 +7,7 @@ function bt = gwf_to_bt(gwf, rf, dt, opt)
 %
 % Following notation in Westin et al (2016) NeuroImage 135
 
-if (nargin < 4), opt.do_interpolate = 1; end
+if (nargin < 4) || (~isfield(opt, 'do_interpolate')), opt.do_interpolate = 1; end
 
 gwf_check(gwf, rf, dt);
 

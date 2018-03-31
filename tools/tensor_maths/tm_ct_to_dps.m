@@ -42,9 +42,18 @@ dps.C_M   = mio_min_max_cut(dps.C_M, 0, 1);
 dps.C_c   = mio_min_max_cut(dps.C_c, 0, 1);
 
 % ********* Calculate kurtosis measures ************
+
 % Naming these according to the dtd_gamma nomenclature
-dps.MKi  = 3 * dps.V_MD ./ dps.V_MD2;           % < C , E_bulk>  / < Dsol2, E_bulk >
-dps.MKa  = (6/5) * dps.V_shear ./ dps.V_MD2;    % < C , E_shear> / < Dsol2, E_bulk >
-dps.MKt  = dps.MKi + dps.MKa;                   % < C , E_tsym>  / < Dsol2, E_bulk >  %check formula
-dps.K_mu = (6/5) * dps.V_shear1 ./ dps.V_MD1;   %  V_shear1 / < Dsol2, E_bulk >
+dps.MKi  = 3 * dps.V_MD ./ dps.V_MD2;           % 
+dps.MKa  = (6/5) * dps.V_shear1 ./ dps.V_MD2;   % K_micro in Westin16
+dps.MKt  = dps.MKi + dps.MKa;                   % 
+dps.MKad = (6/5) * dps.V_shear ./ dps.V_MD2;    % anisotropy and dispersion
+dps.MK   = dps.MKad + dps.MKi;                  % conventional kurtosis
+dps.MKd  = dps.MKa - dps.MKad;                  % conventional kurtosis
+
+
+
+dps.S_I = sqrt(dps.V_MD .* (dps.V_MD > 0));
+dps.S_A = sqrt(dps.V_shear1 .* (dps.V_shear1 > 0));
+
 
