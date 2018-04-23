@@ -49,7 +49,7 @@ dps.MKa  = (6/5) * dps.V_shear1 ./ dps.V_MD2;   % K_micro in Westin16
 dps.MKt  = dps.MKi + dps.MKa;                   % 
 dps.MKad = (6/5) * dps.V_shear ./ dps.V_MD2;    % anisotropy and dispersion
 dps.MK   = dps.MKad + dps.MKi;                  % conventional kurtosis
-dps.MKd  = dps.MKa - dps.MKad;                  % conventional kurtosis
+dps.MKd  = dps.MKa - dps.MKad;                  % diff in conventional kurtosis
 
 
 

@@ -29,3 +29,7 @@ opt.mio.pa.present = 1;
 opt.mio.pa = msf_ensure_field(opt.mio.pa, 'do_abs', 1);
 opt.mio.pa = msf_ensure_field(opt.mio.pa, 'method', 'ari');
 
+
+opt.mio.ref_extrapolate.present = 1;
+opt.mio.ref_extrapolate = msf_ensure_field(opt.mio.ref_extrapolate, 'do_subspace_fit', 0);
+

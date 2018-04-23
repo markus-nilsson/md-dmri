@@ -26,7 +26,9 @@ end
 % masks from outside
 do_overwrite = opt.do_overwrite && opt.mask.do_overwrite;
 if (exist(s.mask_fn, 'file') && (~do_overwrite))
-    disp(['Skipping, output file already exists: ' s.mask_fn]); return;
+    disp(['Skipping, output file already exists: ' s.mask_fn]); 
+    disp(['To overwrite mask, set both opt.do_overwrite and opt.mask.do_overwrite to true']);
+    return;
 end
 
 % write the mask, don't care if we overwrite anything
