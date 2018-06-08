@@ -28,7 +28,7 @@ I(isinf(I)) = NaN;
 x = [-xps_source.bt' * 1e-9; ones(1, xps_source.n)];
 
 % Check for appropriate subspace size
-if (rank(x * x') < 7)
+if (rank(x(:,ind) * x(:,ind)', 1e-10) < 7)
     if (opt.mio.ref_extrapolate.do_subspace_fit)
         e = [...
             1 0 0 0 0 0 0;
