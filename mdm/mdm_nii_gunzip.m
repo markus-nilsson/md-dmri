@@ -24,7 +24,7 @@ switch (lower(ext))
         end
         
     otherwise
-        error('Unknown file extension')
+        error('Unknown file extension: %s', ext);
 end
 
     function [tmp_path, tmp_fn] = do_gunzip(in_fn, h_only)

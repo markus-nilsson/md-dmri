@@ -14,7 +14,11 @@ end
 I = [];
 for c = 1:numel(nii_fn_cell)
     
-    [I_tmp,h] = mdm_nii_read_and_rescale(nii_fn_cell{c});
+    if (opt.mdm_nii_rescale)
+        [I_tmp,h] = mdm_nii_read_and_rescale(nii_fn_cell{c});
+    else
+        [I_tmp,h] = mdm_nii_read(nii_fn_cell{c});
+    end
     
     if (h.dim(1) == 3) && (h.dim(5) == 1) && (h.bitpix ~= 32) 
         warning(['this piece of code is experimental, ' ...
