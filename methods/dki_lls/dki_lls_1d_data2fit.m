@@ -16,7 +16,7 @@ b4 = tm_1x3_to_1x15(xps.u(ind,:)) .* repmat(xps.b(ind).^2 * 1e-18, 1, 15);
 X = [b0 -b2 1/2 * b4];
     
 if (opt.dki_lls.do_heteroscedasticity_correction)
-    C2 = diag(signal(ind));
+    C2 = diag(signal(ind).^2);
 else
     C2 = 1;
 end

@@ -17,7 +17,7 @@ X = [b0 -b2 1/2 * b4];
 
 % Allow the kurtosis components to be separated
 if (opt.dki_pa.do_include_b_tensor_anisotropy)
-    b4_aniso = b4 .* repmat(xps.b_delta.^2, 1, size(b4,2));
+    b4_aniso = b4 .* repmat(xps.b_delta(ind).^2, 1, size(b4,2));
     X = [X 1/2 * b4_aniso];
 end
     
@@ -25,7 +25,7 @@ end
 % also the powder-average weights into account if needed (second if
 % statement)
 if (opt.dki_pa.do_heteroscedasticity_correction)
-    C2 = diag(signal(ind));
+    C2 = diag(signal(ind).^2);
 else
     C2 = 1;
 end

@@ -68,7 +68,7 @@ end
 X = [b0 -b2 1/2 * b4 * subspace_coord];
     
 if (opt.dtd_covariance.do_heteroscedasticity_correction)
-    C2 = diag(signal(ind));
+    C2 = diag(signal(ind).^2);
 else
     C2 = 1;
 end
