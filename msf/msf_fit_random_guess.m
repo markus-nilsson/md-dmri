@@ -5,9 +5,8 @@ function guess = msf_fit_random_guess(fun_1d_fit2data, signal, xps, lb, ub, weig
 % when the initial guess must be random, but where poor initial guesses 
 % must be avoided. Set iterations = 1 to get a conventional random guess.
 
-if nargin < 7
-    iterations = 100;
-end
+if (nargin < 6) || (isempty(weight)), weight = ones(size(signal)); end 
+if (nargin < 7), iterations = 100; end
 
 thr = inf;
 
