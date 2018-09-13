@@ -1,9 +1,6 @@
 function mgui(varargin)
 % function mgui(varargin)
 
-% Handle definition things
-c_mode = 2;
-
 h_fig = mgui_misc_get_mgui_fig();
 
 % Init the figure
@@ -22,6 +19,19 @@ else
     % This is where the init needs to take place
     EG = mgui_define_tags;
     EG.conf.is_gui = 1;
+    
+    % Pull in external data
+    if (nargin > 0) && (isstruct(varargin{1}))
+        EG.data = varargin{1}.data;
+    end
+    
+    % c_mode: 2 - browse, 3 - roi-based
+    if (nargin > 1) && (isnumeric(varargin{2}))
+        c_mode = varargin{2};
+    else
+        c_mode = 2;
+    end
+    
 
     % Just make sure this structure is here
     EG.handles.defined = 1;
@@ -85,6 +95,9 @@ if (nargin >= 1)
                 case EG.t_BROWSE_EXT
                     EG = mgui_browse_update_panel(EG);
                     
+                case EG.t_BROWSE_ROI
+                    EG = mgui_browse_file(EG);
+                    
             end
         end
         
@@ -118,6 +131,7 @@ end
 function EG = mgui_browse_file(EG)
 
 EG.browse.c_item = get(EG.tags.(EG.t_BROWSE_FILE), 'Value');
+EG.browse.c_roi  = get(EG.tags.(EG.t_BROWSE_ROI), 'Value');
 
 if (EG.browse.d(EG.browse.c_item).isdir)
     
