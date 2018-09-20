@@ -1,5 +1,16 @@
 function mgui(varargin)
 % function mgui(varargin)
+%
+%
+% Run without arguments to enter browse mode (c_mode == 2)
+%
+% Run with two arguments mgui(EG, 3) to enter roi mode (c_mode == 3)
+%   Here, EG need to be a structure with the following fields
+%   EG.data.ref(:).(fn, name) where fn is the filename of an image file
+%                               and name is its display name
+%   data.nii_fn_to_roi_fn, which is a function handle that accepts 
+%         two integers: c_item and c_roi and should return a filename for 
+%         a ROI file
 
 h_fig = mgui_misc_get_mgui_fig();
 

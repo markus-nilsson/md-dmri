@@ -53,9 +53,9 @@ ct_1x21  = g(mfs.m(:,:,:,8:28), 21) * 1e18;
 dps = tm_ct_to_dps(ct_1x21, dps, f);
 
 % Clamp kurtosis measures
-dps.MKi  = mio_min_max_cut(dps.MKi, 0.0, 4.0); 
-dps.MKa  = mio_min_max_cut(dps.MKa, 0.0, 4.0); 
-dps.MKt  = mio_min_max_cut(dps.MKt, 0.0, 4.0); 
+dps.MKi  = mio_min_max_cut(dps.MKi, -1.0, 4.0); 
+dps.MKa  = mio_min_max_cut(dps.MKa, -1.0, 4.0); 
+dps.MKt  = mio_min_max_cut(dps.MKt, -1.0, 4.0); 
 dps.MK   = mio_min_max_cut(dps.MK,  0.0, 4.0); 
 dps.MKad = mio_min_max_cut(dps.MKad, 0.0, 4.0); 
 dps.MKd  = mio_min_max_cut(dps.MKd, 0.0, 4.0); 

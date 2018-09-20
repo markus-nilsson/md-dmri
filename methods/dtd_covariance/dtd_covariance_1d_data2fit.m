@@ -48,12 +48,12 @@ if (n_rank < 21) && (opt.dtd_covariance.allow_subspace_estimation)
     % Fit e.g. 16 parameters, in LTE+STE acquisitions
     b4_tmp = b4;
     b4_tmp(:, 4:6) = b4_tmp(:, 4:6) * 1e-1;  % critical for upscaling
-    [b4_eig_vec, b4_eigval] = eigs(b4_tmp' * b4_tmp, 21);
+    [b4_eig_vec, b4_eigval] = eigs(b4_tmp' * b4_tmp, n_rank);
 
-    %ind_tmp = diag(abs(b4_eigval)) > 1e-8;
-    ind_tmp = (1:21) <= n_rank;
+%     %ind_tmp = diag(abs(b4_eigval)) > 1e-8;
+%     ind_tmp = (1:21) <= n_rank;
 
-    subspace_coord = b4_eig_vec(:,ind_tmp);
+    subspace_coord = b4_eig_vec;%(:,ind_tmp);
 
 elseif (n_rank == 21)
 

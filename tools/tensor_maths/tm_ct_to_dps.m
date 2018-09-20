@@ -45,7 +45,7 @@ dps.C_c   = mio_min_max_cut(dps.C_c, 0, 1);
 
 % Naming these according to the dtd_gamma nomenclature
 dps.MKi  = 3 * dps.V_MD ./ dps.V_MD2;           % 
-dps.MKa  = (6/5) * dps.V_shear1 ./ dps.V_MD2;   % K_micro in Westin16
+dps.MKa  = 3 * (2/5) * dps.V_shear1 ./ dps.V_MD2;   % K_micro in Westin16
 dps.MKt  = dps.MKi + dps.MKa;                   % 
 dps.MKad = (6/5) * dps.V_shear ./ dps.V_MD2;    % anisotropy and dispersion
 dps.MK   = dps.MKad + dps.MKi;                  % conventional kurtosis
