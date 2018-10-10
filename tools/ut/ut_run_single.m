@@ -9,7 +9,7 @@ tmp = dbstack;
 
 switch (tmp(end).name)
     
-    case 'ut_run'
+    case {'ut_run', 'run_all_unit_tests'}
         fn = n_ut;
     
     otherwise
