@@ -152,6 +152,10 @@ switch c_ut
         fn  = 'dtd_gamma_1d_data2fit.m';
         opt = dtd_gamma_opt;
         
+        % Make sure to allow negative variances
+        opt.dtd_gamma.fit_lb = [  0 1e-12 -[1 1]*4e-18 ];
+        opt.dtd_gamma.fit_ub = [ 10 4e-9   [1 1]*4e-18 ];
+        
         tissue      = [100 .9e-9 -0.1e-18 -0.2e-18];
         
         xps.b = 1e9 * [0 1 2 3 0 1 2 3]';

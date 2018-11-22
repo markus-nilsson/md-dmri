@@ -1,4 +1,4 @@
-function mplot_tensor(dt, d, sc, s, r_std, col)
+function mplot_tensor(dt, d, sc, s, r_std, col, alpha)
 % function mplot_tensor(dt, d, sc, s, r_std)
 %
 % dt - diffusion tensor in voigt format
@@ -12,6 +12,7 @@ if (nargin < 3), sc = 1; end
 if (nargin < 4), [x,y,z] = sphere(59); s.x = x; s.y = y; s.z = z; end
 if (nargin < 5), r_std = 0; end
 if (nargin < 6), col = [0.5 0.5 0.5]; end
+if (nargin < 7), alpha = 1; end
 
 
 dt_3x3 = tm_1x6_to_3x3(dt);
@@ -40,6 +41,7 @@ h = surface(...
     z3 + d(3) + r(3), ...
     'EdgeColor','none', ...
     'FaceColor', col, ...
+    'FaceAlpha', alpha, ...
     'CData', zeros(size(x3)) + mean(eig_vals));
 
 if (0)

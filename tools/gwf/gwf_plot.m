@@ -25,10 +25,10 @@ end
 % plot gwf
 for c = 1:size(gwf, 2)
     area(t * 1e3, g_plot(:, c) * 1e3, ...
-        'FaceAlpha', 0.7, ...
+        'FaceAlpha', opt.gwf.gwf_facealpha(c), ...
         'EdgeColor', 'black', ...
         'FaceColor', opt.gwf.col{c}, ...
-        'LineWidth', 2); hold on;
+        'LineWidth', opt.gwf.gwf_linew); hold on;
 end
 
 xlabel('t [ms]');
@@ -44,7 +44,7 @@ title('Effective gradient');
 
 fn = {'plot_t_rf_ex', 'plot_t_rf_echo'};
 for c = 1:numel(fn)
-    if any(opt.gwf.(fn{c}) > 0)
+    if all(~isempty(opt.gwf.(fn{c})))
         if (numel(opt.gwf.(fn{c})) ~= 2)
             error(['expected numel(opt.gwf.' fn{c} ') = 2']);
         end
@@ -53,7 +53,7 @@ for c = 1:numel(fn)
         x     = linspace(-3, 3, numel(t_tmp));
         sc = diff(ylim) * 0.15 * c;
         
-        plot(t_tmp, sinc(x) * sc, 'k', 'LineWidth', 2, 'Color', [0 0 0] + 0.5);
+        plot(t_tmp, sinc(x) * sc, 'k', 'LineWidth', opt.gwf.rf_linew, 'Color', [0 0 0] + 0.5);
     end
 end
 

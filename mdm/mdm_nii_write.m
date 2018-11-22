@@ -114,6 +114,7 @@ end
 
 % gzip the temporary file
 if (~isempty(folder_gz))
+    msf_mkdir(folder_gz);
     gzip(tmp_nii_fn, folder_gz);
     delete(tmp_nii_fn);
     rmdir(tmp_path,'s');

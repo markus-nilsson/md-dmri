@@ -22,14 +22,3 @@ else
     end
 end
 
-% Optional masking of i,j,k ranges
-M2 = ones(sz);
-if (isfield(opt, 'i_range')), M3 = zeros(sz); M3(opt.i_range,:,:) = 1; M2 = M2 & M3; end
-if (isfield(opt, 'j_range')), M3 = zeros(sz); M3(:,opt.j_range,:) = 1; M2 = M2 & M3; end
-if (isfield(opt, 'k_range')), M3 = zeros(sz); M3(:,:,opt.k_range) = 1; M2 = M2 & M3; end
-
-M = M & M2;
-
-    
-    
-

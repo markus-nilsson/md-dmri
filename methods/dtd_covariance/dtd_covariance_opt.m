@@ -11,13 +11,26 @@ opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
 opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
     'allow_subspace_estimation', 1);
 
+opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
+    'do_regularization', 0);
+
+opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
+    'do_clamping', 1);
+
+opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
+    'cond_limit', 1e-10);
+
+opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
+    'rank_limit', 1e-3);
+
+
 % Enable the use of the 1d_data2fot for diffusional kurtosis imaging (DKI)
 opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
     'do_dki', 0);
 
 % control which maps that are generated as nifti files
 opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, 'fig_maps', ...
-    {'s0','FA','C_MD', 'C_c', 'C_mu'});
+    {'s0','MD', 'ad', 'rd', 'FA', 'uFA', 'MKi', 'MKa', 'MKt', 'C_MD', 'C_c', 'C_mu', 'C_M'});
 
 opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, 'fig_prefix', 'dtd_covariance');
 

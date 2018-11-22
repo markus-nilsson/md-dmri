@@ -83,7 +83,8 @@ end
 % Plot for legend
 hold(h, 'off');
 for c = 1:numel(b_delta_uni)
-    semilogy(h, -1,2,'-', 'color', cmap(c,:), 'linewidth', 2); hold(h,'on');
+    col = mplot_b_shape_to_col(b_delta_uni(c));    
+    semilogy(h, -1,2,'-', 'color', col, 'linewidth', 2); hold(h,'on');
 end
 
 for c = 1:numel(b_delta_uni)
@@ -91,6 +92,9 @@ for c = 1:numel(b_delta_uni)
     ind2 = b_delta_input == b_delta_uni(c);
     
     ind3 = ind2 & (~ind);
+    
+    col = mplot_b_shape_to_col(b_delta_uni(c));
+
     
     % Construct a fitted signal
     clear xps2;
@@ -135,15 +139,15 @@ for c = 1:numel(b_delta_uni)
         end
     end
     
-    semilogy(h, xps.b(ind2) * 1e-9, S(ind2) / sc, data_marker, 'color', cmap(c,:), ...
-        'markersize', 5, 'markerfacecolor', cmap(c,:), 'linewidth', 2);
+    semilogy(h, xps.b(ind2) * 1e-9, S(ind2) / sc, data_marker, 'color', col, ...
+        'markersize', 5, 'markerfacecolor', col, 'linewidth', 2);
     
     hold(h, 'on');
     
-    semilogy(h, xps.b(ind3) * 1e-9, S(ind3) / sc, 'x', 'color', cmap(c,:), ...
-        'markersize', 10, 'markerfacecolor', cmap(c,:));
+    semilogy(h, xps.b(ind3) * 1e-9, S(ind3) / sc, 'x', 'color', col, ...
+        'markersize', 10, 'markerfacecolor', col);
     
-    semilogy(h, xps2.b * 1e-9, S_fit / sc, '-', 'color', cmap(c,:), 'linewidth', 2);
+    semilogy(h, xps2.b * 1e-9, S_fit / sc, '-', 'color', col, 'linewidth', 2);
 end
 
 axis(h, 'on');
@@ -161,7 +165,8 @@ ylabel(h, 'Signal', 'fontsize', opt.mplot.fs);
 
 l_str = cell(1,numel(b_delta_uni));
 for c = 1:numel(b_delta_uni)
-    plot(h,10,10,'-', 'color', cmap(c,:), 'linewidth', 2);
+    col = mplot_b_shape_to_col(b_delta_uni(c));    
+    plot(h,10,10,'-', 'color', col, 'linewidth', 2);
     hold(h, 'on');
     l_str{c} = ['b_\Delta = ' num2str(b_delta_uni(c))];
 end

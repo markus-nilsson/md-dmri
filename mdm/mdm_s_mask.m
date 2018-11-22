@@ -26,8 +26,9 @@ end
 % masks from outside
 do_overwrite = opt.do_overwrite && opt.mask.do_overwrite;
 if (exist(s.mask_fn, 'file') && (~do_overwrite))
-    disp(['Skipping, output file already exists: ' s.mask_fn]); 
-    disp(['To overwrite mask, set both opt.do_overwrite and opt.mask.do_overwrite to true']);
+    msf_log(['Skipping, output file already exists: ' s.mask_fn], opt); 
+    msf_log(sprintf(' (opt.do_overwrite = %i, opt.mask.do_overwrite = %i)', ...
+        opt.do_overwrite, opt.mask.do_overwrite), opt);
     return;
 end
 
@@ -35,7 +36,7 @@ end
 if (opt.do_mask)
     [I,h] = mdm_nii_read(s.nii_fn);
     if (any(imag(I(:)) ~= 0)), I = abs(I); end
-    M = mask_fun(I, opt);
+    M = mask_fun(I, opt);    
     msf_mkdir(fileparts(s.mask_fn));
     mdm_nii_write(uint8(M), s.mask_fn, h);
 end

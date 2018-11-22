@@ -98,7 +98,7 @@ if numel(x) <= 6
         mval = mean(S_plot(it, :));
         dval = D_plot(it);
         offset = [range(get(h_top, 'XLim')) range(get(h_top, 'YLim'))]*0.03;
-        text(h_top, x(it)+offset(1), mval+offset(2), {sprintf('%0.1e', mval); [char(177) sprintf(' %0.0e', dval)]}, 'fontsize', 7);
+        text(h_top, x(it)+offset(1), mval+offset(2), {sprintf('%0.1e', mval); [char(177) sprintf(' %0.1e', dval)]}, 'fontsize', 7);
     end
 end
 

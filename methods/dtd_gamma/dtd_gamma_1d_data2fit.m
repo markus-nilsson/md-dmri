@@ -6,8 +6,8 @@ function m = dtd_gamma_1d_data2fit(signal, xps, opt, ind)
 
 if (nargin < 4), ind = ones(size(signal)) > 0; end
 
-if (isfield(xps, 's_ind'))
-    ns = max(xps.s_ind) - 1;
+if (isfield(xps, 's_ind') && opt.dtd_gamma.do_multiple_s0)
+    ns = numel(unique(xps.s_ind)) - 1;
 else
     ns = 0;
 end
@@ -54,10 +54,12 @@ unit_to_SI = [max(signal+eps) 1e-9 (1e-9)^2*[1 1] ones(1,ns)];
         end
     end
 
+% Guess and fitting bounds
+m_lb = [opt.dtd_gamma.fit_lb 0.5 * ones(1,ns)];
+m_ub = [opt.dtd_gamma.fit_ub 2.0 * ones(1,ns)];
 
-% Guesses and bounds
-m_lb      = [0                   1e-12   -(3e-9)^2*[1 1]   0.5 * ones(1,ns)];
-m_ub      = [2*max(signal+eps)   4e-9     (3e-9)^2*[1 1]   2.0 * ones(1,ns)];
+m_lb(1) = m_lb(1) * max(signal+eps);
+m_ub(1) = m_ub(1) * max(signal+eps);
 
 m_lbz     = m_lb .* (m_lb > 0); % Avoid negative guess
 
@@ -81,7 +83,7 @@ for i = 1:opt.dtd_gamma.fit_iters
     end
     
     % Create a random guess
-    m_guess = msf_fit_random_guess(@dtd_gamma_1d_fit2data, signal, xps, m_lbz, m_ub, weight, 50);
+    m_guess = msf_fit_random_guess(@dtd_gamma_1d_fit2data, signal, xps, m_lbz, m_ub, weight, opt.dtd_gamma.guess_iters);
     t_guess = m_guess./unit_to_SI;
     
     

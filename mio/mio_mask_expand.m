@@ -3,6 +3,7 @@ function M = mio_mask_expand(I, n, opt)
 %
 % expand the mask by n voxels
 
+if (nargin < 2), n = 1; end
 if (nargin < 3), opt.present = 1; end
 opt = mdm_opt(opt);
 

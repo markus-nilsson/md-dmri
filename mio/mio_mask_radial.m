@@ -4,7 +4,6 @@ function M = mio_mask_radial(I, opt)
 if (nargin < 3), opt.present = 1; end
 opt.mask.present = 1;
 opt.mask = msf_ensure_field(opt.mask, 'b0_ind', 1);
-opt.mask = msf_ensure_field(opt.mask, 'thres', 0.1);
 
 
 n_spoke = 2 * size(I,1);

@@ -39,6 +39,6 @@ end
 bt  = tm_tpars_to_1x6(b, b_delta, u);
 xps = mdm_xps_from_bt(bt);
 
-% store the direction as well
-xps.u = u;
+% store the direction from the bvec file too
+xps.u_from_bvec = u;
 

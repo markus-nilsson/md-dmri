@@ -76,8 +76,8 @@ for i = 2:numel(xps_cell)
     
     for c = 1:numel(f)
         
-        if (~strcmp(f{c}, f2{c}))
-            error('different fields present in the xps to be merged');
+        if (~isfield(xps_cell{i}, f{c}))
+            error('Discrepant fields present in the xps to be merged');
         end
         
         if (strcmp(f{c}, 'intent'))

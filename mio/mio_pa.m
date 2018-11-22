@@ -16,7 +16,9 @@ switch (opt.mio.pa.method)
     case 'geo' % not really powder averaging, should rename function
         f = @(x) msf_nangeomean(x, 4);
     case 'ari'
-    f = @(x) msf_nanmean(x, 4);
+        f = @(x) msf_nanmean(x, 4);
+    case 'median'
+        f = @(x) median(x, 4);
     otherwise
         error('unknown averaging method');
 end
