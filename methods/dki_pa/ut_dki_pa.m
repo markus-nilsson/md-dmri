@@ -29,7 +29,8 @@ switch (c_ut)
                 case 1
                     
                     % generate randomly oriented anisotropic tensors
-                    dt = tm_1x3_to_1x6(2e-9, 0.01e-9, uvec_elstat(500));
+                    dt = tm_1x3_to_1x6(2e-9, 0.01e-9, ...
+                        uvec_elstat(500, 'froeling'));
                     
             end
             
