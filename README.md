@@ -150,6 +150,6 @@ Get acquainted with by xps structure by reading mdm/readme.txt.An extensive desc
 Markus Nilsson, Filip Szczepankiewicz, Björn Lampinen, André Ahlgren, 
 João P. de Almeida Martins, Samo Lasic, Carl-Fredrik Westin, and Daniel Topgaard.
 An open-source framework for analysis of multidimensional diffusion MRI data implemented in MATLAB.
-ISMRM Proceesings, Paris, 2018. http://archive.ismrm.org/2018/5355.html
+Proc. Intl. Soc. Mag. Reson. Med. (26), Paris, France, 2018. http://archive.ismrm.org/2018/5355.html
 
 
