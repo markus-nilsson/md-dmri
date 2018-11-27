@@ -76,7 +76,7 @@ switch (c_ut)
         
         % define b-value, direction (u) and b_delta
         b = 1.0;
-        u = uvec_elstat(50);
+        u = uvec_elstat(50,'froeling');
         b_delta = linspace(-0.5, 1.0, size(u, 1))';
 
         % compute b-tensor from the tensor parameters above
@@ -229,7 +229,7 @@ switch (c_ut)
         
         % simulate another diffusion tensor distribution, with randomly
         % oriented sticks
-        dt_dist = tm_1x3_to_1x6(2.0, 0.1, uvec_elstat(400));
+        dt_dist = tm_1x3_to_1x6(2.0, 0.1, uvec_elstat(400, 'froeling'));
         dt_ex   = dt_dist(1, :); % pull out one example
         
         % compute the mean and covariance of the tensor distribution

@@ -24,13 +24,13 @@ switch (lower(ext))
         end
         
     otherwise
-        error('Unknown file extension')
+        error('Unknown file extension: %s', ext);
 end
 
     function [tmp_path, tmp_fn] = do_gunzip(in_fn, h_only)
         tmp_path = msf_tmp_path(1);
         
-%         h_only = h_only & (datenum(version('-date')) < datenum('2015-02-13'));
+        assert(exist(in_fn,'file') > 0, ['file not found: ' in_fn]);
         
         if (h_only && isunix)
             [~,name] = fileparts(in_fn);
@@ -49,8 +49,7 @@ end
             [status,result] = system(cmd);
 
         else
-            %if (h_only), warning('quick header extraction not implemented'); end
-            assert(exist(in_fn,'file') > 0, ['file not found: ' in_fn]);
+            %if (h_only), warning('quick header extraction not implemented'); end            
             tmp_fn = gunzip(in_fn, tmp_path);
             tmp_fn = tmp_fn{1};
         end

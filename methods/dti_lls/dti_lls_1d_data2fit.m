@@ -21,7 +21,7 @@ end
 X  = [ones(sum(ind), 1) -xps.bt(ind,:) * 1e-9];
 
 if (opt.dti_lls.do_heteroscedasticity_correction)
-    C2 = diag(signal(ind));
+    C2 = diag(signal(ind).^2);
 else
     C2 = 1;
 end

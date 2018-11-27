@@ -1,4 +1,4 @@
-function I_ref = mio_ref_extrapolate(I, xps_source, xps_target, M, ind)
+function I_ref = mio_ref_extrapolate(I, xps_source, xps_target, M, ind, opt)
 % function I_ref = mio_ref_extrapolate(I, xps_source, xps_target, M, ind)
 %
 % Extrapolate references according to Nilsson et al, 2015, Plos One 
@@ -10,7 +10,9 @@ assert(isfield(xps_source, 'bt'), 'xps_source.bt of size n x 6 required');
 if (nargin < 3), xps_target = xps_source; end
 if (nargin < 4), M = []; end
 if (nargin < 5), ind = (1:xps_source.n) > 0; end
-    
+if (nargin < 6), opt = []; end
+
+opt = mio_opt(opt);
 
 % Get sizes
 sz_source = [size(I,1) size(I,2) size(I,3) size(I,4)];
@@ -25,13 +27,28 @@ I(isinf(I)) = NaN;
 
 x = [-xps_source.bt' * 1e-9; ones(1, xps_source.n)];
 
+% Check for appropriate subspace size
+if (rank(x(:,ind) * x(:,ind)', 1e-10) < 7)
+    if (opt.mio.ref_extrapolate.do_subspace_fit)
+        e = [...
+            1 0 0 0 0 0 0;
+            0 1 0 0 0 0 0;
+            0 0 1 0 0 0 0;
+            0 0 0 0 0 0 1];
+    else
+        error('Not enough gradient directions in low b-value shells for this, try enabling opt.mio.ref_extrapolate.do_subspace_fit');
+    end
+else
+    e = eye(7);
+end
+
 % Solve the regression problem
 % ----------------------------
 % Y = B * X
 % n_pix x n_vol = n_pix x 7  7 x n_vol
 %
 % Y * X' * inv(X * X')
-DT = I(:,ind) / x(:,ind);
+DT = (I(:,ind) / (e * x(:,ind))) * e;
 
 
 % Amend nan tensors within mask (need to supply mask in order to avoid 

@@ -1,0 +1,1 @@
+function g = mdm_gwf_write(g, gwf_fn)% function g = mdm_gwf_write(g, gwf_fn)fid = fopen(gwf_fn,'w');error('update this function: ensure that first and last data points are zero, and that size is n x 3');bfprintf(fid, '%i\n', size(g,2));for c = 1:size(g,2)    fprintf(fid, '%f \t %f \t %f \n', g(1,c), g(2,c), g(3, c));endfclose(fid);
