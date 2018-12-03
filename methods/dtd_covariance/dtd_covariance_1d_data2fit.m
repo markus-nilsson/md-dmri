@@ -83,29 +83,18 @@ if (opt.dtd_covariance.do_regularization)
     b2_2 = cat(1, b2, zeros(1, 6)); 
     b4_2 = cat(1, b4, zeros(1, 21));    
     
-    % first cumulant: penalize the whole tensor + s0
+    % first cumulant: penalize the whole diffusion tensor + s0
     b0_2 = cat(1, b0_2, zeros(6, 1));
     b2_2 = cat(1, b2_2, eye(6)); % this is the b-tensor
     b4_2 = cat(1, b4_2, zeros(6, 21));
         
-    % second cumulant:
-    %   penalize non-zero values of all elements contributing to the 
-    %   bulk and the shear of the tensor, effectively forcing it to be zero
-    b0_2 = cat(1, b0_2, zeros(9, 1));
-    b2_2 = cat(1, b2_2, zeros(9, 6));
-    b4_2 = cat(1, b4_2, [...
-        1 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0;
-        0 1 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0;
-        0 0 1  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0;
-        0 0 0  1 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0;
-        0 0 0  0 1 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0;
-        0 0 0  0 0 1  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0;
-        0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  1 0 0  0 0 0;
-        0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 1 0  0 0 0;
-        0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 1  0 0 0]);    
+    % second cumulant: penalize the covariance tensor
+    b0_2 = cat(1, b0_2, zeros(21, 1));
+    b2_2 = cat(1, b2_2, zeros(21, 6));    
+    b4_2 = cat(1, b4_2, eye(21));
     
     % regression target: desired value of target elements is zero
-    rt = cat(1, real(log(signal)), zeros(1+6+9, 1));
+    rt = cat(1, real(log(signal)), zeros(1+6+21, 1));
 
     % new regressors
     X2 = [b0_2 -b2_2 1/2 * b4_2 * subspace_coord];
@@ -170,7 +159,7 @@ if (opt.dtd_covariance.do_regularization)
             plot(log(s_fit));
         end
         
-        C2_2 = diag(cat(1, w_s .* s_fit.^2, w_s0, w_dt * ones(6,1), w_ct * ones(9, 1)));
+        C2_2 = diag(cat(1, w_s .* s_fit.^2, w_s0, w_dt * ones(6,1), w_ct * ones(21, 1)));
         
         m = (X2' * C2_2 * X2) \ X2' * C2_2 * rt;
     end
