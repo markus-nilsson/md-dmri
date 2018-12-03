@@ -10,7 +10,7 @@ if (nargin < 4), opt = []; end
 
 opt = gwf_opt(opt);
 
-opt.gwf = msf_ensure_field(opt.gwf, 'plot_gmax', max(abs(gwf(:)) * 1.1));
+opt.gwf = msf_ensure_field(opt.gwf, 'plot_gmax', max(abs(gwf(:)) * 1.1 + eps));
 
 
 % init and test things
