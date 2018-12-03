@@ -1,4 +1,4 @@
-function [ha, hp] = cfa_plot_bias_volume(c, ips, slices)
+function [ha, hp, hc] = cfa_plot_bias_volume(c, ips, slices)
 % function [ha, hp] = cfa_plot_bias_volume(c, ips, slices)
 %
 % This funciton plots slices through a volume spanned by ips.fov.
@@ -32,7 +32,7 @@ ha = gca;
 
 turn_off_lines(hp)
 axis equal vis3d tight
-colorbar
+hc = colorbar;
 
 [min_s, ind] = min(c(:));
 [f_i, p_i, s_i] = ind2sub(size(c),ind);
