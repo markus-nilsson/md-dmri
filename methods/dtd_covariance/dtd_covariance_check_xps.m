@@ -22,7 +22,16 @@ tmp = warning('query'); warning off; % probe without throwing warning
 [~,cond] = dtd_covariance_1d_data2fit(abs(randn(xps.n,1)), xps, opt);
 warning(tmp);
 
-if (cond < 1e-10)
+if (cond < opt.dtd_covariance.cond_limit)
+    
+    try
+        mdm_xps_info(xps, 'dtd_covariance', opt);
+    catch
+        disp('Unable to provide xps information');
+    end
+    
     error('The b-tensors cannot form an overdetermined equation system (cond = %s)', ...
         num2str(cond));
+    
+    
 end
