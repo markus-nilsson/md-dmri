@@ -241,4 +241,28 @@ switch (c_ut)
             
         
         
+    case 6
+        fn = 'mdm_gwf_read.m, mdm_gwf_write.m';
+        
+        % define gradient waveform
+        g0 = cat(1, zeros(1,3), ones(10,3), zeros(1,3));
+        
+        % write gwf
+        gwf_fn = fullfile(msf_tmp_path(), 'gwf.txt');
+        
+        mdm_gwf_write(g0, gwf_fn);
+        
+        g1 = mdm_gwf_read(gwf_fn);
+        
+        % delete files
+        msf_delete(gwf_fn);
+        rmdir(fileparts(gwf_fn));
+        
+        if ...
+                (size(g0,1) ~= size(g1,1)) || ...
+                (size(g0,2) ~= size(g1,2)) || ...
+                (any( abs(g1(:) - g0(:)) > eps))
+            error('%s, ut_mdm test %i, read/write error', fn, c_ut);
+        end        
+        
 end
