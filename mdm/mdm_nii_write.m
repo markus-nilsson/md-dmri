@@ -167,7 +167,7 @@ end
             case 'complex_single'
                 h.datatype = 32;
                 h.bitpix = 64;
-            case 'complex_double';
+            case 'complex_double'
                 h.datatype = 1792;
                 h.bitpix = 128;
             otherwise

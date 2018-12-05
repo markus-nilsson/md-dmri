@@ -100,7 +100,7 @@ switch (c_case)
         if (dps.MD > 2)
             ylim(h, [0.005 1.1]);
         else
-            ylim(h, [0.03 1.1]);
+            ylim(h, [0.03 1.5]);
         end
     
         
