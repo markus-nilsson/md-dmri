@@ -7,7 +7,7 @@ function dps = dtd_covariance_4d_fit2param(mfs_fn, dps_fn, opt)
 if (nargin < 2), dfs_fn = []; end
 if (nargin < 3), opt    = []; end
 
-opt = mdm_opt(opt);
+opt = dtd_covariance_opt(mdm_opt(opt));
 mfs = mdm_mfs_load(mfs_fn);
 sz  = msf_size(mfs.m(:,:,:,1), 3);
 
@@ -39,6 +39,36 @@ end
 
 % compute display parameters
 dps = dtd_covariance_1d_fit2param(g(mfs.m, 28), f, opt);
+
+% mask after fitting
+if (opt.dtd_covariance.do_post_fit_masking)
+    
+    % copute 
+    X = [ones(mfs.s.xps.n,1) -mfs.s.xps.bt 1/2*tm_1x6_to_1x21(mfs.s.xps.bt)];
+    I = mdm_nii_read(mfs.s.nii_fn);
+    
+    res = sqrt(f(median( (g(I, size(I,4)) - ...
+        exp(cat(2, g(log(mfs.m(:,:,:,1)), 1), g(mfs.m(:,:,:,2:end),27)) * X')).^2, 2), 1));
+    
+    snr = mfs.m(:,:,:,1) ./ res;
+    
+    dps.mask_param = mio_mask_fill(mio_smooth_4d(snr, 1.5) > 50);
+    
+    f = fieldnames(dps);
+    for c = 1:numel(f)
+        try
+            if (isstruct(dps.(f{c})))
+                continue;
+            elseif (size(dps.(f{c}), 1) == 3) % e.g. fa col
+                dps.(f{c}) = dps.(f{c}) .* repmat(permute(dps.mask_param, [4 1 2 3]), [3 1 1 1]);
+            elseif (size(dps.(f{c}), 1) == size(I,1)) % all other
+                dps.(f{c}) = dps.(f{c}) .* dps.mask_param;
+            end
+        catch me
+            disp(me.message);
+        end
+    end
+end
 
 % fill in dps fields
 dps.nii_h = mfs.nii_h;

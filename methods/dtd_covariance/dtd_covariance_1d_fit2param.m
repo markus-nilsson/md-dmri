@@ -16,8 +16,8 @@ if (opt.dtd_covariance.do_regularization)
     reg_dt = 0.1;
     reg_ct = 0.1;
 else
-    reg_dt = 0;
-    reg_ct = 0;
+    reg_dt = 0.0001;
+    reg_ct = 0.0001;
 end
 
 % compute display parameters in um2/ms format

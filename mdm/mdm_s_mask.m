@@ -15,6 +15,11 @@ opt = mdm_opt(opt);
 
 msf_log(['Starting ' mfilename], opt);    
 
+if (~opt.do_mask)
+    s = msf_rmfield(s, 'mask_fn');
+    msf_log(sprintf('-> Returning without masking, opt.do_mask = %i', opt.do_mask), opt);    
+    return;
+end
 
 % construct the filename
 if (~isfield(s,'mask_fn'))
@@ -33,10 +38,8 @@ if (exist(s.mask_fn, 'file') && (~do_overwrite))
 end
 
 % write the mask, don't care if we overwrite anything
-if (opt.do_mask)
-    [I,h] = mdm_nii_read(s.nii_fn);
-    if (any(imag(I(:)) ~= 0)), I = abs(I); end
-    M = mask_fun(I, opt);    
-    msf_mkdir(fileparts(s.mask_fn));
-    mdm_nii_write(uint8(M), s.mask_fn, h);
-end
+[I,h] = mdm_nii_read(s.nii_fn);
+if (any(imag(I(:)) ~= 0)), I = abs(I); end
+M = mask_fun(I, opt);
+msf_mkdir(fileparts(s.mask_fn));
+mdm_nii_write(uint8(M), s.mask_fn, h);

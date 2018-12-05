@@ -19,7 +19,7 @@ end
 opt = dtd_covariance_opt(opt);
 
 tmp = warning('query'); warning off; % probe without throwing warning
-[~,cond] = dtd_covariance_1d_data2fit(abs(randn(xps.n,1)), xps, opt);
+[~,cond] = dtd_covariance_1d_data2fit(exp(-xps.bt * [1 1 1 0 0 0]' * 1e-9), xps, opt);
 warning(tmp);
 
 if (cond < opt.dtd_covariance.cond_limit)
