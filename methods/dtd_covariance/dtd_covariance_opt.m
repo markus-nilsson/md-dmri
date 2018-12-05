@@ -5,38 +5,31 @@ function opt = dtd_covariance_opt(opt)
 
 opt.dtd_covariance.present = 1;
 
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
-    'do_heteroscedasticity_correction', 1);
+x = 'dtd_covariance'; % for shortening 
 
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
-    'allow_subspace_estimation', 1);
+opt.(x) = msf_ensure_field(opt.(x), 'do_heteroscedasticity_correction', 1);
+opt.(x) = msf_ensure_field(opt.(x), 'do_regularization', 0);
+opt.(x) = msf_ensure_field(opt.(x), 'do_clamping', 1);
+opt.(x) = msf_ensure_field(opt.(x), 'do_extra_fit', 0);
+opt.(x) = msf_ensure_field(opt.(x), 'do_post_fit_masking', 0);
+opt.(x) = msf_ensure_field(opt.(x), 'allow_subspace_estimation', 1);
 
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
-    'do_regularization', 0);
-
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
-    'do_clamping', 1);
-
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
-    'cond_limit', 1e-10);
-
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
-    'rank_limit', 1e-3);
+opt.(x) = msf_ensure_field(opt.(x), 'cond_limit', 1e-10);
+opt.(x) = msf_ensure_field(opt.(x), 'rank_limit', 1e-3);
 
 
-% Enable the use of the 1d_data2fot for diffusional kurtosis imaging (DKI)
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, ...
-    'do_dki', 0);
+% Enable the use of the 1d_data2fit for diffusional kurtosis imaging (DKI)
+opt.(x) = msf_ensure_field(opt.(x), 'do_dki', 0);
 
 % control which maps that are generated as nifti files
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, 'fig_maps', ...
+opt.(x) = msf_ensure_field(opt.(x), 'fig_maps', ...
     {'s0','MD', 'ad', 'rd', 'FA', 'uFA', 'MKi', 'MKa', 'MKt', 'C_MD', 'C_c', 'C_mu', 'C_M'});
 
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, 'fig_prefix', 'dtd_covariance');
+opt.(x) = msf_ensure_field(opt.(x), 'fig_prefix', 'dtd_covariance');
 
 % produce standard fa-color map
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, 'fig_cmaps',{'FA'});
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, 'fig_ccol', {'u'});
-opt.dtd_covariance = msf_ensure_field(opt.dtd_covariance, 'fig_ccolnorm',{'mask'});
+opt.(x) = msf_ensure_field(opt.(x), 'fig_cmaps',{'FA'});
+opt.(x) = msf_ensure_field(opt.(x), 'fig_ccol', {'u'});
+opt.(x) = msf_ensure_field(opt.(x), 'fig_ccolnorm',{'mask'});
 
 

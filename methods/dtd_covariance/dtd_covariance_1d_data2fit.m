@@ -118,13 +118,13 @@ if (opt.dtd_covariance.do_regularization)
         % model may fail (gross "banana effect")
         s_fit = min(cat(2, s_fit, signal), [], 2);
         
-        % penalize the diffusion tensor where the SNR is low or the
-        % mean diffusivity is low (e.g. background)
+        % penalize the diffusion tensor where the 
+        % mean diffusivity is very low (e.g. background)
         if (1)
-            snr = exp(m(1)) / res_std;   
+            %snr = exp(m(1)) / res_std;   
             md = mean(m(2:4));
             
-            w_dt = 1e3 * f(-md, -0.2, 0.1);
+            w_dt = 1e3 * f(-md, -0.1, 0.05);
             w_s0 = 0 * w_dt;
         else
             w_dt = 0;
