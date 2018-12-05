@@ -49,7 +49,7 @@ for n = 1:numel(fig_opt.fig_maps)
     
     % Replace NaNs with zeros
     tmp = dps.(param);
-    tmp(isnan(:)) = 0;
+    tmp(isnan(tmp(:))) = 0;
     
     try
         mdm_nii_write(tmp, tmp_fn, dps.nii_h);
