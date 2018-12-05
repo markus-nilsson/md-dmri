@@ -47,8 +47,12 @@ for n = 1:numel(fig_opt.fig_maps)
     % Just-in-time loading, to reduce times in pipe mode
     if (isempty(dps)), dps = mdm_dps_load(dps_fn); end
     
+    % Replace NaNs with zeros
+    tmp = dps.(param);
+    tmp(isnan(:)) = 0;
+    
     try
-        mdm_nii_write(dps.(param), tmp_fn, dps.nii_h);
+        mdm_nii_write(tmp, tmp_fn, dps.nii_h);
     catch me
         disp(me.message);
     end
