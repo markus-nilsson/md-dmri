@@ -161,10 +161,18 @@ if (opt.dtd_covariance.do_regularization)
         
         C2_2 = diag(cat(1, w_s .* s_fit.^2, w_s0, w_dt * ones(6,1), w_ct * ones(21, 1)));
         
-        m = (X2' * C2_2 * X2) \ X2' * C2_2 * rt;
+        tmp = (X2' * C2_2 * X2);
+        cond = rcond(tmp);
+        
+        if (cond < opt.dtd_covariance.cond_limit)
+            m = zeros(1, 28);
+            return;
+        end
+        
+        m = (tmp) \ X2' * C2_2 * rt;
     end
     
-    1;
+
 end
 
 m(1)     = exp(m(1));
@@ -186,6 +194,7 @@ function [s, n_rank] = get_subspace_coord(b4, b2, opt)
 
 % use a previously computed value if possible for speedsup
 persistent p; 
+
 if ...
         (~isempty(p)) && ...
         numel(p.b4(:)) == numel(b4(:)) && ...
@@ -209,13 +218,9 @@ if (n_rank < 21) && (opt.dtd_covariance.allow_subspace_estimation)
     b4_tmp = b4;
     b4_tmp(:, 4:6) = b4_tmp(:, 4:6) * 1e-1;  % critical for upscaling
     [b4_eig_vec, b4_eig_vals] = eigs(b4_tmp' * b4_tmp, 21);
-    
-    %ind_tmp = diag(abs(b4_eigval)) > 1e-8;
-    if (b4_eig_vals(1) > b4_eig_vals(21))
-        ind_tmp = (1:21) <= n_rank;
-    else
-        ind_tmp = (21:-1:1) <= n_rank;
-    end
+    [b4_eig_vals,ind] = sort(diag(b4_eig_vals),'descend');
+    b4_eig_vec = b4_eig_vec(:,ind);
+    ind_tmp = (1:21) <= n_rank;
     
     s = b4_eig_vec(:,ind_tmp);
     
