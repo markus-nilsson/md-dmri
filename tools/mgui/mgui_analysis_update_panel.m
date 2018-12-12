@@ -13,109 +13,80 @@ h_bottom = EG.handles.h_analysis_bottom_axes;
 h_popup  = EG.handles.h_analysis_popup;
 
 
-% repopulate the model selection dropdown
-
 % get current selection
-s = get(h_popup, 'String');
-c = get(h_popup, 'Value');
+str = get(h_popup, 'String');
 try
-    current_selection = s{c};
+    current_method = strrep(str{get(h_popup, 'Value')}, ' (x)', '');
 catch
-    current_selection = {};
+    current_method = {};
 end
 
-% Check which methods that are available
-d = dir(fullfile(fileparts(mfilename('fullpath')), '..', '..','methods'));
+% repopulate only if there's a new xps coming in 
+EG.analysis.present = 1;
+EG.analysis = msf_ensure_field(EG.analysis, 'xps_fn', []);
+if (~strcmp(EG.analysis.xps_fn, EG.roi.xps_fn))
+    EG.analysis.xps_fn = EG.roi.xps_fn;
 
-% Set default method
-str = {'Overview'};
-method_name = {'NaN'};
-
-% Populate popup with additional methods
-for c = 1:numel(d)
-    if (d(c).name(1) ~= '.') && (d(c).isdir)
-        
-        f_name = [d(c).name '_check_xps'];
-        
-        try
-            % currently the check xps functions throw errors
-            feval(f_name, msf_rmfield(EG.roi.xps, 'xps_fn'));
-            str{end+1} = d(c).name;
+    % Check which methods that are available
+    d = dir(fullfile(fileparts(mfilename('fullpath')), '..', '..','methods'));
+    
+    % Set default method
+    str = {'Overview'};
+    method_name = {'Overview'};
+    
+    % Populate popup with additional methods
+    for c = 1:numel(d)
+        if (d(c).name(1) ~= '.') && (d(c).isdir)
             
-        catch me
-            % show that the method does not work with an (x) appended
-            % to the method name
-            str{end+1} = [ d(c).name ' (x)'];
+            f_name = [d(c).name '_check_xps'];
             
-            if (1)
-                disp(me.message);
+            try
+                % currently the check xps functions throw errors
+                feval(f_name, msf_rmfield(EG.roi.xps, 'xps_fn'));
+                str{end+1} = d(c).name;
+                
+            catch me
+                % show that the method does not work with an (x) appended
+                % to the method name
+                str{end+1} = [ d(c).name ' (x)'];
+                
+                if (1)
+                    disp(me.message);
+                end
             end
+            
+            method_name{end+1} = d(c).name;
         end
-        
-        method_name{end+1} = d(c).name;
     end
-end
-
-set(h_popup, 'String', str);
-
-% Determine the selected method
-value = -1;
-for c = 1:numel(str)
-    if (strcmp(str{c}, current_selection))
-        value = c;
-        break;
-    end
-end
-
-% make sure the selection and the determined method is consistent
-if (value > -1)
-    set(h_popup, 'value', value);
-end
-
-if (get(h_popup, 'value') > numel(str))
-    set(h_popup, 'value', 1);
-end
-
-c_method = get(h_popup, 'value');
-
-
-% connect plot function to method
-
-    function mgui_analysis_clear_panel(h_top, h_bottom)
-        cla(h_top,'reset');
-        cla(h_bottom,'reset');
-    end
-        
-
-% transpose S in these calls because we follow the NxM format where
-% N is the number of volumes and M is the number of voxels
-switch (c_method)
     
-    case 0 % make sure it is cleared in this case
-        f_plot = @(S,xps,c) mgui_analysis_clear_panel(h_top, h_bottom);
+    set(h_popup, 'String', str);
     
-    case 1 % show the default overview 1D or 2D
-        f_plot = @(S,xps,c) mgui_analysis_plot_overview(S', xps, ...
-            h_top, h_bottom, [], c);
-        
-    otherwise % run custom plot scripts
-        f_plot = @(S,xps,c) mgui_analysis_plot(method_name{c_method}, ...
-            S', xps, h_top, h_bottom, c);
+    % Determine the selected method
+    value = -1;
+    for c = 1:numel(str)
+        if (strcmp(method_name{c}, current_method))
+            value = c;
+            break;
+        end
+    end
+    
+    % make sure the selection and the determined method is consistent
+    if (value > -1), set(h_popup, 'value', value); end
+    if (get(h_popup, 'value') > numel(str)), set(h_popup, 'value', 1); end
+    
 end
 
-
-
-% pull out signal
+% Pull out signal in MxN format where M is n_dynamics and N roi size
 if (msf_isfield(EG, 'roi') && ...
         msf_isfield(EG.roi, 'I') && ...
         msf_isfield(EG.roi, 'I_roi'))
     
     % only load the signal once
     if (~isfield(EG,'analysis') || ~isfield(EG.analysis, 'S'))
-        S = zeros(sum(EG.roi.I_roi(:)), size(EG.roi.I,4));
+        S = zeros(size(EG.roi.I,4), sum(EG.roi.I_roi(:)));
         for c = 1:size(EG.roi.I,4)
             tmp = EG.roi.I(:,:,:,c);
-            S(:,c) = tmp(EG.roi.I_roi(:) > 0);
+            S(c,:) = tmp(EG.roi.I_roi(:) > 0);
         end
         
         EG.analysis.S = S;
@@ -127,9 +98,7 @@ else
     S = [];
 end
 
-% run analysis and/or plot script
-f_plot(S, EG.roi.xps, EG.roi.c_volume);
+mgui_analysis_plot(current_method, ...
+    S, EG.roi.xps, EG.analysis.xps_fn, [h_top, h_bottom], EG.roi.c_volume);
 
-
-end
 

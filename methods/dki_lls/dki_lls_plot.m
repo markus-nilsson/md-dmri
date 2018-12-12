@@ -8,7 +8,7 @@ opt = dki_lls_opt();
 m     = dki_lls_1d_data2fit(S, xps, opt);
 S_fit = dki_lls_1d_fit2data(m, xps);
 
-mgui_analysis_plot_overview(S, xps, h, h2, S_fit);
+mgui_analysis_plot_signal(h, S, S_fit);
 
 sz  = msf_size(m(1), 3);
 

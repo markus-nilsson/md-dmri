@@ -13,8 +13,7 @@ pars = tm_1x6_to_tpars(dt);
 
 S_fit = dti_lls_1d_fit2data(m, xps);
 
-mgui_analysis_plot_overview(S, xps, h, h2, S_fit);
-
+mgui_analysis_plot_signal(h, S, S_fit); 
 
 title(h, sprintf('MD = %0.2f um^2/ms, FA = %0.2f', ...
     pars.trace/3 * 1e9, pars.fa));

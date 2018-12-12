@@ -1,4 +1,4 @@
-function [I, header, filename, ext, xps] = mgui_contrast_load(EG)
+function [I, header, filename, ext, xps, xps_fn] = mgui_contrast_load(EG)
 % function [I, header, filename, ext, xps] = mgui_contrast_load(EG)
 %
 % Return the image volume and filename based on the select struct
@@ -58,26 +58,28 @@ end
 
 
 % Get xps: Check if there is some file that could provide info for the xps
-xps_fn = mdm_xps_fn_from_nii_fn(filename);
-gdir_fn = mdm_fn_nii2gdir(filename);
-[bval_fn,bvec_fn] = mdm_fn_nii2bvalbvec(filename);
-
-if (exist(xps_fn, 'file'))
-    xps = mdm_xps_load(xps_fn);
-    xps.xps_fn = xps_fn;
-elseif (exist(gdir_fn, 'file'))
-    xps = mdm_xps_from_gdir(gdir_fn);
-    xps.xps_fn = gdir_fn;
-elseif (exist(bval_fn, 'file') && exist(bvec_fn,'file'))
-    xps = mdm_xps_from_bval_bvec(bval_fn,bvec_fn);
-    xps.xps_fn = bval_fn;
-else
-    % Let the GUI know we looked
-    xps.xps_fn = mdm_xps_fn_from_nii_fn(filename);    
+for c_attempt = 1:4
+    switch (c_attempt)
+        case 1
+            xps_fn = mdm_xps_fn_from_nii_fn(filename);
+            fn = @(x) mdm_xps_load(x);
+        case 2
+            xps_fn = mdm_fn_nii2gdir(filename);
+            fn = @(x) mdm_xps_from_gdir(x);
+        case 3
+            [xps_fn, bvec_fn] = mdm_fn_nii2bvalbvec(filename);  
+            fn = @(x) mdm_xps_from_bval_bvec(x, bvec_fn);
+        case 4            
+            xps_fn = mdm_xps_fn_from_nii_fn(filename);
+            xps.n = size(I,4);
+    end
+    
+    if (exist(xps_fn, 'file'))
+        xps = fn(xps_fn); 
+        break; 
+    end
 end
 
-% For xps.n to be present and correct
-xps.n = size(I,4);
     
 % Rotate the volume
 if (do_flip) && (isfield(header, 'my_hdr') && (isfield(header.my_hdr,'ori')))
@@ -88,5 +90,3 @@ if (do_flip) && (isfield(header, 'my_hdr') && (isfield(header.my_hdr,'ori')))
     end
 end
 
-
-end

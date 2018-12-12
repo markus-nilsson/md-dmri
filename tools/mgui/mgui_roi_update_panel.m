@@ -22,7 +22,7 @@ if (do_reload)
     % Load the image volume and get the filename
     EG = mgui_waitbar(EG, 0.1, 'Loading...');
     try
-        [I, header, filename, ext, xps] = mgui_contrast_load(EG);% , EG.select);
+        [I, header, filename, ext, xps, xps_fn] = mgui_contrast_load(EG);% , EG.select);
     catch me
         disp(getReport(me,'Extended'));
         return;
@@ -37,8 +37,8 @@ if (do_reload)
         EG.roi.ext    = ext;
         EG.roi.I_max  = max(I(:));
         EG.roi.xps    = xps;
+        EG.roi.xps_fn = xps_fn;
     end
-    
     
     % Reset zoom in case of change in size
     sz = size(I);
