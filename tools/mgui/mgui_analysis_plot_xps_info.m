@@ -1,10 +1,7 @@
-function mgui_analysis_plot_xps_info(h, xps)
-% function mgui_analysis_plot_xps_info(h, xps)
+function mgui_analysis_plot_xps_info(h, xps, method_name, xps_fn)
+% function mgui_analysis_plot_xps_info(h, xps, method_name)
 
-cla(h, 'reset'); 
-axis(h, 'off');
-text(h,0,0, mdm_xps_info(xps,'general'));
+if (nargin < 3), method_name = 'general'; end
 
-xlim(h, [0 1] + 0.20);
-ylim(h, [0 1] - 0.25);
-
+msg = mdm_xps_info(xps, method_name, [], xps_fn);
+mgui_analysis_plot_message(h, msg); 

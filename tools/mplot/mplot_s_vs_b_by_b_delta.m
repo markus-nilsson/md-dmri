@@ -44,7 +44,7 @@ if (xps_pa.n ~= xps.n)
 end
 
 % fit function
-if (nargin < 8)
+if (nargin < 8) || (numel(ind) ~= numel(S))
     ind = ones(size(S)) == 1;
 end
 
