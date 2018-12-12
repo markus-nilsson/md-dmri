@@ -55,32 +55,29 @@ if (isfield(header.my_hdr, 'ref_scale') && ...
     I = I / header.my_hdr.ref_scale;
 end
 
-% Check if there is an xps-file available
-xps_filename = mdm_xps_fn_from_nii_fn(filename);
-if (exist(xps_filename, 'file'))
-    xps = mdm_xps_load(xps_filename);
+
+
+% Get xps: Check if there is some file that could provide info for the xps
+xps_fn = mdm_xps_fn_from_nii_fn(filename);
+gdir_fn = mdm_fn_nii2gdir(filename);
+[bval_fn,bvec_fn] = mdm_fn_nii2bvalbvec(filename);
+
+if (exist(xps_fn, 'file'))
+    xps = mdm_xps_load(xps_fn);
+    xps.xps_fn = xps_fn;
+elseif (exist(gdir_fn, 'file'))
+    xps = mdm_xps_from_gdir(gdir_fn);
+    xps.xps_fn = gdir_fn;
+elseif (exist(bval_fn, 'file') && exist(bvec_fn,'file'))
+    xps = mdm_xps_from_bval_bvec(bval_fn,bvec_fn);
+    xps.xps_fn = bval_fn;
 else
-    xps = [];
+    % Let the GUI know we looked
+    xps.xps_fn = mdm_xps_fn_from_nii_fn(filename);    
 end
 
-% If there's no xps, check for gdir
-if (isempty(xps))
-    gdir_filename = mdm_fn_nii2gdir(filename);
-    
-    if (exist(gdir_filename, 'file'))
-        xps = mdm_xps_from_gdir(gdir_filename);
-    end
-end
-
-% If it is still empty, check for bval bvec
-if (isempty(xps))
-    [tmpa,tmpb] = mdm_fn_nii2bvalbvec(filename);
-    
-    if (exist(tmpa, 'file') && exist(tmpb,'file'))
-        xps = mdm_xps_from_bval_bvec(tmpa,tmpb);
-    end
-end
-
+% For xps.n to be present and correct
+xps.n = size(I,4);
     
 % Rotate the volume
 if (do_flip) && (isfield(header, 'my_hdr') && (isfield(header.my_hdr,'ori')))

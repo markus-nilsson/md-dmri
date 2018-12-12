@@ -46,7 +46,7 @@ ms = real(ms);
 
 if (max(ms) > 15), ms = ms / 15 * 15; end
 
-cla(h); hold(h, 'on');
+cla(h,'reset'); hold(h, 'on');
 
 switch (opt.mplot.dtd_plot_type)
     

@@ -39,7 +39,7 @@ for c = 1:numel(d)
         
         try
             % currently the check xps functions throw errors
-            feval(f_name, EG.roi.xps);
+            feval(f_name, msf_rmfield(EG.roi.xps, 'xps_fn'));
             str{end+1} = d(c).name;
             
         catch me
@@ -47,7 +47,7 @@ for c = 1:numel(d)
             % to the method name
             str{end+1} = [ d(c).name ' (x)'];
             
-            if (0)
+            if (1)
                 disp(me.message);
             end
         end
@@ -80,22 +80,27 @@ c_method = get(h_popup, 'value');
 
 
 % connect plot function to method
+
+    function mgui_analysis_clear_panel(h_top, h_bottom)
+        cla(h_top,'reset');
+        cla(h_bottom,'reset');
+    end
+        
+
+% transpose S in these calls because we follow the NxM format where
+% N is the number of volumes and M is the number of voxels
 switch (c_method)
     
-    case 0
-        f_plot = @(S,xps) 1;
+    case 0 % make sure it is cleared in this case
+        f_plot = @(S,xps,c) mgui_analysis_clear_panel(h_top, h_bottom);
     
     case 1 % show the default overview 1D or 2D
-        if (size(EG.roi.I,4) == 1)
-            f_plot = @(S, xps) plot_histogram(S, xps, h_top, h_bottom);
-        else
-            f_plot = @(S, xps) mgui_analysis_plot_overview(...
-                S, xps, h_top, h_bottom);
-        end
+        f_plot = @(S,xps,c) mgui_analysis_plot_overview(S', xps, ...
+            h_top, h_bottom, [], c);
         
     otherwise % run custom plot scripts
-        f_plot = @(S,xps) mgui_analysis_plot(method_name{c_method}, ...
-            S, xps, h_top, h_bottom);
+        f_plot = @(S,xps,c) mgui_analysis_plot(method_name{c_method}, ...
+            S', xps, h_top, h_bottom, c);
 end
 
 
@@ -122,25 +127,9 @@ else
     S = [];
 end
 
-% clear content
-cla(h_top,'reset');
-cla(h_bottom,'reset');
-
-
-xps = EG.roi.xps;
-xps.c_volume = EG.roi.c_volume; % bit nasty, but...
-
 % run analysis and/or plot script
-f_plot(S, xps);
+f_plot(S, EG.roi.xps, EG.roi.c_volume);
 
-
-    function plot_histogram(S, xps, h_top, h_bottom)
-        
-        hist(h_top, S);
-        axis(h_top, 'on');
-        title(h_top, num2str(nanmean(S(:)'),3));
-        
-    end
 
 end
 

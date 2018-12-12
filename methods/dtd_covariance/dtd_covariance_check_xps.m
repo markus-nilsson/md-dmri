@@ -30,8 +30,7 @@ if (cond < opt.dtd_covariance.cond_limit)
         disp('Unable to provide xps information');
     end
     
-    error('The b-tensors cannot form an overdetermined equation system (cond = %s)', ...
-        num2str(cond));
+    error('Equation system not overdetermined (cond = %1.1e)', cond);
     
     
 end

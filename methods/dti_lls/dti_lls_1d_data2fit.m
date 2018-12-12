@@ -1,4 +1,4 @@
-function m = dti_lls_1d_data2fit(signal, xps, opt, ind)
+function [m, cond] = dti_lls_1d_data2fit(signal, xps, opt, ind)
 % function m = dti_lls_1d_data2fit(signal, xps, opt, ind)
 
 if (nargin < 4), ind = ones(size(signal)) > 0; end
@@ -28,7 +28,9 @@ end
 
 tmp = (X' * C2 * X);
 
-if (rcond(tmp) > 1e-10) % some small number
+cond = rcond(tmp);
+
+if (cond > 1e-10) % some small number
     
     m = tmp \ X' * C2 * real(log(signal(ind)));
     
