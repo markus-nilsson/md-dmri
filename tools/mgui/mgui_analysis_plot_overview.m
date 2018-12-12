@@ -1,108 +1,124 @@
-function mgui_analysis_plot_overview(S, xps, h_top, h_bottom, S_fit)
+function mgui_analysis_plot_overview(S, xps, h_top, h_bottom, S_fit, c_volume)
 % function mgui_analysis_plot_overview(S, xps, h_top, h_bottom)
 
-if (isempty(S))
-    axes(h_top);
-    cla;
-    text(0, 0, 'Draw ROI');
-    ylim([-1 1]);
-    xlim([0 10]);
+if (nargin < 4), h_bottom = []; end
+if (nargin < 5), S_fit = []; end
+if (nargin < 6), c_volume = []; end
+
+ 
+% Decide what to show at the top
+if (~isempty(h_top))
     axis(h_top, 'off');
+    
+    if (isempty(S))
+        mgui_analysis_plot_message(h_top, '---> Draw ROI to get going');
+        
+    elseif (size(S,1) == 1) % one volume only
+        mgui_analysis_plot_histogram(h_top, S);
+        
+    else
+        xps = msf_ensure_field(xps, 'c_volume', []);
+        mgui_analysis_plot_signal(h_top, S, S_fit, c_volume);
+    end
+end
+
+% Decide what to show at the bottom
+if (~isempty(h_bottom))
     axis(h_bottom, 'off');
-    return;
-end
-
-col_gray = [0.0 0.0 0.0] + 0.7;
-col_red  = [0.8 0.0 0.0];
-
-xps = msf_ensure_field(xps, 'n', size(S,2));
-
-x = 1:xps.n;
-MS = mean(S, 1)';
-
-hold(h_top, 'on');
-
-if (size(S, 1) < 50)
     
-    % Deal with complex signals
-    if (any(~isreal(S(:))))
-        S_plot = abs(S');
-        D_plot = std(abs(S), [], 1)';
+    if (isfield(xps, 'xps_fn') && (xps.n > 1))
+        mgui_analysis_plot_xps_info(h_bottom, xps);
     else
-        S_plot = S';
-        D_plot = std(S, [], 1)';
-    end
-    
-    plot(h_top, x, S_plot, '.-', 'color', col_gray);
-    
-else
-    
-    if (any(~isreal(S(:))))
-        S_plot = abs(MS);
-        D_plot = std(abs(S), [], 1)';
-    else
-        S_plot = MS;
-        D_plot = std(S, [], 1)';
-    end
-    
-    plot(h_top, x, S_plot, '-', 'color', col_gray);
-    errorbar(h_top, x, S_plot, D_plot, 'k.', 'markersize', 8);
-    
-    if (isfield(xps, 'c_volume'))
-        plot(h_top, x(xps.c_volume), S_plot(xps.c_volume), 'ko', 'markerfacecolor', 'red', 'markersize', 9);
+        cla(h_bottom, 'reset'); axis(h_bottom, 'off');
     end
     
 end
 
-if (nargin > 4)
-    plot(h_top, x, S_fit, '-', 'color', col_red);
-end
-
-axis(h_top, 'on');
-box(h_top, 'off');
-set(h_top, 'tickdir','out', 'ticklength', [0.03 0.1]);
-
-% Compute y-scaling
-% if (any(~isreal(S(:))))
-%     y_axis = [0 max(abs(S(:)) + eps) * 1.1];
-% elseif (min(S(:)) < 0)
-%     y_axis = [-1 1] * (max(abs(S(:))) + eps) * 1.1;
-% else % standard case
-%     y_axis = [0 max(S(:) + eps) * 1.1];
-% end
-
-if (min(S_plot(:)) < 0)
-    y_axis = [min(min(S_plot-D_plot)) max(max(S_plot+D_plot))] + [-1 1]*(max(max(abs(S_plot)+D_plot)) + eps) * 0.1;
-else
-    y_axis = [0 max(max(S_plot + D_plot + eps)) * 1.1];
-end
 
 
-axis(h_top, [ [1 xps.n] + [-1 1] * 0.5 y_axis]);
-
-xlabel(h_top, 'Acq number');
-ylabel(h_top, 'Signal');
-set(h_top, 'xtick', [1 xps.n]);
-
-f = @(x) num2str(getfield(msf_ensure_field(xps, x, NaN), x));
-
-str = {'Info:', ...
-    sprintf('xps.n: %s', f('n'))};
-
-text(0,0,str, 'parent', h_bottom);
-axis(h_bottom, 'off');
-
-% Add text anotaion that shows mean if few points are included
-if numel(x) <= 6
-    for it = 1:numel(x)
-        mval = mean(S_plot(it, :));
-        dval = D_plot(it);
-        offset = [range(get(h_top, 'XLim')) range(get(h_top, 'YLim'))]*0.03;
-        text(h_top, x(it)+offset(1), mval+offset(2), {sprintf('%0.1e', mval); [char(177) sprintf(' %0.1e', dval)]}, 'fontsize', 7);
+    function mgui_analysis_plot_histogram(h, S)
+        cla(h, 'reset');
+        hist(h, S);
+        tmp = S(~isnan(S(:)));        
+        title(h, {...
+            sprintf('Mean (std): %1.2f (%1.2f)', mean(tmp), std(tmp)), ...
+            sprintf('Min/max: %1.2f/%1.2f', min(tmp), max(tmp))});
+            
     end
-end
 
-% Switch to log y-axis if dynamic range is larger than 100
-if all(S_plot(:) > 0) && range([min(S_plot(:))/max(max(S_plot+D_plot)) 1]) > 10
-    set(h_top, 'YScale', 'log')
+
+
+    function mgui_analysis_plot_signal(h, S, S_fit, c_volume)
+
+        
+        % Deal with complex signals
+        if (any(~isreal(S(:))))
+            S_plot = abs(S);
+            D_plot = std(abs(S), [], 2);
+        else
+            S_plot = S;
+            D_plot = std(S, [], 2);
+        end
+        
+        % Compute plot axes
+        if (min(S_plot(:)) < 0)
+            y_axis = [...
+                min(min(S_plot-D_plot)) ...
+                max(max(S_plot+D_plot))] + ...
+                [-1 1]*(max(max(abs(S_plot)+D_plot)) + eps) * 0.1;
+        else
+            y_axis = [0 max(max(S_plot + D_plot + eps)) * 1.1];
+        end        
+        
+        
+        % Plot the signal
+        cla(h, 'reset'); hold(h, 'on');
+        x = 1:size(S,1);
+        col_gray = [0.0 0.0 0.0] + 0.7;
+        col_red  = [0.8 0.0 0.0];        
+                
+        if (size(S, 1) < 50) % small ROI
+            plot(h, x, S_plot, '.-', 'color', col_gray);
+            
+        else % larger ROI            
+            plot(h, x, mean(S_plot, 2), '-', 'color', col_gray);
+            errorbar(h, x, mean(S_plot, 2), D_plot, 'k.', 'markersize', 8);
+        end
+        
+        if (~isempty(c_volume))
+            plot(h, x(c_volume), mean(S_plot(c_volume, :)), 'ko', ...
+                'markerfacecolor', 'red', ...
+                'markersize', 9);
+        end
+                
+        if (~isempty(S_fit))
+            plot(h, x, S_fit, '-', 'color', col_red);
+        end
+        
+        
+        % Setup the plot
+        axis(h, 'on');
+        box(h, 'off');
+        set(h, 'tickdir','out', 'ticklength', [0.03 0.1]);
+        axis(h, [ [1 max(x)] + [-1 1] * 0.5 y_axis]);        
+        xlabel(h, 'Acq number');
+        ylabel(h, 'Signal');
+        set(h, 'xtick', [1 max(x)]);
+        
+        
+        % Add text anotaion that shows mean, if few points are included
+        if (max(x) <= 6)
+            for c = 1:max(x)
+                text(h, ...
+                    x(c) + 0.03 * range(get(h, 'XLim')), ...
+                    mean(S_plot(c, :)) + 0.03 * range(get(h, 'YLim')), ...
+                    sprintf('%0.1e\n%s%0.1e', mean(S_plot(c, :)), char(177), D_plot(c)), ...
+                    'fontsize', 7);
+            end
+        end               
+
+    end
+
+
+
 end
