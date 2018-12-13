@@ -17,6 +17,7 @@ fun_fit2data = @ivim_1d_fit2data;
 opt = ivim_opt();
 
 xps = msf_ensure_field(xps, 'b_delta', ones(size(xps.b)));
+xps = msf_ensure_field(xps, 'a_ind', (1:xps.n)');
 
 m = mplot_s_vs_b_by_b_delta(S, xps, fun_data2fit, fun_fit2data, opt, h, h2);
 

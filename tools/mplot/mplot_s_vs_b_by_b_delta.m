@@ -28,20 +28,7 @@ xps = msf_ensure_field(xps, 'b_eta', zeros(size(xps.b_delta)));
 
 
 % This is for powder averaged data... so make it powder averaged if needed
-xps_pa = mdm_xps_pa(msf_rmfield(xps, 'c_volume'));
-
-if (xps_pa.n ~= xps.n)
-    if (isfield(xps,'c_volume'))
-        c_volume = xps.c_volume;
-        xps = rmfield(xps, 'c_volume');
-    else
-        c_volume = [];
-    end
-    
-    [S,xps] = mdm_powder_average_1d(S, xps);
-    
-    xps.c_volume = c_volume;
-end
+[S,xps] = mdm_powder_average_1d(S, xps);
 
 % fit function
 if (nargin < 8) || (numel(ind) ~= numel(S))
@@ -153,7 +140,7 @@ end
 axis(h, 'on');
 
 
-xlim(h, [0 max(xps2.b) * 1.1e-9]);
+xlim(h, [-0.01 max(xps2.b) * 1.1e-9]);
 ylim(h, [min(0.1, max(0.0001, 10^floor(log10(min(S(S(:) > 0) / sc))))) 1.1]);
 
 xlabel(h, 'b [ms/um^2]', 'fontsize', opt.mplot.fs);

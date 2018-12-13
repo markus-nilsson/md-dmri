@@ -30,15 +30,30 @@ unit_to_SI = [max(signal) 1 1e-9 1e-9];
     end
 
 
-% first fit constrained to oblates -0.5<d_delta<0
-% guesses and bounds
-t_lb      = [0  eps  3 eps];
+% first fit: make it open
+t_lb      = [0  eps  10 0.0];
 t_ub      = [2 1-eps 100 3];
 
-t = msf_fit(@my_1d_fit2data, signal(ind), t_lb, t_ub, opt.ivim.n_rep, ...
+[t1,ss1] = msf_fit(@my_1d_fit2data, signal(ind), t_lb, t_ub, opt.ivim.n_rep, ...
     opt.ivim.lsq_opts);
 
-m = t2m(t);
+% second fit: adc only
+t_lb      = [0  eps  100 eps];
+t_ub      = [2 1e-6  1000 3];
+
+[t2,ss2] = msf_fit(@my_1d_fit2data, signal(ind), t_lb, t_ub, opt.ivim.n_rep, ...
+    opt.ivim.lsq_opts);
+
+
+if ( (ss2 / (numel(signal(ind)) - 2)) < (ss1 / (numel(signal) - 4)) )
+    m = t2m(t2);
+else
+    m = t2m(t1);
+end
+
+% m = t2m(t2);
+    
+
 
 
 end
