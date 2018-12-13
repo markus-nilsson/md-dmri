@@ -20,10 +20,7 @@ paths = mdm_paths(paths, 'dtd_codivide');
 msf_log(['Starting ' mfilename], opt);    
 
 % Smooth and prepare mask
-if (opt.filter_sigma > 0)
-    s = mdm_s_smooth(s, opt.filter_sigma, [], opt);
-end
-
+s = mdm_s_smooth(s, opt.filter_sigma, [], opt);
 s = mdm_s_mask(s, @mio_mask_threshold, [], opt);
 
 % Fit and derive parameters

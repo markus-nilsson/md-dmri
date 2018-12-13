@@ -13,3 +13,15 @@ for c = 1:numel(required_fields)
     end
 end
     
+
+
+% Check that the b-tensors produce an invertible matrix
+opt = dti_lls_opt();
+
+tmp = warning('query'); warning off; % probe without throwing warning
+[~,cond] = dti_lls_1d_data2fit(abs(randn(xps.n,1)), xps, opt);
+warning(tmp);
+
+if (cond < 1e-10)
+    error('The b-tensors cannot form an overdetermined equation system');
+end

@@ -36,3 +36,9 @@ opt.mio.pa = msf_ensure_field(opt.mio.pa, 'do_abs', 1);
 opt.mio.pa = msf_ensure_field(opt.mio.pa, 'method', 'ari');
 
 
+
+opt.mio.fit_model.present = 1;
+opt.mio.fit_model = msf_ensure_field(opt.mio.fit_model, 's_type', 'none');
+opt.mio.fit_model = msf_ensure_field(opt.mio.fit_model, 's_filter_sigma', 0.7);
+
+

@@ -34,6 +34,7 @@ if (cond > 1e-10) % some small number
     m(2:7)  = m(2:7)  * 1e-9;   % Convert back to SI units
     m(8:22) = m(8:22) * 1e-18;  % Convert back to SI units
         
+    m = m';
 else
     warning('rcond fail in dki_lls_1d_data2fit')
     m = zeros(1, 22);
