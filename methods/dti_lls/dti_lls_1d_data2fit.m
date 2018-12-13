@@ -37,6 +37,8 @@ if (cond > 1e-10) % some small number
     m(1) = exp(m(1));
     m(2:7) = m(2:7) * 1e-9;
     
+    m = m';
+    
 else
     m = zeros(1,7);
 end

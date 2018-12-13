@@ -1,96 +1,100 @@
-function mgui_analysis_plot(model_name, S, xps_in, h_top, h_bottom, c_volume)
-% function mgui_analysis_plot(model_name, S, xps_in, h_top, h_bottom, c_volume)
+function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume)
+% function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume)
 
-if (nargin < 6), c_volume = []; end 
-
-% Remove internal xps baggage
-xps = msf_rmfield(xps_in, 'xps_fn');
+if (nargin < 6), c_volume = []; end
 
 % Clear content
-cla(h_top, 'reset'); cla(h_bottom, 'reset');    
+for c = 1:2, cla(h(c), 'reset'); axis(h(c), 'off'); end
 
-plot_fun_name   = [model_name '_plot'];
-fun_1d_data2fit = [model_name '_1d_data2fit'];
-fun_1d_fit2data = [model_name '_1d_fit2data'];
-fun_opt         = [model_name '_opt'];
-fun_check       = [model_name '_check_xps'];
+% Pull together method functions
+plot_fun_name   = [method_name '_plot'];
+fun_1d_data2fit = [method_name '_1d_data2fit'];
+fun_1d_fit2data = [method_name '_1d_fit2data'];
+fun_opt         = [method_name '_opt'];
+fun_check       = [method_name '_check_xps'];
 
 % convenient format for the models
 MS = mean(S, 2);
 
-% First check that the xps is ok
-g = @(x) strrep(x, '_', '\_');
-if (exist([fun_check '.m'], 'file'))
-    try % default option
-        feval(fun_check, xps);
-        c_attempt_list = 1:6;
-        txt_from_check = [];
-    catch me
-        c_attempt_list = 6;
-        txt_from_check = g(me.message);
-    end
-else
-    c_attempt_list = 6;
-    txt_from_check = sprintf('%s not defined', g(fun_check));
-end
-
-for c_attempt = c_attempt_list
+for c_attempt = 1:9
     
-    try 
+    try
         switch (c_attempt)
             
-            case 1 % show standard message if there is no signal
-                if (numel(S) > 0), continue; end
-                mgui_analysis_plot_overview(S, xps_in, h_top, h_bottom);
-            
-            case 2 %  try standard plot function
-                if (~exist([plot_fun_name '.m'], 'file')), continue; end
-                feval(plot_fun_name, MS, xps, h_top, h_bottom);
-            
-            case 3 %  try with magnitude data, if needed
-                if (~exist([plot_fun_name '.m'], 'file')), continue; end
-                if (all(isreal(MS(:)))), continue; end
-                warning('Performed analysis on magnitude of complex data');
-                feval(plot_fun_name, abs(MS), xps, h_top, h_bottom);
-            
-            case 4 %  try with an argument less
-                if (~exist([plot_fun_name '.m'], 'file')), continue; end
-                feval(plot_fun_name, MS, xps, h_top);
-
-            case 5 % show data with fitted model only
+            case 1 % no signal -> show standard message
+                if (numel(S) == 0)
+                    mgui_analysis_plot_message(h(1), ...
+                        '---> Draw ROI to get going');
+                end
+                
+            case 2 % overview asked for
+                if (~strcmp(method_name, 'Overview')), continue; end
+                
+                if (size(S,1) == 1) % one volume only --> histogram
+                    mgui_analysis_plot_histogram(h(1), S);
+                else
+                    mgui_analysis_plot_signal(h(1), S, [], c_volume);
+                end
+                
+            case 3 % report if there is no *_check_xps function
+                if (~exist([fun_check '.m'], 'file'))
+                    
+                    mgui_analysis_plot_message(h(1), ...
+                        sprintf('%s not found', fun_check));
+                end
+                
+            case 4 % test the *_xps_check and report if it throws an error
+                try
+                    feval(fun_check, xps);
+                catch me
+                    mgui_analysis_plot_message(h(1), ...
+                        sprintf('%s error:\n%s', fun_check, me.message));
+                end
+                
+            case 5 %  try standard plot function
+                feval(plot_fun_name, MS, xps, h(1), h(2));
+                
+            case 6 %  try with magnitude data, if needed
+                if (~all(isreal(MS(:))))
+                    feval(plot_fun_name, abs(MS), xps, h(1), h(2));
+                    warning('Performed analysis on magnitude of complex data');
+                end
+                
+            case 7 %  try with one argument less
+                feval(plot_fun_name, MS, xps, h(1));
+                
+            case 8 % show data with fitted model only
+                
                 opt = feval(fun_opt);
                 m = feval(fun_1d_data2fit, MS, xps, opt);
                 S_fit = feval(fun_1d_fit2data, m, xps);
                 
-                mgui_analysis_plot_overview(S, xps_in, ...
-                    h_top, h_bottom, S_fit, c_volume);
-            
-            case 6 % at last, plot message
-                mgui_analysis_plot_message(h_top, ...
-                    {'Could not fit/plot selected model', ...
-                    txt_from_check});
-
+                mgui_analysis_plot_signal(h(1), S, S_fit, c_volume);
+                
+            case 9 % at last, provide error message
+                mgui_analysis_plot_message(h(1), 'Could not fit or plot');
         end
         
     catch me
-        fprintf('%s err: %s\n', plot_fun_name, me.message);
+        fprintf('%s err: %s (%s)\n', plot_fun_name, me.message, me.stack(1).name);
     end
     
     % something was plotted, yeah!
-    if (~isempty(get(h_top, 'children')))
+    if (~isempty(get(h(1), 'children')))
         break;
     end
 end
 
-% Add something to the bottom if its available
-if (isempty(get(h_bottom, 'children')))
-    mgui_analysis_plot_xps_info(h_bottom, xps_in);
+
+% Add xps info to the bottom if its available
+if (isempty(get(h(2), 'children')))
+    mgui_analysis_plot_xps_info(h(2), xps, method_name, xps_fn);
 end
 
 
-                    
-        
-        
+
+
+
 
 
 
