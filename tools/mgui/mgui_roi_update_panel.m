@@ -22,7 +22,7 @@ if (do_reload)
     % Load the image volume and get the filename
     EG = mgui_waitbar(EG, 0.1, 'Loading...');
     try
-        [I, header, filename, ext, xps, xps_fn] = mgui_contrast_load(EG);% , EG.select);
+        [I, header, filename, ext, xps, xps_fn] = mgui_contrast_load(EG);
     catch me
         disp(getReport(me,'Extended'));
         return;

@@ -14,6 +14,10 @@ if (~exist(filename, 'file') && exist([filename '.gz'], 'file'))
     filename = [filename '.gz'];
 end
 
+if (~exist(filename, 'file'))
+    error('File does not exist: %s', filename);
+end
+
 % Nifti files are in LPS (some, at least, check this!)
 % Matlab images are displayed as YX
 switch (lower(ext))
