@@ -88,7 +88,16 @@ end
 
 % Add xps info to the bottom if its available
 if (isempty(get(h(2), 'children')))
-    mgui_analysis_plot_xps_info(h(2), xps, method_name, xps_fn);
+    
+    try
+        msg = mdm_xps_info(xps, method_name, [], xps_fn);
+    catch me
+        disp(me.message);
+        msg = 'Could not run mdm_xps_info';
+    end
+    
+    mgui_analysis_plot_message(h(2), msg);
+    
 end
 
 
