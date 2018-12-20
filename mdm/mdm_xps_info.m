@@ -1,11 +1,13 @@
 function txt = mdm_xps_info(xps, method, opt, xps_fn)
-% function txt = mdm_xps_info(xps, method, opt)
+% function txt = mdm_xps_info(xps, method, opt, xps_fn)
 %
 % Print protocol information
 
 if (nargin < 2), method = ''; end
 if (nargin < 3), opt = []; end
 if (nargin < 4), xps_fn = []; end
+
+if (isempty(method)), method = 'general'; end
 
 opt = mdm_opt(opt);
 
@@ -53,7 +55,6 @@ txt = f('Summary of the eXperimental Parameter Structure (xps)', [], txt);
 if (isfield(xps, 'n'))
     txt = f('Number of measurements: %i\n', xps.n, txt);
 end
-
 
 switch (method)
     case 'dtd_covariance'
@@ -112,6 +113,7 @@ switch (method)
                     continue;
                 otherwise 
                     tmp = [];
+                    continue; 
             end           
             
             txt = cat(1, txt, ...
