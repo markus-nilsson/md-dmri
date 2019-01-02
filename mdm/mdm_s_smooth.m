@@ -4,7 +4,7 @@ function s = mdm_s_smooth(s, filter_sigma, o_path, opt)
 % Notes:
 % Will return 's' without any action if filter_sigma <= 0
 
-if (all(ischar(s))), s = setfield([], 'nii_fn', s); end
+if (all(ischar(s))), s = struct('nii_fn', s); end
 
 % init
 if (nargin < 2), filter_sigma = 0.4; end
@@ -16,9 +16,9 @@ msf_log(['Starting ' mfilename], opt);
 % return s without further actions if filter_sigma = 0
 % --> this is how it is done in all method pipelines, but it
 %     may lead to unwanted behaviour in data-deletion scenarios
-if (opt.filter_sigma <= 0)
-    msf_log(sprintf('-> No action needed, opt.filter_sigma = %1.1f', ...
-        opt.filter_sigma), opt);
+if (filter_sigma <= 0)
+    msf_log(sprintf('-> No action needed, filter_sigma = %1.1f', ...
+        filter_sigma), opt);
     return;
 end
 

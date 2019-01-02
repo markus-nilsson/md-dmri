@@ -3,7 +3,7 @@ function fn = ut_mdm(c_ut)
 %
 % Run unit tests on the files in this package
 
-if (nargin == 0), fn = 6; return; end
+if (nargin == 0), fn = 7; return; end
 
 
 switch (c_ut)
@@ -221,6 +221,21 @@ switch (c_ut)
                 (size(g0,2) ~= size(g1,2)) || ...
                 (any( abs(g1(:) - g0(:)) > eps))
             error('%s, ut_mdm test %i, read/write error', fn, c_ut);
-        end        
+        end     
         
+    case 7
+        fn = 'mdm_xps_info.m';
+        
+        gwf = zeros(100,3);
+        rf = cat(1, ones(50,1), -ones(50,1));
+        dt = 1e-3;
+        
+        xps = gwf_to_pars(gwf, rf, dt);
+        
+        msg = mdm_xps_info(xps);
+        
+        if (isempty(msg))
+            error('%s, ut_mdm test %i, no msg generated', fn, c_ut);
+        end
+            
 end
