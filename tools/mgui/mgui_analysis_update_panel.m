@@ -79,7 +79,8 @@ end
 % Pull out signal in MxN format where M is n_dynamics and N roi size
 if (msf_isfield(EG, 'roi') && ...
         msf_isfield(EG.roi, 'I') && ...
-        msf_isfield(EG.roi, 'I_roi'))
+        msf_isfield(EG.roi, 'I_roi') && ...
+        any(EG.roi.I_roi(:) > 0))
     
     % only load the signal once
     if (~isfield(EG,'analysis') || ~isfield(EG.analysis, 'S'))
