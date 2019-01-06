@@ -76,7 +76,13 @@ for c_attempt = 1:9
         end
         
     catch me
-        fprintf('%s err: %s (%s)\n', plot_fun_name, me.message, me.stack(1).name);
+        
+        % 2019-01-06: there is some MATLAB 2015 issue going on there
+        try
+            fprintf('%s err: %s (%s)\n', plot_fun_name, me.message, me.stack(1).name);
+        catch
+            fprintf('unexpected error in mgui_analysis_plot.m\n');
+        end
     end
     
     % something was plotted, yeah!
