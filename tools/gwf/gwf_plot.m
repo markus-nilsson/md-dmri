@@ -10,7 +10,7 @@ if (nargin < 4), opt = []; end
 
 opt = gwf_opt(opt);
 
-opt.gwf = msf_ensure_field(opt.gwf, 'plot_gmax', max(abs(gwf(:)) * 1.1));
+opt.gwf = msf_ensure_field(opt.gwf, 'plot_gmax', max(abs(gwf(:)) * 1.1 + eps));
 
 
 % init and test things
@@ -28,7 +28,8 @@ for c = 1:size(gwf, 2)
         'FaceAlpha', opt.gwf.gwf_facealpha(c), ...
         'EdgeColor', 'black', ...
         'FaceColor', opt.gwf.col{c}, ...
-        'LineWidth', opt.gwf.gwf_linew); hold on;
+        'LineWidth', opt.gwf.gwf_linew, ...
+        'LineStyle', opt.gwf.gwf_linestyle{c}); hold on;
 end
 
 xlabel('t [ms]');
