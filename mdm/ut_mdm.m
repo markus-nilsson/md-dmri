@@ -238,9 +238,6 @@ switch (c_ut)
         catch me
         end        
         
-            
-        
-        
     case 6
         fn = 'mdm_gwf_read.m, mdm_gwf_write.m';
         
