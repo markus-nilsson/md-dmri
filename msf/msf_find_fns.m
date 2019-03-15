@@ -16,7 +16,7 @@ else
 end
 
 if (iscell(pattern))
-    
+        
     % Match to each pattern
     fn = {};
     for c = 1:numel(pattern)
@@ -41,5 +41,5 @@ end
 fn = cell(1,numel(d));
 
 for c = 1:numel(d)
-    fn{c} = fullfile(bp, d(1).name);
+    fn{c} = fullfile(bp, d(c).name);
 end
