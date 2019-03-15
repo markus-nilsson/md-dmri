@@ -5,7 +5,9 @@ msg = strrep(strrep(msg, '\_', '_'), '_', '\_');
 
 cla(h, 'reset'); 
 axis(h, 'off');
-h_txt = text(h, 0, 0, msg);
+
+axes(h); 
+h_txt = text(0, 0, msg);
 
 xtent = get(h_txt,'Extent');
 
