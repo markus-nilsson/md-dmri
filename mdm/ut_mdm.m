@@ -198,6 +198,45 @@ switch (c_ut)
             error('%s, ut_mdm test %i, xps.b_delta error #2', fn, c_ut);
         end        
         
+    case 6 % test mdm_philips_dti_vectors_write.m
+        fn = 'mdm_xps_from_bval_bvec.m';
+        
+        tmp_fn = fullfile(msf_tmp_path(1), 'tmp.txt');
+        
+        u = cat(1, uvec_elstat(20), uvec_elstat(40));
+        b = cat(1, zeros(20,1) + 1e6, zeros(40,1) + 1000e6);
+        
+        try % wrong sizes
+            mdm_philips_dti_vectors_write(tmp_fn, u', b);
+            error('%s, ut_mdm test %i, size error #1', fn, c_ut);
+        catch 
+            1;
+        end
+        
+        try % wrong sizes
+            mdm_philips_dti_vectors_write(tmp_fn, u, b(2:end));
+            error('%s, ut_mdm test %i, size error #2', fn, c_ut);
+        catch 
+            1;
+        end
+        
+        try % same vectors
+            mdm_philips_dti_vectors_write(tmp_fn, zeros(3,3), zeros(3,1));
+            error('%s, ut_mdm test %i, unique error', fn, c_ut);
+        catch me
+        end
+        
+        try % same vectors
+            mdm_philips_dti_vectors_write(tmp_fn, zeros(3,3), rand(3,1));
+            error('%s, ut_mdm test %i, unique error #2 ', fn, c_ut);
+        catch me
+        end
+                
+        try % same vectors
+            mdm_philips_dti_vectors_write(tmp_fn, randn(3,3), rand(3,1));
+            error('%s, ut_mdm test %i, length error ', fn, c_ut);
+        catch me
+        end        
         
     case 6
         fn = 'mdm_gwf_read.m, mdm_gwf_write.m';

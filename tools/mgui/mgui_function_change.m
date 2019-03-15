@@ -7,7 +7,9 @@ function EG = mgui_function_change(EG, varargin)
 % ROI should also be removed, otherwise, ROIs may get overwritten, however,
 % this cause troubles with slice positions not being remembered...
 
-% EG = mgui_roi_save(EG);
+if (EG.c_mode == 3)
+    EG = mgui_roi_save(EG);
+end
 
 if (isfield(EG, 'roi'))
     
