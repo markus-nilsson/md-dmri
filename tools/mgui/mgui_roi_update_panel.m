@@ -59,7 +59,9 @@ if (do_reload)
     EG = mgui_waitbar(EG, 0.4, 'Loading ROIs...');
     EG.roi.is_updated = 1;
     
-    if ...
+    if (EG.c_mode == 3)
+        EG = mgui_roi_load(EG);
+    elseif ...
             (EG.c_mode == 2) && ... % Browse mode
             (isfield(mgui_roi_old,'I')) && ...
             (isfield(mgui_roi_old,'I_roi')) && ...
@@ -441,11 +443,6 @@ if (do_redraw_image)
         EG.analysis = msf_rmfield(EG.analysis, 'S');
         EG = mgui_analysis_update_panel(EG);
     end
-    
-    
-    
-    % this should probably not go here, but...
-    EG.roi.is_updated = 0;
     
 end
 

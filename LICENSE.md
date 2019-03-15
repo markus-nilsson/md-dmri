@@ -1,6 +1,6 @@
-License Agreement CR Development Code
+License Agreement Random Walk Imaging Code
 
-This License is granted by CR Development AB, a Swedish company registered 
+This License is granted by Random Walk Imaging AB, a Swedish company registered 
 under company No 556749-5089, having its principle place of business 
 located at P.O Box 124, 221 00 Lund to the individual and/or entity that 
 has downloaded the Program covered by this Agreement or subsequently 
@@ -48,7 +48,7 @@ In this Agreement:
 the Program, requiring copyright permission, to create other than an exact 
 copy. 
 
-?Program? means any copy of the software CR Development Code to be 
+?Program? means any copy of the software Random Walk Imaging Code to be 
 distributed under this License. 
 
 ?Source code? means the preferred form of the work for making modifications

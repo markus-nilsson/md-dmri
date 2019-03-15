@@ -4,8 +4,8 @@ function M = mio_mask_erode(I, n)
 % erode the mask by 1 voxel
 
 if (nargin < 2)
-    n = 3;
+    n = [3 3 3];
 end
 
-M = convn((double(I) > 0), ones(n,n,n), 'same') >= n^3;
+M = convn((double(I) > 0), ones(n(1),n(2),n(3)), 'same') >= prod(n);
 

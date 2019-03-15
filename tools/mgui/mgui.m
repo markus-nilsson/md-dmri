@@ -1,8 +1,16 @@
 function mgui(varargin)
 % function mgui(varargin)
-
-% Handle definition things
-c_mode = 2;
+%
+%
+% Run without arguments to enter browse mode (c_mode == 2)
+%
+% Run with two arguments mgui(EG, 3) to enter roi mode (c_mode == 3)
+%   Here, EG need to be a structure with the following fields
+%   EG.data.ref(:).(fn, name) where fn is the filename of an image file
+%                               and name is its display name
+%   data.nii_fn_to_roi_fn, which is a function handle that accepts 
+%         two integers: c_item and c_roi and should return a filename for 
+%         a ROI file
 
 h_fig = mgui_misc_get_mgui_fig();
 
@@ -22,6 +30,19 @@ else
     % This is where the init needs to take place
     EG = mgui_define_tags;
     EG.conf.is_gui = 1;
+    
+    % Pull in external data
+    if (nargin > 0) && (isstruct(varargin{1}))
+        EG.data = varargin{1}.data;
+    end
+    
+    % c_mode: 2 - browse, 3 - roi-based
+    if (nargin > 1) && (isnumeric(varargin{2}))
+        c_mode = varargin{2};
+    else
+        c_mode = 2;
+    end
+    
 
     % Just make sure this structure is here
     EG.handles.defined = 1;
@@ -85,6 +106,9 @@ if (nargin >= 1)
                 case EG.t_BROWSE_EXT
                     EG = mgui_browse_update_panel(EG);
                     
+                case EG.t_BROWSE_ROI
+                    EG = mgui_browse_file(EG);
+                    
             end
         end
         
@@ -118,6 +142,7 @@ end
 function EG = mgui_browse_file(EG)
 
 EG.browse.c_item = get(EG.tags.(EG.t_BROWSE_FILE), 'Value');
+EG.browse.c_roi  = get(EG.tags.(EG.t_BROWSE_ROI), 'Value');
 
 if (EG.browse.d(EG.browse.c_item).isdir)
     
