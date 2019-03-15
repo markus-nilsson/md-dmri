@@ -6,7 +6,7 @@ if nargin < 6
     opt.MaxIter     = 200;
     opt.TolX        = 1e-3;
     opt.TolFun      = 1e-3;
-    opt.n_repeat    = 5;   % custom field that needs to be added manually
+    opt.n_repeat    = 3;   % custom field that needs to be added manually
 end
 
 

@@ -1,9 +1,6 @@
 function [c, k_p] = cfa_maxwell_bias_phase(k, v_p, r, T2star, p_vel, k0)
 % function [c, k_p] = cfa_maxwell_bias_phase(k, v_p, r, T2star, p_vel)
 %
-% Baron et al., The effect of concomitant gradient fields on diffusion 
-% tensor imaging. Magn Reson Med, 2012. 68(4): p. 1190-201.
-%
 % v_p    is the phase direction vector
 % T2Star is the T2* relaxation time of the tissue
 % p_vel  is the k-space velocity in the phase direction
