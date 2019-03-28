@@ -31,7 +31,7 @@ switch (c_case)
     case 1       
         
         % find unique b_deltas
-        b_delta_input = round(xps_pa.b_delta * 100) / 100;
+        b_delta_input = round(xps_pa.b_delta(xps_pa.b > 0) * 100) / 100;
         [b_delta_uni,~] = unique(b_delta_input);
         b_delta_uni = sort(b_delta_uni);
         
@@ -61,7 +61,7 @@ switch (c_case)
             % predict a pa signal
             if (1)
                 
-                b_pa = linspace(0, max(xps.b) * 1.05, 100);
+                b_pa = linspace(0, max(xps.b) * 1.05, 30);
                 signal_pa = zeros(size(b_pa));
                 for c_b = 1:numel(b_pa)
                     bt_tmp = tm_tpars_to_1x6(b_pa(c_b), b_delta_uni(c), uvec_tricosa);
