@@ -28,7 +28,7 @@ if (is_color)
     tmp(tmp < 0) = 0;
     
 else
-    colormap(gray);
+    colormap(gca, gray);
     try
         tmp = mio_3d_to_2d_slice(I(:,:,:,c),d,k);
     catch me
