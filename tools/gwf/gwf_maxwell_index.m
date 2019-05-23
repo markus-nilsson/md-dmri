@@ -1,5 +1,5 @@
 function [m, M] = gwf_maxwell_index(gwf, rf, dt)
-% function m = gwf_maxwell_index(gwf, rf, dt)
+% function [m, M] = gwf_maxwell_index(gwf, rf, dt)
 % m is the "Maxwell index", as defined in 
 % Szczepankiewicz and Nilsson, ISMRM 2018
 % "Maxwell-compensated waveform design for asymmetric diffusion encoding"

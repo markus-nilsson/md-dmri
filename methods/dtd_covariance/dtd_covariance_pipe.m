@@ -8,7 +8,7 @@ function fn = dtd_covariance_pipe(s, paths, opt)
 %            
 % fn    - a cell arary with filenames to generated nii files
 
-if (nargin < 2), paths = fileparts(s.nii_fn); end
+if ( (nargin < 2) || isempty(paths) ), paths = fileparts(s.nii_fn); end
 if (nargin < 3), opt.present = 1; end
 
 % Init structures

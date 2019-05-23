@@ -7,7 +7,7 @@ function s = mdm_s_powder_average(s, o_path, opt)
 % To do: find a way of keeping track of number of averages per step
 
 % Init
-if (nargin < 2), o_path = fileparts(s.nii_fn); end
+if ( (nargin < 2) || isempty(o_path) ), o_path = fileparts(s.nii_fn); end
 if (nargin < 3), opt.present = 1; end
 opt = mdm_opt(opt);
 msf_log(['Starting ' mfilename], opt);
