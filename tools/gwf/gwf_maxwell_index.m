@@ -1,9 +1,9 @@
 function [m, M] = gwf_maxwell_index(gwf, rf, dt)
 % function [m, M] = gwf_maxwell_index(gwf, rf, dt)
 % m is the "Maxwell index", as defined in 
-% Szczepankiewicz and Nilsson, ISMRM 2018
-% "Maxwell-compensated waveform design for asymmetric diffusion encoding"
-% Download abstract at: https://goo.gl/vVGQq2
+% Szczepankiewicz F, Westin C?F, Nilsson M. Maxwell?compensated design of
+% asymmetric gradient waveforms for tensor?valued diffusion encoding. 
+% Magn Reson Med. 2019;00:1–14. https://doi.org/10.1002/mrm.27828
 %
 % Briefly, the Maxwell index can be use to guage the impact of concomitant
 % fields on the signal. To estimate the signal error, please use
