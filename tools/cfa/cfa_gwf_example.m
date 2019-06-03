@@ -1,6 +1,11 @@
 function [gwf, rf, dt] = cfa_gwf_example(mode)
 % function [gwf, rf, dt] = cfa_gwf_example(mode)
 % Container for some example waveforms in the CFA framework.
+%
+% If you use this resource, please cite:
+% Szczepankiewicz F, Westin, C?F, Nilsson M. Maxwell?compensated design 
+% of asymmetric gradient waveforms for tensor?valued diffusion encoding. 
+% Magn Reson Med. 2019;00:1–14. https://doi.org/10.1002/mrm.27828
 
 switch mode
     case 1 % SE-SDE in x

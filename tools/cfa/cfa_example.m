@@ -1,5 +1,12 @@
 clear
 
+% Concomitant gradient analysis example
+%
+% If you use this resource, please cite:
+% Szczepankiewicz F, Westin, C?F, Nilsson M. Maxwell?compensated design 
+% of asymmetric gradient waveforms for tensor?valued diffusion encoding. 
+% Magn Reson Med. 2019;00:1–14. https://doi.org/10.1002/mrm.27828
+%
 % Here are some examples of asymmetric diffusion encoding in a spin-echo
 % sequence. See the example cases to experiment with some common issues.
 

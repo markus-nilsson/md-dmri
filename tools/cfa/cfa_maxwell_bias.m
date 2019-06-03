@@ -8,6 +8,11 @@ function [c, c_s, c_p] = cfa_maxwell_bias(gwf, rf, dt, ips, do_k0)
 %
 % Baron et al., The effect of concomitant gradient fields on diffusion
 % tensor imaging. Magn Reson Med, 2012. 68(4): p. 1190-201.
+%
+% If you use this resource, please cite:
+% Szczepankiewicz F, Westin, C?F, Nilsson M. Maxwell?compensated design 
+% of asymmetric gradient waveforms for tensor?valued diffusion encoding. 
+% Magn Reson Med. 2019;00:1–14. https://doi.org/10.1002/mrm.27828
 
 if nargin < 5
     do_k0 = 1;

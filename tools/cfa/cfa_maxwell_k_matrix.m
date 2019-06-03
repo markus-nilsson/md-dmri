@@ -12,8 +12,9 @@ function [k1, k0] = cfa_maxwell_k_matrix(gwf, rf, dt, B0)
 % Baron et al., The effect of concomitant gradient fields on diffusion 
 % tensor imaging. Magn Reson Med, 2012. 68(4): p. 1190-201.
 %
-% Szczepankiewicz F, Westin C?F, Nilsson M. Maxwell?compensated design of
-% asymmetric gradient waveforms for tensor?valued diffusion encoding. 
+% If you use this resource, please cite:
+% Szczepankiewicz F, Westin, C?F, Nilsson M. Maxwell?compensated design 
+% of asymmetric gradient waveforms for tensor?valued diffusion encoding. 
 % Magn Reson Med. 2019;00:1–14. https://doi.org/10.1002/mrm.27828
 
 Gx = gwf(:,1);
