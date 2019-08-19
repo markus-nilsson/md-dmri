@@ -21,3 +21,4 @@ opt.gwf = msf_ensure_field(opt.gwf, 'plot_t_te', -1);
 
 opt.gwf = msf_ensure_field(opt.gwf, 'gwf_linew', 2);
 opt.gwf = msf_ensure_field(opt.gwf, 'rf_linew', 2);
+opt.gwf = msf_ensure_field(opt.gwf, 'gwf_linestyle', {'-', '-', '-'});

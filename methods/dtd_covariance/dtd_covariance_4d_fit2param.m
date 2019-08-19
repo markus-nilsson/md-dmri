@@ -4,7 +4,7 @@ function dps = dtd_covariance_4d_fit2param(mfs_fn, dps_fn, opt)
 % Compute dps (display parameters structure) from the mfs (model fit
 % structure) using functions tm_dt_to_dps and tm_ct_to_dps
 
-if (nargin < 2), dfs_fn = []; end
+if (nargin < 2), dps_fn = []; end
 if (nargin < 3), opt    = []; end
 
 opt = dtd_covariance_opt(mdm_opt(opt));
@@ -20,21 +20,21 @@ if (size(mfs.m, 4) == 4) % assume data was analyzed via the pa pipe
     
     % The dki_pa model yields MD, V_I, and V_A
     % Convert these to an isotropic dt and isotropic tensor covariance tensor
-    % Note that V_A = 2/5 * < V_lambda[D] > 
+    % Note that V_A = 2/5 * < V_lambda[D] >
     % [see Szczepankiewicz thesis Eq. 9]
     % We want V_lambda represented in the covariance tensor
-  
+    
     [E4_bulk, E4_shear] = tm_1x21_iso();
     E2_iso = [1 1 1 0 0 0]/3;
     
     h = @(x) x / tm_inner(x,x); % use normalized bases
-
+    
     mfs.m = cat(4, ...
         mfs.m(:,:,:,1), ...
         f(g(mfs.m(:,:,:,2),1) .* repmat(h(E2_iso),   prod(sz(1:3)),1), 6), ...
         f(g(1/1 * mfs.m(:,:,:,3),1) .* repmat(h(E4_bulk),  prod(sz(1:3)),1), 21) + ...
         f(g(5/2 * mfs.m(:,:,:,4),1) .* repmat(h(E4_shear), prod(sz(1:3)),1), 21));
-        
+    
 end
 
 % compute display parameters
@@ -43,7 +43,7 @@ dps = dtd_covariance_1d_fit2param(g(mfs.m, 28), f, opt);
 % mask after fitting
 if (opt.dtd_covariance.do_post_fit_masking)
     
-    % copute 
+    % copute
     X = [ones(mfs.s.xps.n,1) -mfs.s.xps.bt 1/2*tm_1x6_to_1x21(mfs.s.xps.bt)];
     I = mdm_nii_read(mfs.s.nii_fn);
     

@@ -3,7 +3,7 @@ function dps = dti_lls_4d_fit2param(mfs_fn, dps_fn, opt)
 %
 % this function should be more coordinated with dti_nls
 
-if (nargin < 2), mfs_fn = []; end
+if (nargin < 2), dps_fn = []; end
 if (nargin < 3), opt = []; end
 
 opt = mdm_opt(opt);
