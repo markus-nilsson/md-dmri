@@ -7,8 +7,15 @@ if nargin < 3
     fov_shift = [0 0 0];
 end
 
-matrix = fov ./ vs;
+fmatrix = fov ./ vs;
 
+matrix = round(fmatrix);
+
+tol = eps*10;
+
+if any(abs(fmatrix./matrix-1) > tol)
+    error('Check that FOV / resolution is a vector of integers!')
+end
 
 f = @(d) permute(linspace(-fov(d)/2, fov(d)/2 - vs(d), matrix(d))', circshift([1 2 3], d - 1));
 

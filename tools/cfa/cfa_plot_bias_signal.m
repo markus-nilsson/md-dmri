@@ -45,7 +45,7 @@ c = zeros(size(g2));
 
 for i = 1:numel(c)
     b(i) = trace(gwf_to_bt (gwf*sqrt(g2(i)), rf, dt));
-    c(i) = cfa_maxwell_bias(gwf*sqrt(g2(i)), rf, dt, ips2);
+    c(i) = cfa_maxwell_bias(gwf*sqrt(g2(i)), rf, dt, ips2, do_k0);
 end
 
 
@@ -66,7 +66,7 @@ xlabel('b [ms/µm^2]')
 
 legend('AF', 'Signal', 'S\cdotAF', 'location', 'best')
 
-
+ylim([.1 1])
 
 
 

@@ -3,6 +3,11 @@ function [c, k_s] = cfa_maxwell_bias_slice(k, v_s, r, st, k0)
 %
 % Baron et al., The effect of concomitant gradient fields on diffusion 
 % tensor imaging. Magn Reson Med, 2012. 68(4): p. 1190-201.
+%
+% If you use this resource, please cite:
+% Szczepankiewicz F, Westin, C?F, Nilsson M. Maxwell?compensated design 
+% of asymmetric gradient waveforms for tensor?valued diffusion encoding. 
+% Magn Reson Med. 2019;00:1–14. https://doi.org/10.1002/mrm.27828
 % 
 % v_s is the normal vector to the slice
 % r   is nx3 position vector (location of center of voxels where origo is
