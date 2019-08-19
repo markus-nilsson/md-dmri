@@ -34,7 +34,7 @@ end
 xlabel('t [ms]');
 ylabel('g [mT/m]');
 
-xlim([min(t - 3e-3) max(t + 3e-3)] * 1e3);
+xlim([min(t - 3e-3) max(max(t) + 3e-3, max(opt.gwf.plot_t_adc) + 3e-3)] * 1e3);
 ylim([-1 1] * opt.gwf.plot_gmax * 1e3);
 
 box off;
@@ -73,6 +73,7 @@ if any(opt.gwf.plot_t_te > 0)
     y = ylim * 0.5;
     plot([x(1) x(1)], [y(1) y(2)], 'k--');
 end
+
 
 
     

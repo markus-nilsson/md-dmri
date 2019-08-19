@@ -30,6 +30,11 @@ opt.mask = msf_ensure_field(opt.mask, 'pca_threshold', 1.3);
 opt.mask = msf_ensure_field(opt.mask, 'b0_ind', 1);
 opt.mask = msf_ensure_field(opt.mask, 'threshold', 0.1);
 
+opt.mask.expand.present = 1;
+opt.mask.expand = msf_ensure_field(opt.mask.expand, 'method', 1);
+opt.mask.expand = msf_ensure_field(opt.mask.expand, 'threshold', 0.25);
+opt.mask.expand = msf_ensure_field(opt.mask.expand, 'sigma', 0.8);
+
 
 opt.mio.pa.present = 1;
 opt.mio.pa = msf_ensure_field(opt.mio.pa, 'do_abs', 1);

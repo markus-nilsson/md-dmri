@@ -5,6 +5,8 @@ function [gwf_out, rf_out, dt_out] = gwf_interpolate(gwf, rf, dt, scale)
 %
 % scale -- integer
 
+if (isempty(rf)), rf = ones(size(gwf,1),1); end
+
 gwf_check(gwf, rf, dt);
 
 if (abs(mod(scale, 1)) < 0.001)

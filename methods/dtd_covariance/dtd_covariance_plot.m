@@ -9,6 +9,9 @@ opt = dtd_covariance_opt(opt);
 opt = mplot_opt(opt);
 opt = mdm_opt(opt);
 
+xps.b = sum(xps.bt(:,1:3),2);
+xps = msf_rmfield(xps, 's_ind');
+
 % turn on regularization?
 opt.dtd_covariance.do_regularization = 1;
 
