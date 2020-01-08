@@ -28,6 +28,8 @@ if (~exist(ref_fn, 'file') || (opt.do_overwrite))
     [I,h] = mdm_nii_read(s.nii_fn);
     [~,c_b0] = min(s.xps.b);
     mdm_nii_write(I(:,:,:,c_b0), ref_fn, h);
+else   
+    opt.mdm.mec.do_cleanup = 0; % don't clean up files not created here
 end
 
 
@@ -37,6 +39,11 @@ if (opt.mdm.mec.do_rotate_bvec)
     s.xps = mdm_mec_rotate_bvec(s.xps, tpm_fn, p_fn);
 end
 
-
-
 mdm_xps_save(s.xps, mdm_xps_fn_from_nii_fn(s.nii_fn));
+
+
+% Cleanup?
+if (opt.mdm.mec.do_cleanup)
+    msf_delete(ref_fn);    
+end
+
