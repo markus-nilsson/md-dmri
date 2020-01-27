@@ -46,11 +46,11 @@ opt.mdm.mec.present = 1;
 
 % this needs to be validated for every data set
 opt.mdm.mec = msf_ensure_field(opt.mdm.mec, 'do_rotate_bvec', 0);
+opt.mdm.mec = msf_ensure_field(opt.mdm.mec, 'do_cleanup', 1);
 
 % extrapolation-based motion correction
 opt.mdm.mec_eb.present = 1;
 opt.mdm.mec_eb = msf_ensure_field(opt.mdm.mec_eb, 'b_limit', 1.1e9);
-
 
 opt.mask.present = 1;
 
