@@ -17,7 +17,7 @@ if (~exist(p_fn, 'file'))
 end
 
 if (ismac) || (isunix)
-    cmd_full = ['/bin/bash --login -c '' ' cmd ' '' '];
+    cmd_full = [getenv('SHELL') ' --login -c '' ' cmd ' '' '];
 else
     cmd_full = cmd;
 end
