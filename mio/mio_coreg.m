@@ -1,5 +1,5 @@
 function [I_res,tp,h_res,elastix_t] = mio_coreg(I_mov, I_ref, p, opt, h_mov, h_ref)
-% function [I_res,tp,h_res,elastix_t] = mio_coreg(I_mov, I_ref, p, opt, h_mov, h_ref, opt)
+% function [I_res,tp,h_res,elastix_t] = mio_coreg(I_mov, I_ref, p, opt, h_mov, h_ref)
 
 if (nargin < 4), opt.present = 1; end
 if (nargin < 5), h_mov = mdm_nii_h_empty; end
