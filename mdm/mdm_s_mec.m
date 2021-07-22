@@ -20,7 +20,7 @@ function s_mec = mdm_s_mec(s, p_fn, o_path, opt)
 % Output
 % s_mec - s_mec.nii_fn will be updated to refer to the corrected volume
 
-if (nargin < 2)
+if (nargin < 2) || isempty(p_fn)
     p_fn = elastix_p_write(elastix_p_affine(200), ...
         fullfile(fileparts(s.nii_fn), 'p.txt'));
 end
