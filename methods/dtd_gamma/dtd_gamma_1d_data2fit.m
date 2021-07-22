@@ -7,7 +7,7 @@ function m = dtd_gamma_1d_data2fit(signal, xps, opt, ind)
 if (nargin < 4), ind = ones(size(signal)) > 0; end
 
 if (isfield(xps, 's_ind') && opt.dtd_gamma.do_multiple_s0)
-    ns = numel(unique(xps.s_ind)) - 1;
+    ns = numel(unique(xps.s_ind(ind))) - 1;
 else
     ns = 0;
 end
