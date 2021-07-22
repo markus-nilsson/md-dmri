@@ -32,7 +32,12 @@ if (numel(ind_start) ~= 1)
     end
 end
 
-rf = zeros(size(g,1), 1);
-rf(1:(ind_start-1)) = 1;
-rf(ind_start:ind_end) = 0;
-rf((ind_end+1):end) = -1;
+% OLD (does not play well with things happening when g = 0;
+% rf = zeros(size(g,1), 1);
+% rf(1:(ind_start-1)) = 1;
+% rf(ind_start:ind_end) = 0;
+% rf((ind_end+1):end) = -1;
+
+rf = ones(size(g,1), 1);
+ind_mid = round(ind_start + (ind_end-ind_start)/2);
+rf(ind_mid:end) = -1;
