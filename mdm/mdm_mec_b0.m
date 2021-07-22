@@ -10,7 +10,10 @@ function s = mdm_mec_b0(s, p_fn, o_path, opt)
 %
 % Output
 % s - s.nii_fn will be updated to refer to the corrected volume
-
+if (nargin < 2) || isempty(p_fn)
+    p_fn = elastix_p_write(elastix_p_affine(200), ...
+        fullfile(fileparts(s.nii_fn), 'p.txt'));
+end
 if (nargin < 3), o_path = fileparts(s.nii_fn); end
 if (nargin < 4), opt.present = 1; end
 opt = mio_opt(opt);
