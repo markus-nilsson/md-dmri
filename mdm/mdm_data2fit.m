@@ -1,4 +1,4 @@
-function mfs_fn = mdm_data2fit(fun_4d_data2fit, s, mfs_fn, opt)
+function mfs_fn = mdm_data2fit(fun_4d_data2fit, s, mfs_fn, opt, ind)
 % function mfs_fn = mdm_data2fit(fun_4d_data2fit, s, mfs_fn, opt)
 %
 % fun_4d_data2fit - model fit function
@@ -7,6 +7,7 @@ function mfs_fn = mdm_data2fit(fun_4d_data2fit, s, mfs_fn, opt)
 % opt             - options structure
 
 if (nargin < 4), opt.present = 1; end
+if (nargin < 5), ind = ones(s.xps.n,1, 'logical'); end
 
 opt = mdm_opt(opt);
 
@@ -21,6 +22,6 @@ if (~opt.do_data2fit)
     return;
 end
 
+% mfs_fn = fun_4d_data2fit(s, mfs_fn, opt, ind);
 mfs_fn = fun_4d_data2fit(s, mfs_fn, opt);
-
 
