@@ -24,14 +24,14 @@ function dtd_example()
 if (1)
     ad_1 = 2.9e-9;  % axial
     rd_1 = 0.5e-9;  % radial
-    n_1  = 400;      % number of tensors
+    n_1  = 40;      % number of tensors
     
     ad_2 = 2.9e-9;
     rd_2 = 1.5e-9;
-    n_2  = 300;
+    n_2  = 50;
     
     d_iso = 3e-9;
-    n_3   = 100;
+    n_3   =20;
     
     % powder averaged data now (pa data)
     %
