@@ -3,7 +3,7 @@ function xps = mdm_xps_from_gdir(gdir_fn, delimeter, b_delta)
 %
 % read a gradient textfile in the Lund format, which is defined as follows
 %   n_x, n_y, n_z, b
-% 
+%
 % units of b are in s/mm2, i.e., b = 1000 s/mm2 for a standard DTI
 %
 % the xps is always in SI units
@@ -25,14 +25,30 @@ if (~exist(gdir_fn, 'file')), error('Did not find file %s', gdir_fn); end
 txt = mdm_txt_read(gdir_fn);
 f = @(x) x(~cellfun(@isempty, x));
 
-tmp = cellfun(@(x) strsplit(x, delimeter), txt, 'uniformoutput', 0);
-tmp = cellfun(f, tmp, 'uniformoutput', 0);
-tmp = cellfun(@(x) str2double(x)', tmp, 'uniformoutput', 0);
-tmp = cell2mat(tmp);
+try
+    tmp = cellfun(@(x) strsplit(x, delimeter), txt(:), 'uniformoutput', 0);
+    tmp = cellfun(f, tmp, 'uniformoutput', 0);
+    tmp = cellfun(@(x) str2double(x)', tmp, 'uniformoutput', 0);
+    tmp = cell2mat(tmp);
+    
+    if any(isnan(tmp))
+        error('Bad format')
+    end
+    
+catch
+    clear tmp
+    for i = 1:numel(txt)
+        tmp(i,:) = str2double( strsplit(txt{i}));
+    end
+    
+    tmp = tmp';
+end
+
 
 % compile the output
-b = tmp(4,:)' * 1e6; 
+b = tmp(4,:)' * 1e6;
 u = tmp(1:3,:)';
+
 
 % Make a trick to ensure that tensor shapes survives the tensor
 % computations
