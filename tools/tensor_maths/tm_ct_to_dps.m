@@ -47,6 +47,8 @@ dps.MK   = dps.MKad + dps.MKi;                  % conventional kurtosis
 dps.MKd  = dps.MKa - dps.MKad;                  % conventional kurtosis
 dps.uFA  = sqrt(dps.C_mu);
 
+dps.Vi   = dps.V_MD;
+dps.Va   = (2/5) * dps.V_shear1;
 
 dps.S_I = sqrt(dps.V_MD .* (dps.V_MD > 0));
 dps.S_A = sqrt(dps.V_shear1 .* (dps.V_shear1 > 0));
