@@ -144,7 +144,7 @@ João P. de Almeida Martins, Samo Lasic, Carl-Fredrik Westin, and Daniel Topgaar
 An open-source framework for analysis of multidimensional diffusion MRI data implemented in MATLAB.
 Proc. Intl. Soc. Mag. Reson. Med. (26), Paris, France, 2018. http://archive.ismrm.org/2018/5355.html
 
-## Additions to version forked in belampinen
+## Method-specific references (to be continued)
 1) `methods/dtd_smr`
 Code for fitting the model used in *Towards unconstrained compartment modeling in white matter using diffusion-relaxation MRI with tensor-valued diffusion encoding*, published 06 March 2020 in MRM. See also https://github.com/belampinen/lampinen_mrm_2019.
 
