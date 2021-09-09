@@ -13,17 +13,14 @@ disp('Welcome!');
 
 % Test Matlab version number
 switch(version('-release'))
-    case {'2015a', '2015b', '2016a', '2016b'}
-        disp('This MATLAB version is not supported by the framework');
-        disp('It may or may not work as intended');
-    case {'2017a', '2017b', '2018a', '2018b', '2019a'}
+    case {'2018a', '2018b', '2019a', '2020b'}
         1;
     otherwise
         disp('This MATLAB version is not supported by the framework');
         disp('It may or may not work as intended');        
 end
 
- 
+
 
 if (do_restore_path)
     disp('Restoring default path');
