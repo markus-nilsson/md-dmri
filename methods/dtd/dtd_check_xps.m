@@ -1,5 +1,5 @@
-function dtd_check_xps(xps)
-% function dtd_check_xps(xps)
+function dtd_check_xps(xps, opt)
+% function dtd_check_xps(xps, opt)
 % 
 % checks that all required fields are found in the xps
 
