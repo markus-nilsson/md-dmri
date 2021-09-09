@@ -44,7 +44,7 @@ unit_to_SI = [max(signal+eps) 1e-9 (1e-9)^2*[1 1] ones(1,ns)];
         weight = .5*(1-erf(wthresh*(xps.b - bthresh)/bthresh));
     end
 
-% Weight function that corrects for hetroscedacity due to different number
+% Weight function that corrects for heteroscedasticity due to different number
 % of images being averaged in the powder avereaged signal
     function w = calc_weight_from_signal_samples()
         if ~isfield(xps, 'pa_w')
