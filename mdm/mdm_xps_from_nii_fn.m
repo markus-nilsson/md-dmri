@@ -5,6 +5,9 @@ function xps = mdm_xps_from_nii_fn(nii_fn, b_delta)
 % 1. xps
 % 2. gdir
 % 3. bval/bvec
+if (nargin < 2)
+    error('need to know b-delta for this to work');
+end
 
 if (exist(mdm_xps_fn_from_nii_fn(nii_fn), 'file'))
     
