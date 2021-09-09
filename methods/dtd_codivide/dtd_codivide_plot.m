@@ -1,6 +1,7 @@
-function m = dtd_codivide_plot(S, xps, h, h2)
+function m = dtd_codivide_plot(S, xps, h, h2, opt)
 % function m = dtd_codivide_plot(S, xps, h, h2)
 
+if (nargin < 5), opt = []; end
 if (nargin < 4), h2 = []; end
 
 m = mplot_s_vs_b_by_b_delta(S, xps, ...

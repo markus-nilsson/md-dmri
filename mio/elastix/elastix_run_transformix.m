@@ -10,17 +10,10 @@ cmd = [cmd ' -tp "'    t_fn    '"'];
 
 res_fn = fullfile(o_path, 'result.nii');
 
-
-
-
-if (ismac) || (isunix)
-    cmd_full = [getenv('SHELL') ' --login -c '' ' cmd ' '' '];   
-else
-    cmd_full = cmd;
-end
-
 msf_delete(res_fn);
-[r, msg] = system(cmd_full);
+
+[r, msg, cmd_full] = msf_system(cmd); 
+
 
 msg_pos = strfind(msg, '------- Exception -');
 if (~isempty(msg_pos))

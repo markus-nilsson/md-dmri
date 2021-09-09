@@ -18,11 +18,17 @@ function dist_s = dist_2d_discrete2smooth(dist_d,dist_s)
 % dist_s.wprojx vector of weights projected on x-axis
 % dist_s.wprojy vector of weights projected on y-axis
 
-
-n0 = dist_d.n;
-x0 = dist_d.x;
-y0 = dist_d.y;
-w0 = dist_d.w;
+if isstruct(dist_d)
+    n0 = dist_d.n;
+    x0 = dist_d.x;
+    y0 = dist_d.y;
+    w0 = dist_d.w;
+else
+    x0 = dist_d(:,1);
+    y0 = dist_d(:,2);
+    w0 = dist_d(:,3);
+    n0 = numel(w0);
+end
 
 x = dist_s.x;
 y = dist_s.y;

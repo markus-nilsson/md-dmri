@@ -3,6 +3,8 @@ function m = dti_euler_1d_data2fit(signal, xps, opt, ind)
 
 if (nargin < 4), ind = ones(size(signal)) > 0; end
 
+signal = abs(signal);
+
 unit_to_SI = [max(signal(:)) 1e-9*[1 1 1] 2*pi*[1 1 1]];
 
     function m = t2m(t) % convert local params to outside format
@@ -35,7 +37,7 @@ weight = ones(xps.n,1);
 % S0, D eigenvalues, Euler angles
 m_guess   = [max(signal(:))   1e-9*[1 1 1] 2*pi*[1 1 1]];
 m_lb      = [0                1e-11*[1 1 1]     [0 0 0]];
-m_ub      = [2*max(signal(:)) 3e-9*[1 1 1] 4*pi*[1 1 1]];
+m_ub      = [2*max(signal(:)) 4e-9*[1 1 1] 4*pi*[1 1 1]];
                 
 t_guess   = m_guess./unit_to_SI;
 t_lb      = m_lb./unit_to_SI;

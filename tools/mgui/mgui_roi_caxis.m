@@ -15,7 +15,7 @@ else
     I = EG.roi.I;
 end
 
-% Deal with compelx data (this should ideally be done earlier and in one 
+% Deal with complex data (this should ideally be done earlier and in one 
 % place, but we want to keep the complex nature as long as possible)
 if (any(~isreal(I(:))))
     I = abs(I); 
@@ -44,6 +44,16 @@ if (numel(I) > 0)
     end
 else
     this_caxis = [0; 1];
+end
+
+% For parameter maps with both positive and negative values
+if (any(I(:)<0))
+    this_caxis = max(abs(this_caxis))*[-1; 1];
+end
+
+% For parameter maps with just small negative values
+if min(I,[],'all') > -0.05*max(I,[],'all')
+    this_caxis = max(abs(this_caxis))*[0; 1];
 end
 
 
