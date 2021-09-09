@@ -20,5 +20,21 @@ for c = 1:size(bt, 1)
     xps.b_delta(c)  = tp.delta;
     xps.b_eta(c)    = tp.eta;
     xps.bt(c,:)     = bt(c,:);
-    xps.u(c,:)      = tp.lambda33vec;
+    
+    if (tp.eta < 0.1) % skewed tensors?
+        
+        if (tp.delta == 0) % spherical
+            xps.u(c,:) = tp.lambda33vec;
+        elseif (tp.delta > 0) % prolate-to-stick
+            xps.u(c,:) = tp.lambda33vec;
+        elseif (tp.delta < 0) % oblate
+            xps.u(c,:) = tp.lambda11vec;
+        end
+    else
+        % not defined for assymmetric tensors
+        xps.u(c,:) = [NaN NaN NaN];
+    end
+    
+    
+    
 end

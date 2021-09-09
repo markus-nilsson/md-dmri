@@ -28,8 +28,8 @@ f = @(x) x(~cellfun(@isempty, x));
 try
     tmp = cellfun(@(x) strsplit(x, delimeter), txt(:), 'uniformoutput', 0);
     tmp = cellfun(f, tmp, 'uniformoutput', 0);
-    tmp = cellfun(@(x) str2double(x)', tmp, 'uniformoutput', 0);
-    tmp = cell2mat(tmp);
+    tmp = cellfun(@(x) str2double(x), tmp, 'uniformoutput', 0);
+    tmp = cell2mat(tmp)';
     
     if any(isnan(tmp))
         error('Bad format')
