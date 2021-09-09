@@ -138,6 +138,12 @@ s_merged = mdm_s_merge(s, merged_nii_path, merged_nii_name);
 
 Get acquainted with by xps structure by reading mdm/readme.txt.An extensive description of the code structure is found at http://markus-nilsson.github.io/md-dmri/.  
 
+# Reference
+Markus Nilsson, Filip Szczepankiewicz, Björn Lampinen, André Ahlgren, 
+João P. de Almeida Martins, Samo Lasic, Carl-Fredrik Westin, and Daniel Topgaard.
+An open-source framework for analysis of multidimensional diffusion MRI data implemented in MATLAB.
+Proc. Intl. Soc. Mag. Reson. Med. (26), Paris, France, 2018. http://archive.ismrm.org/2018/5355.html
+
 ## Additions to version forked in belampinen
 1) `methods/dtd_smr`
 Code for fitting the model used in *Towards unconstrained compartment modeling in white matter using diffusion-relaxation MRI with tensor-valued diffusion encoding*, published 06 March 2020 in MRM. See also https://github.com/belampinen/lampinen_mrm_2019.
@@ -145,11 +151,5 @@ Code for fitting the model used in *Towards unconstrained compartment modeling i
 2) `methods/ning18` 
 Code for fitting the model used in Manuscript *Time dependence in diffusion MRI predicts tissue outcome in ischemic stroke patients* submitted to MRM in 2020.
 
-
-# Reference
-Markus Nilsson, Filip Szczepankiewicz, Björn Lampinen, André Ahlgren, 
-João P. de Almeida Martins, Samo Lasic, Carl-Fredrik Westin, and Daniel Topgaard.
-An open-source framework for analysis of multidimensional diffusion MRI data implemented in MATLAB.
-Proc. Intl. Soc. Mag. Reson. Med. (26), Paris, France, 2018. http://archive.ismrm.org/2018/5355.html
 
 
