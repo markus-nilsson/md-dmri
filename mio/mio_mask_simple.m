@@ -9,7 +9,7 @@ if (nargin < 2), opt.present = 1; end
 opt = mio_opt(opt);
 
 % define the mask from the variation of the signal
-I_mean = nanmean(single(abs(I)), 4);
+I_mean = msf_nanmean(single(abs(I)), 4);
 I_mean = imfilter(I_mean, ones(5,5,1) / 5^2);
 
 I_V = zeros(size(I_mean));
