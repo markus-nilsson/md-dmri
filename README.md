@@ -138,6 +138,13 @@ s_merged = mdm_s_merge(s, merged_nii_path, merged_nii_name);
 
 Get acquainted with by xps structure by reading mdm/readme.txt.An extensive description of the code structure is found at http://markus-nilsson.github.io/md-dmri/.  
 
+## Additions to version forked in belampinen
+1) `methods/dtd_smr`
+Code for fitting the model used in *Towards unconstrained compartment modeling in white matter using diffusion-relaxation MRI with tensor-valued diffusion encoding*, published 06 March 2020 in MRM. See also https://github.com/belampinen/lampinen_mrm_2019.
+
+2) `methods/ning18` 
+Code for fitting the model used in Manuscript *Time dependence in diffusion MRI predicts tissue outcome in ischemic stroke patients* submitted to MRM in 2020.
+
 
 # Reference
 Markus Nilsson, Filip Szczepankiewicz, Björn Lampinen, André Ahlgren, 
