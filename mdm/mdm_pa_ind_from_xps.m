@@ -36,7 +36,7 @@ else
         
         % just do pa of b
         x = xps.b / opt.mdm.pa.db;
-        [~,~,a_ind] = unqiuetol(x, 1/max(abs(x)));
+        [~,~,a_ind] = uniquetol(x, 1/max(abs(x)));
         
     else
         error('insufficient information to compute power average indices');
