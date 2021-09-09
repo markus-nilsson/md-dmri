@@ -53,7 +53,7 @@ b_delta_uni = sort(b_delta_uni);
 if (numel(b_delta_uni) == 1)
     cmap = [0 0 0];
 else
-    cmap = 0.7 * hsv(numel(b_delta_uni) + 2);
+    cmap = 0.7 * jet(numel(b_delta_uni) + 2);
 end
 
 % Allow 'hold on' to be used
