@@ -1,5 +1,5 @@
-function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume)
-% function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume)
+function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume, opt)
+% function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume, opt)
 
 if (nargin < 6), c_volume = []; end
 
@@ -52,7 +52,7 @@ for c_attempt = 1:9
                 end
                 
             case 5 %  try standard plot function
-                feval(plot_fun_name, MS, xps, h(1), h(2));
+                feval(plot_fun_name, MS, xps, h(1), h(2), opt);
                 
             case 6 %  try with magnitude data, if needed
                 if (~all(isreal(MS(:))))

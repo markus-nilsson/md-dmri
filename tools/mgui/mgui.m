@@ -124,9 +124,6 @@ if (nargin >= 1)
         EG = mgui_save;
     end
     
-    % Display info
-    disp(['Action took ' num2str(toc(t_start))]);
-    
     % Remove sender handle to avoid confusion
     EG.hSender = [];
 end
