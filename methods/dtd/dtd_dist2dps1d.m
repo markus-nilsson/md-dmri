@@ -1,8 +1,10 @@
 function dps1d = dtd_dist2dps1d(dtd)
-
 % dps1d = dtd_dist2dps1d(dtd)
+%
 % Converts discrete diffusion tensor distribution to derived tensors and
-% parameters. Equation numbers refer to definitions given in Topgaard 2017.
+% parameters. Equation numbers refer to definitions given in
+% Topgaard. J. Magn. Reson. 275, 98 (2017).
+% http://dx.doi.org/10.1016/j.jmr.2016.12.007
 %
 % Input arguments
 % dtd: diffusion tensor distribution

@@ -1,6 +1,7 @@
-function dtd_ndi_plot(S, xps, h, h2)
+function dtd_ndi_plot(S, xps, h, h2, opt)
 % function dtd_ndi_plot(S, xps, h, h2)
 
+if (nargin < 5), opt = []; end
 if (nargin < 4), h2 = []; end
 
 % Use only sticks in this model

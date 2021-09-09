@@ -8,7 +8,7 @@ if (isempty(folder_path)), return; end
 if (isunix)
     
     try
-        eval(['!mkdir -p ' folder_path]);
+        eval(['!mkdir -p "' folder_path '"']);
     catch 
         disp('could not make directory');
     end

@@ -16,14 +16,11 @@ if (~exist(p_fn, 'file'))
     error('did not find parameter file at %s', p_fn);
 end
 
-if (ismac) || (isunix)
-    cmd_full = [getenv('SHELL') ' --login -c '' ' cmd ' '' '];
-else
-    cmd_full = cmd;
-end
-
 msf_delete({res_fn, tp_fn});
-[r, msg] = system(cmd_full);
+
+[r, msg, cmd_full] = msf_system(cmd); 
+
+
 
 
 msg_pos = strfind(msg, 'itk::ExceptionObject');

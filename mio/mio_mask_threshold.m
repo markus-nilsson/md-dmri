@@ -1,15 +1,16 @@
 function M = mio_mask_threshold(I, opt, threshold, ind)
-% function M = mio_mask_threshold(I, opt, threshold)
+% function M = mio_mask_threshold(I, opt, threshold, ind)
 %
 % Masks an image by 
 % 1. Thresholding the b0 image
 % 2. Filling empty spaces in the mask
-% 3. Discarding all but the largest connected component
+% 3. Expanding, filling, and eroding
+% 4. Discarding all but the largest connected component
 %
 % Input arguments
 % I   - the image volume (mandatory)
 % opt - options structure, two arguments are used (optional)
-%            opt.mask.b0_ind - point to the b0 image for thresholdign
+%            opt.mask.b0_ind - point to the b0 images for thresholding
 %            opt.mask.threshold - threshold in percent of max
 %
 % threshold - overrides opt.mask.threshold (optional)
@@ -31,5 +32,8 @@ I0 = mean(I(:,:,:,ind),4);
 M = single(I0) > (threshold * single(quantile(I0(:),0.99)));
 
 M = mio_mask_fill(M);
+M = mio_mask_expand(M, 1);
+M = mio_mask_fill(M);
+M = mio_mask_erode(M, 1);
 M = mio_mask_keep_largest(M);
 

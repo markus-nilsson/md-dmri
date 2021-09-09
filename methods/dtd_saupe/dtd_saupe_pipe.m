@@ -17,19 +17,27 @@ paths.mfs_dtd_gamma_fn     = fullfile(fileparts(paths.mfs_fn), 'mfs_dtd_gamma.ma
 paths.mfs_dtd_pake_fn       = fullfile(fileparts(paths.mfs_fn), 'mfs_dtd_pake.mat');
 
 % Prepare: mask etc
-s = mdm_s_mask(s, @mio_mask_threshold, [], opt);
+if (opt.do_mask)
+    s = mdm_s_mask(s, @mio_mask_threshold, [], opt);
+end
 
 % Run sub analyses
-mdm_data2fit(@dti_euler_4d_data2fit, s, paths.mfs_dti_euler_fn, opt);
-mdm_data2fit(@dtd_gamma_4d_data2fit,     s, paths.mfs_dtd_gamma_fn, opt);
-mdm_data2fit(@dtd_pake_4d_data2fit,       s, paths.mfs_dtd_pake_fn, opt);
-
+if (opt.do_data2fit)
+    mdm_data2fit(@dti_euler_4d_data2fit, s, paths.mfs_dti_euler_fn, opt);
+    mdm_data2fit(@dtd_gamma_4d_data2fit,     s, paths.mfs_dtd_gamma_fn, opt);
+    mdm_data2fit(@dtd_pake_4d_data2fit,       s, paths.mfs_dtd_pake_fn, opt);
+end
 
 % Convert from primary to derived model fit parameters
-mdm_fit2param(@dtd_saupe_4d_fit2param, ...
-    {paths.mfs_dti_euler_fn, paths.mfs_dtd_gamma_fn, paths.mfs_dtd_pake_fn}, ...
-    paths.dps_fn, opt);
+if (opt.do_fit2param)
+    mdm_fit2param(@dtd_saupe_4d_fit2param, ...
+        {paths.mfs_dti_euler_fn, paths.mfs_dtd_gamma_fn, paths.mfs_dtd_pake_fn}, ...
+        paths.dps_fn, opt);
+end
 
 % Save nifti parameter maps    
-fn = mdm_param2nii(paths.dps_fn, paths.nii_path, opt.dtd_saupe, opt);
+if (opt.do_param2nii)
+    fn = mdm_param2nii(paths.dps_fn, paths.nii_path, opt.dtd_saupe, opt);
+end
+
 

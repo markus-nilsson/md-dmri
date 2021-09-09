@@ -1,5 +1,5 @@
-function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume)
-% function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume)
+function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume, opt)
+% function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume, opt)
 
 if (nargin < 6), c_volume = []; end
 
@@ -16,10 +16,15 @@ fun_check       = [method_name '_check_xps'];
 % convenient format for the models
 MS = mean(S, 2);
 
-for c_attempt = 1:9
+for c_attempt = 0:9
     
     try
         switch (c_attempt)
+            
+            case 0 % clear the window
+                if strcmp(method_name,'Overview')
+                    mgui_analysis_plot_message(h(2), '');
+                end
             
             case 1 % no signal -> show standard message
                 if (numel(S) == 0)
@@ -32,6 +37,8 @@ for c_attempt = 1:9
                 
                 if (size(S,1) == 1) % one volume only --> histogram
                     mgui_analysis_plot_histogram(h(1), S);
+                elseif (size(S,1) == 3) % three volumes  --> rgb histogram
+                    mgui_analysis_plot_histogram_rgb(h(1), S);
                 else
                     mgui_analysis_plot_signal(h(1), S, [], c_volume);
                 end
@@ -52,7 +59,7 @@ for c_attempt = 1:9
                 end
                 
             case 5 %  try standard plot function
-                feval(plot_fun_name, MS, xps, h(1), h(2));
+                feval(plot_fun_name, MS, xps, h(1), h(2), opt);
                 
             case 6 %  try with magnitude data, if needed
                 if (~all(isreal(MS(:))))

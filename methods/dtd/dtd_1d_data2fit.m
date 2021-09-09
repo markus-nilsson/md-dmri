@@ -5,9 +5,9 @@ function m = dtd_1d_data2fit(signal, xps, opt, ind)
 
 if (nargin < 4), ind = ones(size(signal)) > 0; end
 
-bt_mx6 = xps.bt(find(ind),:);
+bt_mx6 = xps.bt(ind,:);
 stemp = signal(ind);
-
+    
 dtd = dtd_proliferation(stemp, bt_mx6, opt);
 %dtd
 %pause

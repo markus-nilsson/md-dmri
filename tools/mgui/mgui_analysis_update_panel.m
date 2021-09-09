@@ -13,6 +13,16 @@ h_bottom = EG.handles.h_analysis_bottom_axes;
 h_popup  = EG.handles.h_analysis_popup;
 
 
+% list methods to show (we're seeing an explosion of methods)
+method_list = {...
+    'dki_lls', ...
+    'dtd_covariance', ...
+    'dtd_gamma', ...
+    'dtd_smr', ...
+    'dti_lls'};
+    
+
+
 % get current selection
 str = get(h_popup, 'String');
 try
@@ -37,6 +47,10 @@ if (~strcmp(EG.analysis.xps_fn, EG.roi.xps_fn))
     % Populate popup with additional methods
     for c = 1:numel(d)
         if (d(c).name(1) ~= '.') && (d(c).isdir)
+
+            if (~any(cellfun(@(x) strncmp(x, d(c).name, numel(x)), method_list)))
+                continue;
+            end
             
             f_name = [d(c).name '_check_xps'];
             
