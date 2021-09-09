@@ -4,15 +4,23 @@ function s = mdm_mec_b0(s, p_fn, o_path, opt)
 % Perform motion and eddy currect correction by registering to b0
 %
 % s      - input structure OR a nii_fn with xps computed from it
-% p_fn   - parameter filename, to elastix registration scheme
-% o_path - output path for the new files
+% p_fn   - parameter filename, to elastix registration scheme (optional)
+%             default: affine registration
+% o_path - output path for the new files (optional)
+%             default: path of s.nii_fn
 % opt    - options (optional)
 %
 % Output
 % s - s.nii_fn will be updated to refer to the corrected volume
 
+if (nargin < 2) || isempty(p_fn)
+    p_fn = elastix_p_write(elastix_p_affine(200), ...
+        fullfile(fileparts(s.nii_fn), 'p.txt'));
+end
+
 if (nargin < 3), o_path = fileparts(s.nii_fn); end
 if (nargin < 4), opt.present = 1; end
+
 opt = mio_opt(opt);
 msf_log(['Starting ' mfilename], opt);
 

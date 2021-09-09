@@ -4,7 +4,7 @@ function [c, c_s, c_p] = cfa_maxwell_bias(gwf, rf, dt, ips, do_k0)
 % gwf - gradient waveform of size n x 3
 % rf  - effect of rf, size 1 x 3
 % dt  - time step
-% ips - imaging parameter structure (see function "csf_ips_example")
+% ips - imaging parameter structure (see function "cfa_ips_example")
 %
 % Baron et al., The effect of concomitant gradient fields on diffusion
 % tensor imaging. Magn Reson Med, 2012. 68(4): p. 1190-201.

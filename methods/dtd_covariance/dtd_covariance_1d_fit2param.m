@@ -47,4 +47,6 @@ if (opt.dtd_covariance.do_clamping)
     dps.MKad = mio_min_max_cut(dps.MKad, 0.0, 4.0);
     dps.MKd  = mio_min_max_cut(dps.MKd, 0.0, 4.0);
     
+    dps.uFA  = mio_min_max_cut(real(dps.uFA), -.1, 2.0);
+    
 end

@@ -1,4 +1,4 @@
-function [o_fn, tpm_fn] = mdm_coreg(i_fn, r_fn, p_fn, o_path, opt)
+function [o_fn, tpm_fn, T] = mdm_coreg(i_fn, r_fn, p_fn, o_path, opt)
 % function [o_fn, tpm_fn] = mdm_coreg(i_fn, r_fn, p_fn, o_path, opt)
 %
 % Coregisters input file 'i_fn' to reference 'r_fn' using elastix parameters
@@ -51,7 +51,7 @@ P = zeros(12, size(I_mov,4));
 for c = 1:size(I_mov, 4)
     fprintf('mio_coreg, registering vol %i of %i\n', c, size(I_mov,4));
     
-    [I_tmp, tp] = mio_coreg(...
+    [I_tmp, tp, ~, t] = mio_coreg(...
         mio_pad(I_mov(:,:,:,c), opt.mio.coreg.pad_xyz),...
         mio_pad(I_ref(:,:,:,min(size(I_ref, 4), c)), opt.mio.coreg.pad_xyz), ...
         p, opt, h_mov, h_ref);
@@ -59,12 +59,13 @@ for c = 1:size(I_mov, 4)
     % Store
     I(:,:,:,c) = mio_pad(I_tmp, -opt.mio.coreg.pad_xyz);
     P(:,c)     = tp(:);
+    T(c).t     = t;
 end
 
 % Write output
 mdm_nii_write(I, o_fn, h_new);
 elastix_tpm_write(P, tpm_fn);
-
+save(mdm_fn_nii2tpar(o_fn), 'T')
 
 
 % Header setting connected to correctness of gradient rotations

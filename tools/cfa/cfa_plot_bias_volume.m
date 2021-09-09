@@ -43,7 +43,7 @@ caxis([lb 1])
 hold on
 plot3(y(p_i), x(f_i), z(s_i), 'kx', 'markersize', 10, 'LineWidth', 3)
 
-title({['Worst error is ' num2str((min_s-1)*100, '%0.1f%%')]; ...
+title({['Worst error is ' num2str((min_s-1)*100, '%0.2e%%')]; ...
     ['f/p/s = ' num2str(x(f_i)) '/' num2str(y(p_i)) '/'  num2str(z(s_i))] })
 
 xlabel('phase')

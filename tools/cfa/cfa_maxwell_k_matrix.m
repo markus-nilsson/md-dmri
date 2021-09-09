@@ -25,7 +25,7 @@ Gz = gwf(:,3);
 t0 = [sum(Gx.*rf.*dt), sum(Gy.*rf.*dt), sum(Gz.*rf.*dt)]';
 
 
-t1 = [
+t1 = 1/(4*B0) * [
        sum(Gz.*Gz.*rf.*dt),                         0,                          -2*sum(Gx.*Gz.*rf.*dt)  ;
                          0,       sum(Gz.*Gz.*rf.*dt),                          -2*sum(Gy.*Gz.*rf.*dt)  ;
     -2*sum(Gx.*Gz.*rf.*dt),    -2*sum(Gy.*Gz.*rf.*dt),    4*(sum(Gx.*Gx.*rf.*dt) + sum(Gy.*Gy.*rf.*dt)) ;
@@ -33,5 +33,5 @@ t1 = [
 
 k0 = msf_const_gamma / 2 / pi * t0;
 
-k1 = msf_const_gamma / 2 / pi * t1 / (4 * B0);
+k1 = msf_const_gamma / 2 / pi * t1;
 

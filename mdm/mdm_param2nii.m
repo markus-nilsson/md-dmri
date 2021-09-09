@@ -23,6 +23,7 @@ opt = mdm_opt(opt);
 
 if (opt.do_param2nii == 0)
     disp('Returning (opt.do_param2nii == 0)');
+    fn = [];
     return;
 end
 
@@ -77,9 +78,9 @@ for n = 1:numel(fig_opt.fig_cmaps)
     if (isempty(dps)), dps = mdm_dps_load(dps_fn); end
     
     c.bright = dps.(param);
-    c.r = squeeze(abs(dps.(col)(:,:,:,1))) ./ dps.(colnorm);
-    c.g = squeeze(abs(dps.(col)(:,:,:,2))) ./ dps.(colnorm);
-    c.b = squeeze(abs(dps.(col)(:,:,:,3))) ./ dps.(colnorm);
+    c.r = squeeze(abs(dps.(col)(:,:,:,1))) ./ double(dps.(colnorm));
+    c.g = squeeze(abs(dps.(col)(:,:,:,2))) ./ double(dps.(colnorm));
+    c.b = squeeze(abs(dps.(col)(:,:,:,3))) ./ double(dps.(colnorm));
     
     I = zeros([3 msf_size(c.r,3)]);
     I(1,:,:,:) = c.bright .* c.r;
