@@ -43,6 +43,6 @@ else
     cmd_full = cmd;
 end
 
-[status, result] = system(cmd_full);
+[status, result] = msf_system(cmd_full);
 
 
