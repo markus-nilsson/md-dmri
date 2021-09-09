@@ -16,10 +16,15 @@ fun_check       = [method_name '_check_xps'];
 % convenient format for the models
 MS = mean(S, 2);
 
-for c_attempt = 1:9
+for c_attempt = 0:9
     
     try
         switch (c_attempt)
+            
+            case 0 % clear the window
+                if strcmp(method_name,'Overview')
+                    mgui_analysis_plot_message(h(2), '');
+                end
             
             case 1 % no signal -> show standard message
                 if (numel(S) == 0)
@@ -32,6 +37,8 @@ for c_attempt = 1:9
                 
                 if (size(S,1) == 1) % one volume only --> histogram
                     mgui_analysis_plot_histogram(h(1), S);
+                elseif (size(S,1) == 3) % three volumes  --> rgb histogram
+                    mgui_analysis_plot_histogram_rgb(h(1), S);
                 else
                     mgui_analysis_plot_signal(h(1), S, [], c_volume);
                 end
