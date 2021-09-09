@@ -12,9 +12,10 @@ function [k1, k0] = cfa_maxwell_k_matrix(gwf, rf, dt, B0)
 % Baron et al., The effect of concomitant gradient fields on diffusion 
 % tensor imaging. Magn Reson Med, 2012. 68(4): p. 1190-201.
 %
-% Szczepankiewicz and Nilsson, Maxwell-compensated waveform design for 
-% asymmetric diffusion encoding. ISMRM, 2018, Paris, France
-% Download abstract at: https://goo.gl/vVGQq2
+% If you use this resource, please cite:
+% Szczepankiewicz F, Westin, C?F, Nilsson M. Maxwell?compensated design 
+% of asymmetric gradient waveforms for tensor?valued diffusion encoding. 
+% Magn Reson Med. 2019;00:1–14. https://doi.org/10.1002/mrm.27828
 
 Gx = gwf(:,1);
 Gy = gwf(:,2);
@@ -24,7 +25,7 @@ Gz = gwf(:,3);
 t0 = [sum(Gx.*rf.*dt), sum(Gy.*rf.*dt), sum(Gz.*rf.*dt)]';
 
 
-t1 = [
+t1 = 1/(4*B0) * [
        sum(Gz.*Gz.*rf.*dt),                         0,                          -2*sum(Gx.*Gz.*rf.*dt)  ;
                          0,       sum(Gz.*Gz.*rf.*dt),                          -2*sum(Gy.*Gz.*rf.*dt)  ;
     -2*sum(Gx.*Gz.*rf.*dt),    -2*sum(Gy.*Gz.*rf.*dt),    4*(sum(Gx.*Gx.*rf.*dt) + sum(Gy.*Gy.*rf.*dt)) ;
@@ -32,5 +33,5 @@ t1 = [
 
 k0 = msf_const_gamma / 2 / pi * t0;
 
-k1 = msf_const_gamma / 2 / pi * t1 / (4 * B0);
+k1 = msf_const_gamma / 2 / pi * t1;
 

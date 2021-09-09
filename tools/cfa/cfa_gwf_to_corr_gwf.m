@@ -14,7 +14,7 @@ Gxx = Gz.*Gz;
 Gxy = zeros(size(Gxx));
 Gxz = -2*Gx.*Gz;
 Gyy = Gz.*Gz;
-Gyz =  -2*Gy.*Gz;
+Gyz = -2*Gy.*Gz;
 Gzz = 4*(Gx.*Gx + Gy.*Gy);
 
 

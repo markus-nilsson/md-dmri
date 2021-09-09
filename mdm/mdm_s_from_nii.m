@@ -13,6 +13,10 @@ function s = mdm_s_from_nii(nii_fn, b_delta)
 
 if (nargin < 2), b_delta = 1; end
 
+if (~exist(nii_fn, 'file'))
+    error('File does not exist (%s)', nii_fn);
+end
+
 s.nii_fn = nii_fn;
 s.xps = mdm_xps_from_nii_fn(nii_fn, b_delta);
 

@@ -51,7 +51,10 @@ if (~exist(ref_fn, 'file') || opt.do_overwrite)
         
     % Save output
     msf_delete(ref_fn);
-    mdm_nii_write(single(I_ref), ref_fn, h);        
+    mdm_nii_write(single(I_ref), ref_fn, h);
+    
+else
+    opt.mdm.mec.do_cleanup = 0; % clean up only locally created files
 end
 
 % Run coregistration
@@ -63,4 +66,9 @@ if (opt.mdm.mec.do_rotate_bvec)
 end
 
 mdm_xps_save(s.xps, mdm_xps_fn_from_nii_fn(s.nii_fn));
+
+% Cleanup?
+if (opt.mdm.mec.do_cleanup)
+    msf_delete(ref_fn);    
+end
 

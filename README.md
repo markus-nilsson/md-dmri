@@ -42,28 +42,21 @@ Conventional motion correction where all data is registered to a volume acquired
 
 ```matlab
 % Options
-opt = mdm_opt;
+opt = mdm_opt();
  
 % Connect to the data
 s.nii_fn = fullfile(pwd, 'data.nii');
-s.xps = mdm_xps_from_gdir('data_gdir.txt');
+s.xps = mdm_xps_from_bval_bvec('data.bval', 'data.bvec');
 
 % Determine output path
 o_path = pwd;
  
-% Define which data to include in the reference 
-% (only b-values below 1000 s/mm2)
-s_ref = mdm_s_subsample(s, s.xps.b <= 1e9, o_path, opt); 
- 
 % Write the elastix parameter file
-p = elastix_p_affine;
+p = elastix_p_affine(200);
 p_fn = elastix_p_write(p, 'p.txt');
- 
-% First run a conventional coregistratin of the reference
-s_ref = mdm_mec_b0(s_ref, p_fn, o_path, opt);
- 
+  
 % Run an extrapolation-based registration
-s_registered = mdm_mec_eb(s, s_ref, p_fn, o_path, opt);
+s_registered = mdm_s_mec(s, p_fn, o_path, opt);
 ```
 
 Now `s_registered` can be used in the subsequent analysis.
@@ -144,6 +137,13 @@ s_merged = mdm_s_merge(s, merged_nii_path, merged_nii_name);
 ```
 
 Get acquainted with by xps structure by reading mdm/readme.txt.An extensive description of the code structure is found at http://markus-nilsson.github.io/md-dmri/.  
+
+## Additions to version forked in belampinen
+1) `methods/dtd_smr`
+Code for fitting the model used in *Towards unconstrained compartment modeling in white matter using diffusion-relaxation MRI with tensor-valued diffusion encoding*, published 06 March 2020 in MRM. See also https://github.com/belampinen/lampinen_mrm_2019.
+
+2) `methods/ning18` 
+Code for fitting the model used in Manuscript *Time dependence in diffusion MRI predicts tissue outcome in ischemic stroke patients* submitted to MRM in 2020.
 
 
 # Reference

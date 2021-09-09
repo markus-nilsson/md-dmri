@@ -7,7 +7,7 @@ function m = dtd_gamma_1d_data2fit(signal, xps, opt, ind)
 if (nargin < 4), ind = ones(size(signal)) > 0; end
 
 if (isfield(xps, 's_ind') && opt.dtd_gamma.do_multiple_s0)
-    ns = numel(unique(xps.s_ind)) - 1;
+    ns = numel(unique(xps.s_ind(ind))) - 1;
 else
     ns = 0;
 end
@@ -44,7 +44,7 @@ unit_to_SI = [max(signal+eps) 1e-9 (1e-9)^2*[1 1] ones(1,ns)];
         weight = .5*(1-erf(wthresh*(xps.b - bthresh)/bthresh));
     end
 
-% Weight function that corrects for hetroscedacity due to different number
+% Weight function that corrects for heteroscedasticity due to different number
 % of images being averaged in the powder avereaged signal
     function w = calc_weight_from_signal_samples()
         if ~isfield(xps, 'pa_w')

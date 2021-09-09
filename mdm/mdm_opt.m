@@ -15,8 +15,6 @@ opt = msf_ensure_field(opt, 'assert_input_args', 1);
 opt = msf_ensure_field(opt, 'do_recon', 1);
 opt = msf_ensure_field(opt, 'do_xps2pdf', 0);
 
-opt = msf_ensure_field(opt, 'xps_merge_clear_s_ind', 0);
-
 opt = msf_ensure_field(opt, 'xps_merge_rethrow_error', 1);
 opt = msf_ensure_field(opt, 'pa_rethrow_error', 1);
 
@@ -48,11 +46,11 @@ opt.mdm.mec.present = 1;
 
 % this needs to be validated for every data set
 opt.mdm.mec = msf_ensure_field(opt.mdm.mec, 'do_rotate_bvec', 0);
+opt.mdm.mec = msf_ensure_field(opt.mdm.mec, 'do_cleanup', 1);
 
 % extrapolation-based motion correction
 opt.mdm.mec_eb.present = 1;
 opt.mdm.mec_eb = msf_ensure_field(opt.mdm.mec_eb, 'b_limit', 1.1e9);
-
 
 opt.mask.present = 1;
 
@@ -64,7 +62,7 @@ opt.mask = msf_ensure_field(opt.mask, 'do_overwrite', 0);
 
 % options for powder averaging
 opt.mdm.pa.present = 1;
-opt.mdm.pa = msf_ensure_field(opt.mdm.pa, 'db', 0.1e9);
+opt.mdm.pa = msf_ensure_field(opt.mdm.pa, 'db', 0.051e9);
 opt.mdm.pa = msf_ensure_field(opt.mdm.pa, 'db_delta2', 0.25);
 
 

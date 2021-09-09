@@ -10,7 +10,7 @@ opt = mdm_opt(opt);
 
 signal_pa = zeros(numel(c_list), 1);
 for c = c_list'
-    signal_pa(c == c_list,1) = nanmean(signal(id_ind == c,1),1);
+    signal_pa(c == c_list,1) = msf_nanmean(signal(id_ind == c,1),1);
 end
 
 % Average fields in xps

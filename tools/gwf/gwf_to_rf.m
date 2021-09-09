@@ -2,6 +2,9 @@ function rf = gwf_to_rf(g, rf)
 % function rf = gwf_to_rf(gwf)
 %
 % Tries to guess the pause periods where RF pulses are played out
+%
+% Note: This is quite sketchy – RF behavious should be specified by the
+% user. Use with caution. 
 
 if (nargin < 2), rf = []; end
 if (~isempty(rf)), return; end % deals with init situations
@@ -32,7 +35,7 @@ if (numel(ind_start) ~= 1)
     end
 end
 
-rf = zeros(size(g,1), 1);
-rf(1:(ind_start-1)) = 1;
-rf(ind_start:ind_end) = 0;
-rf((ind_end+1):end) = -1;
+% Assume an inversion pulse in the middle
+rf = ones(size(g,1), 1);
+ind_mid = round(ind_start + (ind_end-ind_start)/2);
+rf(ind_mid:end) = -1;

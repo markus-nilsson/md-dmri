@@ -29,7 +29,7 @@ d_name = {'freq.', 'phase', 'slice'};
 for i = 1:3
     n = norm(ips.o(i,:));
     
-    if (n<(1-eps)) || (n>(1+eps))
+    if (n<(1-10*eps)) || (n>(1+10*eps))
         error('Norm of %s vector (ips.o(%i,:)) is not 1', d_name{i}, i);
     end
 end

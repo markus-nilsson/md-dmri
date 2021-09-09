@@ -20,6 +20,7 @@ load(fullfile(data_path,'NMRacqus'))
 
 td = 256*ceil(NMRacqus.td/256);
 td1 = NMRacqu2s.td;
+nbl = NMRacqus.nbl;
 dw = 1/NMRacqus.sw_h/2;
 t = 2*dw*(0:(td/2-1))';
 
@@ -27,10 +28,15 @@ tdim.tot = td/2*td1;
 
 %%read time domain data and pick out relevant signal points
 fid = fopen([data_path '/ser'],'r','ieee-le');
-Std1 = fread(fid,[2,tdim.tot],'long')';
+% if any(strcmp(NMRacqus.pulprog,{'DT_axderare2d','SM_moacrare2drs'}))
+    Std1 = fread(fid,[2,tdim.tot],'long')';
+% elseif any(strcmp(NMRacqus.pulprog,{'DT_axderare2d_av4'}))
+%     Std1 = fread(fid,[2,tdim.tot],'float64')';
+% end
+%figure(1), clf, plot(1:numel(Std1),Std1(:)), return
+
 Std1 = Std1(:,1) + 1i*Std1(:,2);
 fclose(fid);
-
 Std1 = reshape(Std1,td/2,td1);
 S = Std1(:,1);
 
@@ -80,6 +86,9 @@ g.j = linspace(-1,1,tdim.j+1)'*sqrt(NMRacqus.cnst21^2+NMRacqus.cnst22^2+NMRacqus
 g.j = g.j(1:tdim.j);
 t_phasenc = 0*NMRacqus.d33 + NMRacqus.d32;
 k.j = gamma*g.j*t_phasenc/2/pi;
+
+%%slice
+g.slice = sqrt(NMRacqus.cnst31^2+NMRacqus.cnst32^2+NMRacqus.cnst33^2)*Gmax/100;
 
 %%smoothing
 if isfield(rps,'smooth')
@@ -159,6 +168,10 @@ if isfield(NMRacqus,'fq1')
     end
     phcorrfun.j = repmat(exp(1i*2*pi*fq1list(1)/fqcycle*((1:tdim.j)-tdim.j/2-1)),[nudim.i 1]);
     I = phcorrfun.j.*I;
+    r.slice = fq1list(1:nbl)./(gamma*g.slice/2/pi);
+    resolution.slice = r.slice(2) - r.slice(1);
+else
+    resolution.slice = 1;
 end
 
 if nudim.j > tdim.j
@@ -173,39 +186,45 @@ r.j = .5/(k.j(2)-k.j(1))*linspace(-1,1,nudim.j+1)'; r.j = r.j(1:nudim.j);
 resolution.i = r.i(2) - r.i(1);
 resolution.j = r.j(2) - r.j(1);
 
-Itd1 = zeros(nudim.i,nudim.j,1,td1);
-for ntd1 = 1:td1
-    S = Std1(:,ntd1);
-    S = fft(S,td/2,1);
-    S = zeroshiftfun.*S;
-    S = ifft(S,td/2,1);
-    S = reshape(S(index.S),tdim.i,tdim.j);
-    S = S(index.tdim.i,index.tdim.j);
-    S = S.*lbfun.array.*phcorrfun.i;
-    if nudim.i > tdim.i
-        S = [zeros(Nzeros.i/2,tdim.j); S; zeros(Nzeros.i/2,tdim.j)];
+Ninc = td1/nbl;
+Itd1 = zeros(nudim.i,nudim.j,nbl,Ninc);
+for ninc = 1:Ninc
+    for nslice = 1:nbl
+        ntd1 = (ninc-1)*nbl + nslice;
+        S = Std1(:,ntd1);
+        S = fft(S,td/2,1);
+        S = zeroshiftfun.*S;
+        S = ifft(S,td/2,1);
+        S = reshape(S(index.S),tdim.i,tdim.j);
+        S = S(index.tdim.i,index.tdim.j);
+        S = S.*lbfun.array.*phcorrfun.i;
+        if nudim.i > tdim.i
+            S = [zeros(Nzeros.i/2,tdim.j); S; zeros(Nzeros.i/2,tdim.j)];
+        end
+        I = fftshift(fft(ifftshift(S,1),[],1),1);
+        if isfield(NMRacqus,'fq1')
+            phcorrfun.j = repmat(exp(1i*2*pi*fq1list(ntd1)/fqcycle*((1:tdim.j)-tdim.j/2-1)),[nudim.i 1]);
+            I = phcorrfun.j.*I;
+        end
+        if nudim.j > tdim.j
+            I = [zeros(nudim.i,Nzeros.j/2) I zeros(nudim.i,Nzeros.j/2)];
+        end
+        I = fftshift(fft(ifftshift(I,2),[],2),2);
+        Itd1(:,:,nslice,ninc) = I;
+        %figure(1), clf, imagesc(abs(I)'), set(gca,'YDir','normal'), axis square, title([num2str(ntd1) ' (' num2str(td1) ')']), pause(.1)
     end
-    I = fftshift(fft(ifftshift(S,1),[],1),1);
-    if isfield(NMRacqus,'fq1')
-        phcorrfun.j = repmat(exp(i*2*pi*fq1list(ntd1)/fqcycle*((1:tdim.j)-tdim.j/2-1)),[nudim.i 1]);
-        I = phcorrfun.j.*I;
-    end
-    if nudim.j > tdim.j
-        I = [zeros(nudim.i,Nzeros.j/2) I zeros(nudim.i,Nzeros.j/2)];
-    end
-    I = fftshift(fft(ifftshift(I,2),[],2),2);
-    Itd1(:,:,1,ntd1) = I;
-    %figure(1), clf, imagesc(abs(I)'), set(gca,'YDir','normal'), axis square, pause(.1)
 end
+
+Itd1 = abs(Itd1);
 
 % make nifti headear
 h = mdm_nii_h_empty;
 sdim = size(Itd1);
 h.pixdim(1+(1:length(sdim))) = sdim;
-h.pixdim(2:3) = [resolution.i resolution.j];
+h.pixdim(2:4) = [resolution.i resolution.j resolution.slice];
 h.xyzt_units = 'SI';
 
 % write nifti image and header
-mdm_nii_write(Itd1, nii_fn, h, 0)
+mdm_nii_write(Itd1, nii_fn, h, 0);
 
 

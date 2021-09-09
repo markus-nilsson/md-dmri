@@ -27,7 +27,7 @@ if (~isfield(s,'mask_fn'))
     s.mask_fn = fullfile(path, [name '_' opt.mdm.mask_suffix opt.nii_ext]);
 end
 
-% Extra granulatiry over overwrite control needed here to enable use of
+% Extra granularity over overwrite control needed here to enable use of
 % masks from outside
 do_overwrite = opt.do_overwrite && opt.mask.do_overwrite;
 if (exist(s.mask_fn, 'file') && (~do_overwrite))

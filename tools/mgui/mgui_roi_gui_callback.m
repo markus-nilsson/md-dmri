@@ -65,13 +65,19 @@ if (nargin >= 1)
                     
                 case {'s', 'S'}
                     
-                    [tmp_name, tmp_path] = uiputfile('.nii.gz', 'Save ROI');
+                    % xxx: EG.browse.path may not be set when c_mode ~= 2
+                    %        --> Switch to EG.roi.path                     
+                    
+                    [tmp_name, tmp_path] = uiputfile('.nii.gz', 'Save ROI', ...
+                        EG.browse.path);
                     roi_filename = fullfile(tmp_path, tmp_name);
                     
                     if (roi_filename ~= 0)
                         try
                             EG.roi.is_updated = 1;
-                            EG = mgui_roi_save(EG, roi_filename, 'single');
+                            EG.roi.roi_filename = roi_filename;
+                            EG = mgui_roi_save(EG);
+                            EG.roi.roi_filename = []; 
                             EG.roi.is_updated = 0;
                         catch me
                             msgbox(me.message);
@@ -79,8 +85,12 @@ if (nargin >= 1)
                     end
                     
                 case {'l', 'L'}
+                    
+                    % xxx: EG.browse.path may not be set when c_mode ~= 2
+                    %        --> Switch to EG.roi.path                                         
+                    
                     [tmp_name, tmp_path] = uigetfile(...
-                        {'.nii;*.nii.gz', 'NIFTI'}, 'Load ROI', ...
+                        {'*.nii;*.nii.gz', 'NIFTI'}, 'Load ROI', ...
                         EG.browse.path);
                     roi_filename = fullfile(tmp_path, tmp_name);
                     
@@ -105,7 +115,7 @@ if (nargin >= 1)
                                 end
                             else
                                 k = 1;
-                                l = 0.1
+                                l = 0.1;
                             end
                             
                             I_roi = (I_roi > (k - l)) & (I_roi < (k + l));

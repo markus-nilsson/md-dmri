@@ -30,7 +30,7 @@ colorbar
 hold on
 plot3(y(ind), x(ind), z(ind), 'ko', 'markersize', 10, 'LineWidth', 3, 'MarkerFaceColor', 'w')
 
-title({['Worst error is ' num2str((min_s-1)*100, '%0.1f%%')]; ...
+title({['Worst error is ' num2str((min_s-1)*100, '%0.2f%%')]; ...
     ['f/p/s = ' num2str(x(ind),2) '/' num2str(y(ind),2) '/'  num2str(z(ind),2)] })
 
 xlabel('phase')

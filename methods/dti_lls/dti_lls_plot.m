@@ -1,6 +1,7 @@
-function m = dti_lls_plot(S, xps, h, h2)
+function m = dti_lls_plot(S, xps, h, h2, opt)
 % function m = dti_lls_plot(S, xps, h, h2)
 
+if (nargin < 5), opt = []; end
 if (nargin < 4), h2 = []; end
 
 dti_lls_check_xps(xps);

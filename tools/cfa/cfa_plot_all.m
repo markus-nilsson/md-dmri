@@ -28,6 +28,9 @@ switch find_mode
         R = cfa_find_worst_fov_rot(gwf, rf, dt, ips, 1);
         ips = cfa_apply_R_to_fov(ips, R);
         
+    otherwise
+        error('Mode not recognized!')
+        
 end
 
 % Calculate the bias field in the voxels defined by ips.
