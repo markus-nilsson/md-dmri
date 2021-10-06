@@ -42,9 +42,9 @@ if (1)
     % diffusivities of ad_i and rd_i, pointing in the uvec_elstat(n_i)
     % directions
     %
-    dt_1 = tm_1x3_to_1x6(ad_1, rd_1, uvec_elstat(n_1));
-    dt_2 = tm_1x3_to_1x6(ad_2, rd_2, uvec_elstat(n_2));
-    dt_3 = tm_1x3_to_1x6(d_iso, d_iso, uvec_elstat(n_3));
+    dt_1 = tm_1x3_to_1x6(ad_1, rd_1, uvec_elstat(n_1, 'froeling'));
+    dt_2 = tm_1x3_to_1x6(ad_2, rd_2, uvec_elstat(n_2, 'froeling'));
+    dt_3 = tm_1x3_to_1x6(d_iso, d_iso, uvec_elstat(n_3, 'froeling'));
     
     % size(dt) = (n_1 + n_2 + n_3) x 6, i.e., voigt notation of the dt
     dt = cat(1, dt_1, dt_2, dt_3); % this is our tensor distribution

@@ -67,6 +67,7 @@ switch (c_ut)
         
         % expect this
         M_exp = mio_mask_fill(I(:,:,:,2) > 0);
+        M_exp = mio_mask_expand(M_exp);
         
         opt.mask.b0_ind = 2;
         
