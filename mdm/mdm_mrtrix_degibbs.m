@@ -20,11 +20,5 @@ if opt.do_overwrite
     cmd = [cmd ' -force']; % noise map
 end
 
-if (ismac) || (isunix)
-    cmd_full = ['/bin/bash --login -c '' ' cmd ' '' '];
-else
-    cmd_full = cmd;
-end
-
-[status, result] = msf_system(cmd_full);
+[status, result] = msf_system(cmd);
 
