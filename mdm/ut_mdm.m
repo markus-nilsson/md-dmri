@@ -3,7 +3,7 @@ function fn = ut_mdm(c_ut)
 %
 % Run unit tests on the files in this package
 
-if (nargin == 0), fn = 7; return; end
+if (nargin == 0), fn = 8; return; end
 
 
 switch (c_ut)
@@ -277,4 +277,38 @@ switch (c_ut)
             error('%s, ut_mdm test %i, no msg generated', fn, c_ut);
         end
             
+    case 8
+        fn = 'mdm_xps_from_bt.m';
+        
+        % stick b-tensor
+        u = [1 0 0];
+        bt = tm_1x3_to_1x6(1, 0.1, u); 
+        
+        xps = mdm_xps_from_bt(bt);
+        
+        if ( abs(u - xps.u) > eps )
+            error('%s, ut_mdm test %i, xps.u error', fn, c_ut);
+        end
+        
+        
+        % plane b-tensor
+        u = [1 0 0];
+        bt = tm_1x3_to_1x6(0.1, 1.0, u); 
+        
+        xps = mdm_xps_from_bt(bt);
+        
+        if ( abs(u - xps.u) > eps )
+            error('%s, ut_mdm test %i, xps.u error', fn, c_ut);
+        end    
+        
+
+        % skewed b-tensor
+        bt = [1 0.5 0.1 0 0 0];
+
+        xps = mdm_xps_from_bt(bt);
+        
+        if ( ~all(isnan(xps.u)))
+            error('%s, ut_mdm test %i, xps.u should be NaN for assym case', fn, c_ut);
+        end             
+        
 end
