@@ -8,6 +8,7 @@ end
 
 EG.browse.ext = {};
 EG = mgui_browse_add_ext(EG, 'nii');
+EG = mgui_browse_add_ext(EG, 'mif');
 EG = mgui_browse_add_ext(EG, inf);
 
 if (isempty(EG.browse.path))

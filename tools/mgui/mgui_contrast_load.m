@@ -25,6 +25,10 @@ switch (lower(ext))
         I = dicomread(filename);
         header = mdm_nii_h_empty;
         header.my_hdr.ori = 'LAS';
+    case '.mif'
+        I = mdm_mif_read(filename);
+        header = mdm_nii_h_empty();
+%         header.
     otherwise % assume nifti
         [I, header] = mdm_nii_read(filename);
         header.my_hdr.ori = mdm_nii_oricode(header);
