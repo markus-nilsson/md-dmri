@@ -1,8 +1,8 @@
 License Agreement Random Walk Imaging Code
 
 This License is granted by Random Walk Imaging AB, a Swedish company registered 
-under company No 556749-5089, having its principle place of business 
-located at P.O Box 124, 221 00 Lund to the individual and/or entity that 
+under company No 559368-5547, having its principle place of business located 
+at Villavägen 8, 232 53 Åkarp, Sweden to the individual and/or entity that 
 has downloaded the Program covered by this Agreement or subsequently 
 received the Program by distribution permitted by the terms of 
 this Agreement. 
