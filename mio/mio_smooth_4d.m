@@ -4,7 +4,8 @@ function I = mio_smooth_4d(I, filter_sigma, opt)
 % Gaussian smoothing with a width controlled by 'filter_sigma'
 
 % init 
-if (nargin < 4), opt.present = 1; end
+if (nargin < 2), filter_sigma = 0.5; end
+if (nargin < 3), opt.present = 1; end
 opt = mdm_opt(opt);
 
 % Create filter
