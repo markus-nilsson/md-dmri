@@ -31,6 +31,7 @@ the Program in teaching, scientific and clinical research. This
 license guarantees that the Program will remain available free of charge 
 for non-commercial use. You can modify the Program to your purposes, and 
 you can also share your modifications. 
+
 We believe that the combination of non-commercial open-source and commercial
 licensing will be beneficial for the whole user community, because income 
 from commercial licenses will enable faster development and a higher level 
@@ -42,23 +43,23 @@ and collaboration channels of open source development.
 
 In this Agreement:
 
-?Object code or executable form? means any non-source form of a work. 
+"Object code or executable form" means any non-source form of a work. 
 
-?Modify or change the Program? means to copy from or adapt all or part of 
+"Modify or change the Program" means to copy from or adapt all or part of 
 the Program, requiring copyright permission, to create other than an exact 
 copy. 
 
-?Program? means any copy of the software Random Walk Imaging Code to be 
+"Program" means any copy of the software Random Walk Imaging Code to be 
 distributed under this License. 
 
-?Source code? means the preferred form of the work for making modifications
+"Source code" means the preferred form of the work for making modifications
 of it. 
 
-?Using the Program? means any act of creating executables that contain or 
+"Using the Program" means any act of creating executables that contain or 
 directly use files that are part of the Program, running any of the tools 
 that are part of the Program or creating works based on the Program. 
 
-?Work based of the Program? means either the Program or any derivative work 
+"Work based of the Program" means either the Program or any derivative work 
 pursuant to copyright law.
 
 
@@ -78,8 +79,8 @@ for commercial purposes.
 3. Copying and distribution of the program?s source code
 
 The licensee is permitted to copy and distribute verbatim copies of the 
-Program?s source code when receiving it. To distribute copies of the 
-Program?s source code the licensee must publish an easily-visible and 
+Program's source code when receiving it. To distribute copies of the 
+Program's source code the licensee must publish an easily-visible and 
 appropriate copyright notice and disclaimer of warranty on each copy, keep 
 all notices referring to this license intact and give every recipients of 
 the copy of the Program a copy of this license. 
@@ -91,7 +92,7 @@ the copy of the Program a copy of this license.
 
 The licensee is, subject to the limitations of this Agreement, permitted to
 modify the licensee?s copy of the Program or any other copy of the Program 
-or any portion of it, forming a ?work based on the Program?. The licensee 
+or any portion of it, forming a "work based on the Program". The licensee 
 is also permitted to distribute works based on the Program under the terms
 described in sections 2 and 3 above provided that all three of the following
 conditions (A-C) are met: 
@@ -177,7 +178,7 @@ rights.
 
 
 
-9. ?As is? ? Waiver 
+9. "As is" Waiver 
 
 The Program is free of charge and provided to the licensee on an ?as is? 
 basis. There is no warranty for the Program. The entire risk as to the 
