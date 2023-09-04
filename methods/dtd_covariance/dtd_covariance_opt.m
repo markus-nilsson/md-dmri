@@ -15,7 +15,7 @@ opt.(x) = msf_ensure_field(opt.(x), 'do_post_fit_masking', 0);
 opt.(x) = msf_ensure_field(opt.(x), 'allow_subspace_estimation', 1);
 
 opt.(x) = msf_ensure_field(opt.(x), 'cond_limit', 1e-10);
-opt.(x) = msf_ensure_field(opt.(x), 'rank_limit', 1e-3);
+opt.(x) = msf_ensure_field(opt.(x), 'rank_limit', 1e-10);
 
 
 % Enable the use of the 1d_data2fit for diffusional kurtosis imaging (DKI)

@@ -209,7 +209,7 @@ end
 % with insufficiently well sampled data (e.g. LTE+STE only)
 % Some information will be missing, but MK_I and MK_A can be computed
 % anyway
-n_rank = rank(b4' * b4 / trace(b2' * b2)^2 * size(b2,1), ...
+n_rank = rank(b4' * b4 / (trace(b2' * b2)^2 * size(b2,1) + eps), ...
     opt.dtd_covariance.rank_limit);
 
 if (n_rank < 21) && (opt.dtd_covariance.allow_subspace_estimation)

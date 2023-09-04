@@ -50,12 +50,11 @@ EG.handles.h_analysis_redo_button = uicontrol('style','pushbutton', ...
     'callback', @mgui_roi_gui_callback);
 
 
-
-
 % Handle resizing: Warning for ugly code, needs rethink (XXX)
 set(h, 'ResizeFcn', @mgui_browse_resize);
 t_fixed_top = {...
-    EG.t_ANALYSIS_POPUP};
+    EG.t_ANALYSIS_POPUP, ...
+    EG.t_ANALYSIS_REDO_BUTTON};
 
 h_fixed_top = [];
 for c = 1:numel(t_fixed_top)

@@ -14,3 +14,7 @@ if (isfield(xps, 's_ind'))
     
     assert( all(t_ind), 's_ind must be in continuous order!')
 end
+
+% check that we have multiple b-tensor shapes
+assert(numel(unique( round(50*xps.b_delta(xps.b > 0.1e9)))) > 1, ...
+    'multiple b-tensor shape required');

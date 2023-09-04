@@ -48,3 +48,7 @@ opt.mio.fit_model = msf_ensure_field(opt.mio.fit_model, 's_type', 'none');
 opt.mio.fit_model = msf_ensure_field(opt.mio.fit_model, 's_filter_sigma', 0.7);
 
 
+
+
+opt.mio.ref.extrapolate.present = 1;
+opt.mio.ref.extrapolate = msf_ensure_field(opt.mio.ref.extrapolate, 'do_subspace_fit', 0);

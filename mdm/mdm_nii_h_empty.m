@@ -40,9 +40,9 @@ h.quatern_d  	  = zeros(1, 1, 'single');               % Quaternion d param.
 h.qoffset_x 	  = zeros(1, 1, 'single');               % Quaternion x shift.  
 h.qoffset_y  	  = zeros(1, 1, 'single');               % Quaternion y shift.   
 h.qoffset_z  	  = zeros(1, 1, 'single');               % Quaternion z shift.   
-h.srow_x  		  = single([1 0 0 0]);              % 1st row affine transform.   
-h.srow_y 		  = single([0 1 0 0]);               % 2nd row affine transform.   
-h.srow_z 		  = single([0 0 1 0]);                %3rd row affine transform.   
+h.srow_x  		  = single([-1 0 0 0])';              % 1st row affine transform.   
+h.srow_y 		  = single([0 1 0 0])';               % 2nd row affine transform.   
+h.srow_z 		  = single([0 0 1 0])';                %3rd row affine transform.   
 h.intent_name	  = zeros(1, 16, 'uint8');                %name or meaning of data.  
 h.magic			  = char('n+1     ');                  % should be 'n+ 1'
 

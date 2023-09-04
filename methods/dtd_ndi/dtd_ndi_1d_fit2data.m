@@ -15,7 +15,7 @@ v_ext  = 1 - v_int;
 ad_int = lambda;
 rd_int = 0;
 
-% mc_ec = lambda/3 * (3 - 2 * v_ic) = lambda (1 - 2/3 * v_int)
+% md_ec = lambda/3 * (3 - 2 * v_ic) = lambda (1 - 2/3 * v_int)
 md_ext = (1 - 2/3 * v_int) * lambda;
 
 
