@@ -21,7 +21,7 @@ for c = 1:size(bt, 1)
     xps.b_eta(c)    = tp.eta;
     xps.bt(c,:)     = bt(c,:);
     
-    if (tp.eta < 0.1) % skewed tensors?
+    if (tp.eta < 0.4) % skewed tensors? (0.1->0.4 due to SMR data)
         
         if (tp.delta == 0) % spherical
             xps.u(c,:) = tp.lambda33vec;
