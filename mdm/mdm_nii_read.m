@@ -33,6 +33,7 @@ dim_x = h.dim(2);
 dim_y = h.dim(3);
 dim_z = h.dim(4);
 n_dyn = max(1,h.dim(5));
+n_ext = max(1,h.dim(6));
 
 % Image is RBG-uint8 if bitpix equals 24
 if (h.bitpix == 24)
@@ -57,7 +58,7 @@ else
         end
     end
     
-    I = fread(fid, dim_x*dim_y*dim_z*n_dyn*(is_complex+1), ...
+    I = fread(fid, dim_x*dim_y*dim_z*n_dyn*n_ext*(is_complex+1), ...
         ['*' data_type_str]);
     
     if (is_complex)
@@ -65,7 +66,7 @@ else
         I = reshape(I(1,:,:,:,:) + 1i * I(2,:,:,:,:), ...
             dim_x, dim_y, dim_z, n_dyn);
     else
-        I = reshape(I, dim_x, dim_y, dim_z, n_dyn);
+        I = reshape(I, dim_x, dim_y, dim_z, n_dyn, n_ext);
     end
 end
 fclose(fid);

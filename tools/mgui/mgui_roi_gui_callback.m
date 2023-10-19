@@ -264,6 +264,9 @@ if (nargin >= 1)
                 set(EG.tags.(EG.t_FIG),'WindowButtonMotionFcn', @mgui_roi_pan);
                 set(EG.tags.(EG.t_FIG),'WindowButtonUp', @mgui_roi_pan_stop);
                 
+            case EG.t_ROI_ANALYSIS_CVOL
+                EG = mgui_roi_select_volume(EG, hSender.String);
+            
             case EG.t_ROI_ENABLE_OVERVIEW
                 EG = mgui_roi_enable_right_panel(EG, 1);
                 
@@ -343,8 +346,11 @@ end
 % ------------------------------------------------------------
 function EG = mgui_roi_select_volume(EG, value)
 
-
-EG.roi.c_volume = EG.roi.c_volume + value;
+if (all(ischar(value)))
+    EG.roi.c_volume = round(str2num(value));
+else
+    EG.roi.c_volume = EG.roi.c_volume + value;
+end
 
 if (EG.roi.c_volume > size(EG.roi.I,4))
     EG.roi.c_volume = 1;

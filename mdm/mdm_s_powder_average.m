@@ -13,9 +13,6 @@ opt = mdm_opt(opt);
 msf_log(['Starting ' mfilename], opt);
 
 
-% Build filenames: if input is a nii filename, convert to structure
-if (all(ischar(s))), s = mdm_nii_to_s(s); end
-
 % Build filenames: either o_path is a filename or a output path, treat
 % the data differently depending on this
 if (strcmpi(o_path(max(1, end-6):end), '.nii.gz'))

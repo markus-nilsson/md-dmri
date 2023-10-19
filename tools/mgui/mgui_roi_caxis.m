@@ -52,7 +52,8 @@ if (any(I(:)<0))
 end
 
 % For parameter maps with just small negative values
-if min(I,[],'all') > -0.05*max(I,[],'all')
+if (min(I,[],'all') > -0.05*max(I,[],'all')) || ...
+        ( (-sum(I(I(:) < 0)) / sum(I(I(:) > 0))) < 0.1 )
     this_caxis = max(abs(this_caxis))*[0; 1];
 end
 

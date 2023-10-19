@@ -34,6 +34,7 @@ end
 % repopulate only if there's a new xps coming in 
 EG.analysis.present = 1;
 EG.analysis = msf_ensure_field(EG.analysis, 'xps_fn', []);
+EG.roi = msf_ensure_field(EG.roi, 'xps_fn', []);
 if (~strcmp(EG.analysis.xps_fn, EG.roi.xps_fn))
     EG.analysis.xps_fn = EG.roi.xps_fn;
 
