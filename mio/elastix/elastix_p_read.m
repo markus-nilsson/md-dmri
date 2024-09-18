@@ -32,6 +32,9 @@ for c_loop = 1:1e4 % make sure to terminate the loop even if something goes wron
     if (isempty(start_ind)),    continue; end
     if (isempty(end_ind)),      continue; end
     if (isempty(sep_ind)),      continue; end
+
+    sep_ind = sep_ind(1);
+    
     if (start_ind > sep_ind),   continue; end
     if (sep_ind > end_ind),     continue; end
     

@@ -6,6 +6,9 @@ function [path, name, ext] = msf_fileparts(fn)
 
 [path, name, ext] = fileparts(fn);
 
-[~,    name, ext2] = fileparts(name);
+[~, name2, ext2] = fileparts(name);
 
-ext = [ext2 ext];
+if (strcmp(ext, '.gz') && strcmp(ext2, '.nii'))
+    name = name2;
+    ext = [ext2 ext];
+end
