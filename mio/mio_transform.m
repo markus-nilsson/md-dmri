@@ -1,4 +1,4 @@
-function I_out = mio_transform(I_in, t, h, opt)
+function [I_out, h_out] = mio_transform(I_in, t, h, opt)
 % function I_out = mio_transform(I_in, t, h, opt)
 % 
 % I: Image volume (x,y,z,c) to be transformed (looping over 4th dim)
@@ -36,7 +36,7 @@ for c = 1:n
     o_fn = elastix_run_transformix(nii_fn, t_fn, opt.mio.tmp_path);
     
     % read and reset changes imposed by elastix
-    I_tmp = mdm_nii_read(o_fn);
+    [I_tmp, h_out] = mdm_nii_read(o_fn);
     I_tmp = (I_tmp - h.scl_inter) / h.scl_slope;
         
     if (c == 1)
