@@ -66,4 +66,12 @@ if (this_caxis(1) == this_caxis(2))
     this_caxis = [0.95 1.05] * this_caxis(1);
 end
 
+% Enable outside control of caxis
+if (isfield(EG.data, 'ref'))
+    ref = EG.data.ref(EG.browse.c_item);
+    if (isfield(ref, 'caxis') && ~isempty(ref.caxis))
+        this_caxis = ref.caxis;
+    end
+end
+
 EG.roi.caxis = this_caxis;
