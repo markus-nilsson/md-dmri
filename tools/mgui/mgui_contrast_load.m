@@ -28,7 +28,9 @@ switch (lower(ext))
     case '.mif'
         I = mdm_mif_read(filename);
         header = mdm_nii_h_empty();
-%         header.
+    case '.mgz'
+        I = mdm_mgz_read(filename);
+        header = mdm_nii_h_empty();
     otherwise % assume nifti
         [I, header] = mdm_nii_read(filename);
         header.my_hdr.ori = mdm_nii_oricode(header);
