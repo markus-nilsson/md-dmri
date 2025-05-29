@@ -43,7 +43,7 @@ end
 
 % Run the powder averaging functions
 [I,h] = mdm_nii_read(s.nii_fn);
-I = mio_pa(I, s.xps, opt);
+[I,S] = mio_pa(I, s.xps, opt);
 s.xps = mdm_xps_pa(s.xps, opt); 
 
 
@@ -53,3 +53,10 @@ mdm_nii_write(single(I), s.nii_fn, h);
 
 % For good manners, save the xps as well
 mdm_xps_save(s.xps, out_xps_fn); 
+
+
+% If requested, save the std as well
+if (opt.mdm.pa_std)
+    nii_std_fn = fullfile(o_path, [name '_' opt.mdm.pa_suffix '_std' opt.nii_ext]);
+    mdm_nii_write(single(S), nii_std_fn, h);   
+end
