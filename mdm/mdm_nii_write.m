@@ -93,6 +93,8 @@ try
                 fwrite(fid, J, 'float32');
             case 16
                 fwrite(fid, single(I), 'float32');
+            case 8
+                fwrite(fid, int32(I), 'int32');
             case 4
                 fwrite(fid, int16(I), 'int16');
             case 2
@@ -155,6 +157,9 @@ end
             case 'int16'
                 h.datatype = 4;
                 h.bitpix = 16;
+            case 'int32'
+                h.datatype = 8;
+                h.bitpix = 32;
             case 'uint16'
                 h.datatype = 512;
                 h.bitpix = 16;
