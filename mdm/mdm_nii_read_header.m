@@ -51,7 +51,7 @@ h.srow_x            = fread(fid, 4, 'float32');         % 1st row affine transfo
 h.srow_y 			= fread(fid, 4, 'float32');         % 2nd row affine transform.   
 h.srow_z 			= fread(fid, 4, 'float32');         % 3rd row affine transform.   
 h.intent_name		= fread(fid, 16, 'uint8');          % name or meaning of data.  
-h.magic             = fread(fid, 8, 'char');            % should be 'n+ 1'
+h.magic             = fread(fid, 8, 'uint8');            % should be 'n+ 1'
 
 % Close down and remove the temp file
 fclose(fid);

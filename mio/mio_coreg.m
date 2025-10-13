@@ -1,9 +1,10 @@
-function [I_res,tp,h_res,elastix_t] = mio_coreg(I_mov, I_ref, p, opt, h_mov, h_ref)
+function [I_res,tp,h_res,elastix_t] = mio_coreg(I_mov, I_ref, p, opt, h_mov, h_ref, t0)
 % function [I_res,tp,h_res,elastix_t] = mio_coreg(I_mov, I_ref, p, opt, h_mov, h_ref)
 
 if (nargin < 4), opt.present = 1; end
 if (nargin < 5), h_mov = mdm_nii_h_empty; end
 if (nargin < 6), h_ref = mdm_nii_h_empty; end
+if (nargin < 7), t0 = []; end
 
 opt = mio_opt(opt);
 
@@ -21,14 +22,25 @@ ref_fn  = fullfile(opt.mio.tmp_path, 'f.nii');
 mov_fn  = fullfile(opt.mio.tmp_path, 'm.nii');
 p_fn    = fullfile(opt.mio.tmp_path, 'p.txt');
 
+if (~isempty(t0))
+    t0_fn = fullfile(opt.mio.tmp_path, 't0.txt');
+    elastix_p_write(t0, t0_fn);
+else
+    t0_fn = [];
+end
+
 
 % Write outputs
+h0_mov = h_mov;
+h_ref.datatype = 16;
+h_mov.datatype = 16;
+
 mdm_nii_write(single(I_ref), ref_fn, h_ref);
 mdm_nii_write(single(I_mov), mov_fn, h_mov);
 elastix_p_write(p, p_fn);
 
 % Run ElastiX, Read image volume and transform parameters
-[res_fn, tp_fn] = elastix_run_elastix(mov_fn, ref_fn, p_fn, opt.mio.tmp_path);
+[res_fn, tp_fn] = elastix_run_elastix(mov_fn, ref_fn, p_fn, opt.mio.tmp_path, t0_fn);
 [I_res,h_res] = mdm_nii_read(res_fn);
 
 try
@@ -44,8 +56,9 @@ if (opt.mio.coreg.adjust_intensity)
 end
 
 % Adjust before storing
-I_res = cast(I_res, 'like', I_mov);
-
+I_res = cast(I_res / h0_mov.scl_slope, 'like', I_mov);
+h_res.datatype = h0_mov.datatype;
+h_res.scl_slope = h0_mov.scl_slope;
 
 % Cleanup
 if (do_rm_tmp_path)

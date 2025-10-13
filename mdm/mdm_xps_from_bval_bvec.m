@@ -42,3 +42,6 @@ xps = mdm_xps_from_bt(bt);
 % store the direction from the bvec file too
 xps.u_from_bvec = u;
 
+% correct directions that may have been corruped
+xps.u = xps.u .* sign(sum(xps.u .* u, 2));
+

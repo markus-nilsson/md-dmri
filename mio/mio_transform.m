@@ -36,8 +36,7 @@ for c = 1:n
     o_fn = elastix_run_transformix(nii_fn, t_fn, opt.mio.tmp_path);
     
     % read and reset changes imposed by elastix
-    [I_tmp, h_out] = mdm_nii_read(o_fn);
-    I_tmp = (I_tmp - h.scl_inter) / h.scl_slope;
+    [I_tmp, h_out] = mdm_nii_read_and_rescale(o_fn);
         
     if (c == 1)
         I_out = zeros(size(I_tmp,1), size(I_tmp,2), size(I_tmp,3), n); 

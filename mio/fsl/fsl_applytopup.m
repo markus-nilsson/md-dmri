@@ -3,6 +3,8 @@ function fsl_applytopup(input_fn1, input_fn2, topup_data_path, ...
 % function fsl_applytopup(input_fn1, input_fn2, topup_data_path, ...
 %     topup_spec_fn, output_fn, opt)
 
+if (nargin < 6), opt.present = 1; end
+
 opt = fsl_opt(opt);
 msf_log(['Starting ' mfilename], opt);
 

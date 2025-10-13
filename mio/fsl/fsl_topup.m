@@ -1,6 +1,8 @@
 function [out_fn1, out_fn2] = fsl_topup(input_fn, spec_fn, out_fn, opt)
 % function fsl_topup(input_fn, spec_fn, out_fn)
 
+if (nargin < 4), opt.present = 1; end
+
 opt = fsl_opt(opt);
 msf_log(['Starting ' mfilename], opt);
 

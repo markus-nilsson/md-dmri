@@ -1,6 +1,8 @@
 function EG = mgui_roi_save(EG)
 % function EG = mgui_roi_save(EG)
 
+if (~isfield(EG, 'roi')), return; end
+
 % Make sure all relevant fields are present
 if (~isfield(EG, 'roi')) || ...
          (~isfield(EG.roi,'I_roi')) || ...

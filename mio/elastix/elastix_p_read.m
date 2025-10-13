@@ -37,6 +37,8 @@ for c_loop = 1:1e4 % make sure to terminate the loop even if something goes wron
     
     if (start_ind > sep_ind),   continue; end
     if (sep_ind > end_ind),     continue; end
+
+    sep_ind = min(sep_ind);
     
     field   = tline(start_ind + 1:sep_ind - 1);
     val     = tline(sep_ind + 1:end_ind -1);

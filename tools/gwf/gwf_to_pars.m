@@ -44,7 +44,7 @@ xps.gwf_spectral_trace_rms_norm = ...
 xps.maxwell_index = gwf_maxwell_index(gwf, rf, dt); % unit: (T/m)^2 s
 
 % Energy index
-xps.energy_index = sum(gwf(:).^2) * dt;
+xps.energy_index = sum(gwf.^2,1) * dt;
 
 
 % Gradient moments
