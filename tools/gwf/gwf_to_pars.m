@@ -9,7 +9,7 @@ function xps = gwf_to_pars(gwf, rf, dt, opt)
 if (nargin < 4), opt = []; end, opt = gwf_opt(opt);
 
 if (iscell(gwf))
-    xps = cell(numel(gwf));
+    xps = cell(1,numel(gwf));
     for c = 1:numel(gwf)
         xps{c} = gwf_to_pars(gwf{c}, rf, dt);
     end
