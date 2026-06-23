@@ -7,6 +7,7 @@ cmd = 'transformix';
 cmd = [cmd ' -in "'    i_fn    '"']; 
 cmd = [cmd ' -out "'   o_path  '"']; 
 cmd = [cmd ' -tp "'    t_fn    '"']; 
+cmd = [cmd ' -threads ' num2str(maxNumCompThreads)];
 
 res_fn = fullfile(o_path, 'result.nii');
 

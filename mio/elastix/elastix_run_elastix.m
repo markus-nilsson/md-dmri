@@ -1,7 +1,13 @@
-function [res_fn, tp_fn] = elastix_run_elastix(i_fn, ref_fn, p_fn, o_path, t0_fn)
+function [res_fn, tp_fn] = elastix_run_elastix(i_fn, ref_fn, p_fn, o_path, t0_fn, m_mask_fn, ref_mask_fn)
 % function [res_fn, tp_fn] = elastix_run_elastix(i_fn, ref_fn, p_fn, o_path, t0_fn)
 %
 % Runs elastix. For help, see readme.txt in the elastix folder.
+
+if (nargin < 5), t0_fn = []; end
+if (nargin < 6), m_mask_fn = []; end
+if (nargin < 6), ref_mask_fn = []; end
+
+
 
 cmd = 'elastix';
 cmd = [cmd ' -f "'   ref_fn  '"'];
@@ -9,11 +15,13 @@ cmd = [cmd ' -m "'   i_fn  '"'];
 cmd = [cmd ' -out "' o_path '"'];
 cmd = [cmd ' -p "'   p_fn  '"'];
 
+% Optional initial transform and masking
+if (~isempty(t0_fn)), cmd = [cmd ' -t0 "' t0_fn '"']; end
+if ~isempty(ref_mask_fn), cmd = [cmd ' -fMask "' ref_mask_fn '"']; end
+if ~isempty(m_mask_fn), cmd = [cmd ' -mMask "' m_mask_fn '"']; end
+
 cmd = [cmd ' -threads 12'];
 
-if (nargin > 4) && (~isempty(t0_fn))
-    cmd = [cmd ' -t0 "' t0_fn '"'];
-end
 
 res_fn = fullfile(o_path, 'result.0.nii');
 tp_fn  = fullfile(o_path, 'TransformParameters.0.txt');
