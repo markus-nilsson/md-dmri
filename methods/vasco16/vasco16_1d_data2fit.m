@@ -1,7 +1,10 @@
 function m = vasco16_1d_data2fit(signal, xps, opt, ind)
 % function m = vasco16_1d_data2fit(signal, xps, opt, ind)
 
+if (nargin < 3), opt = struct; end
 if (nargin < 4), ind = ones(size(signal)) > 0; end
+
+opt = vasco16_opt(opt);
 
 unit_to_SI = [max(signal) 1e-6 1 1e-9 1e-9 1];
 
@@ -10,12 +13,12 @@ unit_to_SI = [max(signal) 1e-6 1 1e-9 1e-9 1];
         % define model parameters
         s0          = t(1);
         D_tissue    = t(2); 
-        vp          = t(3);
+        vd2         = t(3);
         f_blood     = t(4);
-        D_blood     = 1.75; % AA 2016
+        D_blood     = opt.vasco16.dblood / unit_to_SI(4);
         w           = t(5);
         
-        m = [s0 vp f_blood D_blood D_tissue w] .* unit_to_SI;
+        m = [s0 vd2 f_blood D_blood D_tissue w] .* unit_to_SI;
     end
 
     function s = my_1d_fit2data_with_penalty(t,varargin)
@@ -23,27 +26,27 @@ unit_to_SI = [max(signal) 1e-6 1 1e-9 1e-9 1];
         m = t2m(t);
 
         % calculate smooth heaviside regularization term
-        vp = m(2) / unit_to_SI(2);
+        vd = sqrt(max(m(2), 0));
         nterm       = xps.n/30;
-        lambda1     = 0.5;
-        sigma1_neg  = 0.75;
-        sigma1_pos  = 2.75;
-        delta       = 0.4; % smoothness of transition
-        gaussterm1  = 1-0.5*(tanh((vp-sigma1_neg)/delta) - ...
-            tanh((vp-sigma1_pos)/delta));
-        regterm1    = lambda1.*gaussterm1.*nterm;
+        lambda1     = opt.vasco16.reg_lambda;
+        sigma1_neg  = opt.vasco16.reg_vd_lb;
+        sigma1_pos  = opt.vasco16.reg_vd_ub;
+        delta       = opt.vasco16.reg_delta_vd;
+        gaussterm1  = 1-0.5*(tanh((vd-sigma1_neg)/delta) - ...
+            tanh((vd-sigma1_pos)/delta));
+        regterm1    = lambda1 .* gaussterm1 .* nterm;
 
         % make a signal plus a reg term
         s = vasco16_1d_fit2data(m, xps);
         
-        s = [s(ind); regterm1 * mean(signal)];
+        s = [s(:); regterm1];
         
     end
 
 % S0, D, vd, f
-t_guess   = [1  1    2   0.05 1.0];
-t_lb      = [0  0    0   0.00 0.5];
-t_ub      = [2 10  100   1.00 1.5];
+t_guess   = opt.vasco16.fit_guess ./ unit_to_SI([1 5 2 3 6]);
+t_lb      = opt.vasco16.fit_lb ./ unit_to_SI([1 5 2 3 6]);
+t_ub      = opt.vasco16.fit_ub ./ unit_to_SI([1 5 2 3 6]);
 
 % perform the fit
 t = lsqcurvefit(@my_1d_fit2data_with_penalty, t_guess, [], [signal(ind);0], ...
@@ -57,8 +60,8 @@ m = t2m(t);
 if (opt.vasco16.do_plot)
     signal_fit = vasco16_1d_fit2data(m, xps);
     
-    ind_i{1} = (xps.alpha2 == 0) & ind_signal;
-    ind_i{2} = (xps.alpha2 >  0) & ind_signal;
+    ind_i{1} = (xps.alpha2 == 0) & ind;
+    ind_i{2} = (xps.alpha2 >  0) & ind;
     t = {'FC', 'NC'};
     
     clf; set(gcf,'color','white');
