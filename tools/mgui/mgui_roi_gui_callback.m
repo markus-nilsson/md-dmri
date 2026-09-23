@@ -167,33 +167,10 @@ if (nargin >= 1)
                     
                                        
                 case {'c', 'C'} % Copy ROI
-                    
-                    if (isfield(EG.roi, 'I_roi'))
-                        EG.clipboard.operation = 'copy';
-                        EG.clipboard.I_roi = EG.roi.I_roi;
-                        disp('ROI copied to clipboard.');
-                    else
-                        disp('No ROI to copy.');
-                    end
+                    EG = mgui_clipboard_copy_roi(EG);
                     
             case {'v', 'V'} % Paste ROI
-                    
-                    if (isfield(EG, 'clipboard') && isfield(EG.clipboard, 'I_roi'))
-                        if (isfield(EG.roi, 'I_roi'))
-                            if (isequal(size(EG.roi.I_roi), size(EG.clipboard.I_roi)))
-                                EG.roi.I_roi = EG.clipboard.I_roi;
-                                EG.roi.is_updated = 1;
-                                EG = mgui_roi_update_panel(EG, 0, 1);
-                                disp('ROI pasted.');
-                            else
-                                msgbox(sprintf('Clipboard ROI size (%s) does not match current ROI size (%s).', mat2str(size(EG.clipboard.I_roi)), mat2str(size(EG.roi.I_roi))));
-                            end
-                        else
-                            msgbox('No current ROI to paste into.');
-                        end
-                    else
-                        disp('Clipboard is empty.');
-                    end
+                    EG = mgui_clipboard_paste_roi(EG);
                     
             case {'d', 'D'} % Dimensionality of current image and roi
                    
@@ -266,31 +243,10 @@ if (nargin >= 1)
                 EG = mgui_roi_clear_roi(EG);
 
             case EG.t_ROI_COPY
-                if (isfield(EG.roi, 'I_roi'))
-                    EG.clipboard.operation = 'copy';
-                    EG.clipboard.I_roi = EG.roi.I_roi;
-                    disp('ROI copied to clipboard.');
-                else
-                    disp('No ROI to copy.');
-                end
+                EG = mgui_clipboard_copy_roi(EG);
 
             case EG.t_ROI_PASTE
-                if (isfield(EG, 'clipboard') && isfield(EG.clipboard, 'I_roi'))
-                    if (isfield(EG.roi, 'I_roi'))
-                        if (isequal(size(EG.roi.I_roi), size(EG.clipboard.I_roi)))
-                            EG.roi.I_roi = EG.clipboard.I_roi;
-                            EG.roi.is_updated = 1;
-                            EG = mgui_roi_update_panel(EG, 0, 1);
-                            disp('ROI pasted.');
-                        else
-                            msgbox(sprintf('Clipboard ROI size (%s) does not match current ROI size (%s).', mat2str(size(EG.clipboard.I_roi)), mat2str(size(EG.roi.I_roi))));
-                        end
-                    else
-                        msgbox('No current ROI to paste into.');
-                    end
-                else
-                    disp('Clipboard is empty.');
-                end
+                EG = mgui_clipboard_paste_roi(EG);
                                 
             case {EG.t_ROI_WINDOW_MIN, EG.t_ROI_WINDOW_MAX}
                 EG = mgui_roi_window_change(EG);
