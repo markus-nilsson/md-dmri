@@ -31,6 +31,10 @@ end
         tmp_path = msf_tmp_path(1);
         
         assert(exist(in_fn,'file') > 0, ['file not found: ' in_fn]);
+
+        if (isunix) || (ismac)
+            in_fn = strrep(in_fn, '~', getenv('HOME'));
+        end
         
         if (h_only && isunix)
             [~,name] = fileparts(in_fn);

@@ -175,7 +175,13 @@ if (nargin >= 1)
                     EG = mgui_roi_undo(EG);
                     
                                        
-                case {'d', 'D'} % Dimensionality of current image and roi
+                case {'c', 'C'} % Copy ROI
+                    EG = mgui_clipboard_copy_roi(EG);
+                    
+            case {'v', 'V'} % Paste ROI
+                    EG = mgui_clipboard_paste_roi(EG);
+                    
+            case {'d', 'D'} % Dimensionality of current image and roi
                    
                     if (isfield(EG.roi, 'I')), disp(['Contrast: ' num2str(size(EG.roi.I))]); end
                     if (isfield(EG.roi, 'I_roi')), disp(['ROI: ' num2str(size(EG.roi.I_roi))]); end
@@ -244,6 +250,12 @@ if (nargin >= 1)
 
             case EG.t_ROI_CLEAR
                 EG = mgui_roi_clear_roi(EG);
+
+            case EG.t_ROI_COPY
+                EG = mgui_clipboard_copy_roi(EG);
+
+            case EG.t_ROI_PASTE
+                EG = mgui_clipboard_paste_roi(EG);
                                 
             case {EG.t_ROI_WINDOW_MIN, EG.t_ROI_WINDOW_MAX}
                 EG = mgui_roi_window_change(EG);
