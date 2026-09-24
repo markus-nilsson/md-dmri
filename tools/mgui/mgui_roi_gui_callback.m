@@ -43,17 +43,26 @@ if (nargin >= 1)
                     EG = mgui_roi_update_panel(EG, 1, 1);
                     
                     
-                case {'t', 'T'} 
+                case {'t', 'T'} % toggle 
 
-                    EG = mgui_template_view(EG, ...
-                        msf_isfield(event_info, 'Character') && strcmp(event_info.Character, 'T'));
+                    EG.roi = msf_ensure_field(EG.roi, 'slice_mode', 'centre_on_roi');
+
+                    switch (EG.roi.slice_mode)
+
+                        case 'retain_slice'
+                            EG.roi.slice_mode = 'centre_on_roi';
+
+                        case 'centre_on_roi'
+                            EG.roi.slice_mode = 'retain_slice';
+
+                    end
                                         
                 case {'delete'} % delete ROI
                     
                     my_delete(mgui_roi_filename(EG, EG.select));
                     EG = mgui_roi_update_panel(EG, 1, 1);
                     
-                case {'m', 'M'}
+                case {'m', 'M'} % mask
                     
                     try
                         EG.roi.is_updated = 1;
