@@ -58,6 +58,11 @@ ylim(h, [0.9 * min(S_eff(:)) 1.1 * max(S_eff(:)) ]);
 xlabel(h, 'b [um^2/ms]');
 ylabel(h, 'Signal');
 
+% m = [s0, vd2, f_blood, D_blood, D_tissue, w]
+title(h, sprintf(['f=%.1f%%, D_b/D_t=%.2f/%.2f um^2/ms\n' ...
+                  'vd=%.2f mm/s, w=%.2f'], ...
+    m(3)*100, m(4)*1e9, m(5)*1e9, sqrt(m(2))*1e3, m(6)));
+
 % 
 % 
 % % show legend
