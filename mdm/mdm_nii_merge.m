@@ -20,7 +20,8 @@ for c = 1:numel(nii_fn_cell)
         [I_tmp,h] = mdm_nii_read(nii_fn_cell{c});
     end
     
-    if (h.dim(1) == 3) && (h.dim(5) == 1) && (h.bitpix ~= 32) 
+    % Caused problems for merging single b0's (2026 OCT 8)
+    if 0 & (h.dim(1) == 3) && (h.dim(5) == 1) && (h.bitpix ~= 32) 
         warning(['this piece of code is experimental, ' ...
             'report its use to markus.nilsson@med.lu.se']); 
     
@@ -39,7 +40,7 @@ for c = 1:numel(nii_fn_cell)
                 (size(I,2) ~= size(I_tmp,2)) || ...
                 (size(I,3) ~= size(I_tmp,3))
             
-            error('nii files to be merged are differently sizes');
+            error('nii files to be merged are differently sized');
             
         end
         

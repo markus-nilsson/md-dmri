@@ -8,6 +8,7 @@ if (ishandle(findobj('Tag',EG.t_FIG)))
     clear EG;
 end
 
-delete(gcf);
+close(gcf,'force');
+%delete(gcf);
 
 return;

@@ -19,7 +19,7 @@ if (isfield(EG, 'roi'))
         try
             r.(f{1}) = EG.roi.(f{1});
         catch me
-            disp(me.message);
+            %disp(me.message);
         end
     end
     
