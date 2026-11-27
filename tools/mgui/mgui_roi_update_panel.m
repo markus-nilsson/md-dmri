@@ -88,7 +88,8 @@ if (do_reload)
     slice_mode = 'centre_on_roi';
     
     if (isfield(EG.conf, 'slice_mode')), slice_mode = EG.conf.slice_mode; end
-    
+    if (isfield(EG.roi, 'slice_mode')), slice_mode = EG.roi.slice_mode; end
+
     % Prepare slice_mode
     switch (slice_mode)
         
@@ -98,6 +99,7 @@ if (do_reload)
             if (~isfield(EG.roi,'I_roi')) || (EG.roi.n_voxels == 0)
                 slice_mode = 'retain_slice';
             end
+
     end
     
     % Execute position update
@@ -125,7 +127,7 @@ if (do_reload)
                     
                     % This happens when we're passing through a
                     % non-existing contrast
-                    EG.roi = my_rmfield(EG.roi, 'c_slice_save');
+                    EG.roi = msf_rmfield(EG.roi, 'c_slice_save');
                     
                 elseif ((~isfield(EG.roi,'I')) || (~isfield(mgui_roi_old,'I')))
                     

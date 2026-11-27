@@ -31,6 +31,10 @@ end
         tmp_path = msf_tmp_path(1);
         
         assert(exist(in_fn,'file') > 0, ['file not found: ' in_fn]);
+
+        if (isunix) || (ismac)
+            in_fn = strrep(in_fn, '~', getenv('HOME'));
+        end
         
         if (h_only && isunix)
             [~,name] = fileparts(in_fn);
@@ -42,11 +46,21 @@ end
             [status,result] = system(cmd);
             
         elseif (isunix)
+
+            if msf_system('pigz') == 0
+                app = 'pigz';
+            else
+                app = 'gzip';
+            end
             
             [~,name] = fileparts(in_fn);
             tmp_fn = fullfile(tmp_path, name);            
-            cmd = sprintf('gzip -cd "%s" > "%s"', in_fn, tmp_fn);            
-            [status,result] = system(cmd);
+            cmd = sprintf('%s -cd "%s" > "%s"', app, in_fn, tmp_fn);
+            [status,result] = msf_system(cmd);
+
+            if (status ~= 0)
+                error('could not unzip nii.gz file');
+            end
 
         else
             %if (h_only), warning('quick header extraction not implemented'); end            

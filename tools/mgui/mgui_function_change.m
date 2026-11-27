@@ -12,14 +12,14 @@ if (EG.c_mode == 3), EG = mgui_roi_save(EG); end
 if (isfield(EG, 'roi'))
     
     clear r;
-    f_list = {'c_slice_save', 'c_dim', 'c_volume', 'c_slice', 'I', 'I_roi'};
+    f_list = {'c_slice_save', 'c_dim', 'c_volume', 'c_slice', 'I', 'I_roi', 'header', 'slice_mode'};
         
     r = [];
     for f = f_list
         try
             r.(f{1}) = EG.roi.(f{1});
         catch me
-            disp(me.message);
+            %disp(me.message);
         end
     end
     

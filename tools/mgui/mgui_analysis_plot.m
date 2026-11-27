@@ -2,6 +2,7 @@ function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume, opt)
 % function mgui_analysis_plot(method_name, S, xps, xps_fn, h, c_volume, opt)
 
 if (nargin < 6), c_volume = []; end
+if (nargin < 7), opt.present = 1; end
 
 % Clear content
 for c = 1:2, cla(h(c), 'reset'); axis(h(c), 'off'); end

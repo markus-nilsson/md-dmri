@@ -7,6 +7,8 @@ function [m,cond] = dki_lls_1d_data2fit(signal, xps, opt, ind)
 if (nargin < 4), ind = ones(size(signal)) > 0; end
 ind = ind & (signal > 0);
 
+xps.u(isnan(xps.u)) = 0;
+
 % Setup regressors for diffusion tensor distribution (DTD) model
 b0 = ones(xps.n, 1);
 b0 = b0(ind);
@@ -36,6 +38,6 @@ if (cond > 1e-10) % some small number
         
     m = m';
 else
-    warning('rcond fail in dki_lls_1d_data2fit')
+    %warning('rcond fail in dki_lls_1d_data2fit')
     m = zeros(1, 22);
 end

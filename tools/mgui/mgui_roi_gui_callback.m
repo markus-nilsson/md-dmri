@@ -43,17 +43,26 @@ if (nargin >= 1)
                     EG = mgui_roi_update_panel(EG, 1, 1);
                     
                     
-                case {'t', 'T'} 
+                case {'t', 'T'} % toggle 
 
-                    EG = mgui_template_view(EG, ...
-                        msf_isfield(event_info, 'Character') && strcmp(event_info.Character, 'T'));
+                    EG.roi = msf_ensure_field(EG.roi, 'slice_mode', 'centre_on_roi');
+
+                    switch (EG.roi.slice_mode)
+
+                        case 'retain_slice'
+                            EG.roi.slice_mode = 'centre_on_roi';
+
+                        case 'centre_on_roi'
+                            EG.roi.slice_mode = 'retain_slice';
+
+                    end
                                         
                 case {'delete'} % delete ROI
                     
                     my_delete(mgui_roi_filename(EG, EG.select));
                     EG = mgui_roi_update_panel(EG, 1, 1);
                     
-                case {'m', 'M'}
+                case {'m', 'M'} % mask
                     
                     try
                         EG.roi.is_updated = 1;
@@ -166,7 +175,13 @@ if (nargin >= 1)
                     EG = mgui_roi_undo(EG);
                     
                                        
-                case {'d', 'D'} % Dimensionality of current image and roi
+                case {'c', 'C'} % Copy ROI
+                    EG = mgui_clipboard_copy_roi(EG);
+                    
+            case {'v', 'V'} % Paste ROI
+                    EG = mgui_clipboard_paste_roi(EG);
+                    
+            case {'d', 'D'} % Dimensionality of current image and roi
                    
                     if (isfield(EG.roi, 'I')), disp(['Contrast: ' num2str(size(EG.roi.I))]); end
                     if (isfield(EG.roi, 'I_roi')), disp(['ROI: ' num2str(size(EG.roi.I_roi))]); end
@@ -235,6 +250,12 @@ if (nargin >= 1)
 
             case EG.t_ROI_CLEAR
                 EG = mgui_roi_clear_roi(EG);
+
+            case EG.t_ROI_COPY
+                EG = mgui_clipboard_copy_roi(EG);
+
+            case EG.t_ROI_PASTE
+                EG = mgui_clipboard_paste_roi(EG);
                                 
             case {EG.t_ROI_WINDOW_MIN, EG.t_ROI_WINDOW_MAX}
                 EG = mgui_roi_window_change(EG);

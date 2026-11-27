@@ -57,13 +57,13 @@ n_workers = 0;
 
 % Note 1: 0 workers runs the job locally, and 1 worker will run it in
 % spmd. These may look identical, but if the local worker, and spmd worker
-% are differnt physical processors there is a need for distinguishing them.
+% are different physical processors there is a need for distinguishing them.
 % Note 2: We use parallel computing on all available workers using SPMD.
 % https://se.mathworks.com/help/distcomp/spmd.html
 % SPMD was introduced in Matlab 2008b. The function is wrapped in an
 % "else" statement to support users without parallel computing toolbox.
 % It is possible that spmd(0) will run the job locally even for users that
-% do not have parallel toolbox installed, hewver, this was not tested.
+% do not have parallel toolbox installed, however, this was not tested.
 
 if (opt.mio.do_parfor)
     try % start parpool outside this function to have it run in parallel mode

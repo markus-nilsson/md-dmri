@@ -117,7 +117,21 @@ end
 % gzip the temporary file
 if (~isempty(folder_gz))
     msf_mkdir(folder_gz);
-    gzip(tmp_nii_fn, folder_gz);
+
+    if (isunix)
+
+        if msf_system('pigz') == 0
+            app = 'pigz';
+        else
+            app = 'gzip';
+        end
+
+        cmd = sprintf('%s -c "%s" > "%s"', app, tmp_nii_fn, nii_fn);
+        [status,result] = msf_system(cmd);
+    else
+        gzip(tmp_nii_fn, folder_gz);
+    end
+
     delete(tmp_nii_fn);
     rmdir(tmp_path,'s');
 end
