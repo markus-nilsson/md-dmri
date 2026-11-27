@@ -23,9 +23,9 @@ for c = 1:n_map
             x = mfs.m(:,:,:,c);
 
         case 2
-            param = 'vp';
+            param = 'vd';
             min_max = [0 10];
-            x = mfs.m(:,:,:,c) * 1e3;
+            x = sqrt(mfs.m(:,:,:,c)) * 1e3;
             
         case 3
             param = 'f_blood';
@@ -48,7 +48,13 @@ for c = 1:n_map
             x = mfs.m(:,:,:,c);
     end
     
-    fn{c} = fullfile(o_path, ['vasco16_p_' param opt.nii_ext]);
+    fn{c} = fullfile(o_path, ['vasco16_' param opt.nii_ext]);
+
+    if isfield(opt,'vasco16') && isfield(opt.vasco16,'fig_maps')
+        if ~ismember(param, opt.vasco16.fig_maps)
+            continue;
+        end
+    end
     
     % make sure the min_max field is there
     opt.vasco16.(param).present = 1;
@@ -60,5 +66,4 @@ for c = 1:n_map
     % write file
     mdm_nii_write(x, fn{c}, h);
 end
-
 
