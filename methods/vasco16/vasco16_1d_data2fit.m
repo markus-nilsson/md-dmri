@@ -39,14 +39,15 @@ unit_to_SI = [max(signal) 1e-6 1 1e-9 1e-9 1];
         % make a signal plus a reg term
         s = vasco16_1d_fit2data(m, xps);
         
-        s = [s(:); regterm1];
+        s = [s(ind); regterm1 * mean(signal)];
         
     end
 
-% S0, D, vd, f
-t_guess   = opt.vasco16.fit_guess ./ unit_to_SI([1 5 2 3 6]);
-t_lb      = opt.vasco16.fit_lb ./ unit_to_SI([1 5 2 3 6]);
-t_ub      = opt.vasco16.fit_ub ./ unit_to_SI([1 5 2 3 6]);
+% s0 options are already relative to max(signal); physical terms are SI.
+opt_to_internal = [1 unit_to_SI([5 2 3 6])];
+t_guess   = opt.vasco16.fit_guess ./ opt_to_internal;
+t_lb      = opt.vasco16.fit_lb ./ opt_to_internal;
+t_ub      = opt.vasco16.fit_ub ./ opt_to_internal;
 
 % perform the fit
 t = lsqcurvefit(@my_1d_fit2data_with_penalty, t_guess, [], [signal(ind);0], ...
